@@ -136,7 +136,7 @@ g <- df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) 
     axis.title.y = element_blank(),
     strip.text.y = element_text(angle = 180, vjust = .5)
     )
-ggsave(filename = "personal_document.pdf", plot = g, device = cairo_pdf)
+ggsave(filename = "doc/personal_document.pdf", plot = g, device = cairo_pdf)
 
 # シリーズ別ステータス値分布
 my_skim <- skim_with(numeric = sfl(skew = skewness, kurto = kurtosis, hist = NULL), append = T)
@@ -163,3 +163,9 @@ for(s in c("武力", "知力", "魅力", "政治")){
     scale_color_colorblind()
   print(g)
 }
+
+g <- ggplot(df_norm, aes(x = 知力, y = 武力, color = attend_times)) + geom_point(shape = "x", size = 2)
+g + theme_presen + labs(y = "武\n力") + theme(axis.title.y = element_text(angle = 0, vjust = .5), legend.key.width = unit(7, "line"))
+ggsave(plot = g + theme_presen + labs(y = "武\n力") + theme(axis.title.y = element_text(angle = 0, vjust = .5), legend.key.width = unit(7, "line")),
+       filename = "doc/scatter_presen.pdf", device = cairo_pdf, width = 10, height = 7)
+ggsave(plot = g + theme_document, filename = "doc/scatter_document.pdf", device = cairo_pdf)
