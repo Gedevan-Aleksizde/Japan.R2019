@@ -1,27 +1,53 @@
 # 注: Mac は以下のプログラムで正しくpdfの保存ができない
 if(!pacman::p_exists(patchwork)) pacman::p_install_gh("thomasp85/patchwork")
 if(!pacman::p_exists(Hmisc)) install.packages(Hmisc)
-pacman::p_load(tidyverse, ggthemes, stringr, here, skimr, patchwork, formattable, moments)
+if(!pacman::p_exists(scales)) install.packages(scales)
+pacman::p_load(tidyverse, ggthemes, stringr, here, skimr, patchwork, formattable, moments, factoextra)
+
+scale_max_min <- function(x){
+  (x - min(x)) / (max(x) - min(x))
+}
 
 df_all <- read_rds(path = "data/df_all.rds")
 # ----- 名寄せ完了 -----
 df_all <- df_all %>% rename(name_old = name)
 
-# データの傾向をグラフで確認
+# シリーズの参加回数
+attend_times <- df_all %>% group_by(name_id) %>% summarise(attend_times = n()) %>% ungroup 
+# 初登場
+at_first <- df_all %>% arrange(name_id, as.integer(title)) %>% group_by(name_id) %>% summarise(at_first = as.integer(first(title))) %>% ungroup
+df_all <- inner_join(df_all, attend_times, by = "name_id") %>%
+  inner_join(at_first, by = "name_id")
+
+# skimr 設定
+my_skim <- skim_with(
+  numeric = sfl(skew = skewness, kurto = kurtosis, hist = NULL),
+  append = T
+  )
+
+# ---- データの傾向をグラフで確認 ----
 theme_presen <- theme_base() +
     theme_classic(base_size = 30, base_family = "Noto Sans CJK JP") +
     theme(legend.title = element_blank(), legend.position = "bottom",
+          legend.key.width = unit(5, "line"),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
           title = element_text(size = 20),
           strip.placement = "outside")
 
 theme_document <- theme_classic(base_family = "Noto Sans CJK JP") + theme(
   axis.ticks = element_blank(),
   legend.position = "bottom",
-  strip.placement = "outside"
+  strip.placement = "outside",
+  legend.key.width = unit(3, "line"),
+  legend.title = element_blank()
 )
+theme_set(theme_classic(base_family = "Noto Sans CJK JP"))
 
+dplyr::select(df_all, name_id, attend_times) %>% distinct %>%
+  ggplot(aes(x = attend_times)) + geom_bar()
 
 # 登場人物の採用・不採用の傾向
 df_in_out <- df_all %>% dplyr::select(title, name_id) %>% mutate(exists = T, title = as.integer(title)) %>%
@@ -34,7 +60,7 @@ df_in_out  %>% group_by(title) %>% summarise(size = sum(exists), join = sum(join
   mutate(net = join - out, valid = (size - (lag(size) + net)) == 0)
 
 
-df_in_out %>% group_by(title) %>% skim()
+df_in_out %>% group_by(title) %>% my_skim()
 
 
 g_in_out <- df_in_out %>% group_by(title) %>% summarise_if(is.logical, sum) %>% ungroup %>%
@@ -52,11 +78,10 @@ g_in_out <- df_in_out %>% group_by(title) %>% summarise_if(is.logical, sum) %>% 
   scale_linetype_manual(guide =F, values = c("solid", "dashed")) +
   scale_color_colorblind(guide = F)
 
-g_in_out + theme_presen + theme(
-  legend.title = element_blank(), axis.title.x = element_blank(), axis.title.y = element_blank()) +
-  labs(title = "In/Out")
+g_in_out + theme_presen + labs(title = "In/Out")
 ggsave(filename = "doc/in_out_presen.pdf", device = cairo_pdf, width = 10, height = 6)
-ggsave(filename = "doc/in_out_document.pdf", plot = g_in_out + theme_document + theme(legend.title = element_blank()), device = cairo_pdf)
+g_in_out + theme_document + theme(axis.title.y = element_blank())
+ggsave(filename = "doc/in_out_document.pdf", device = cairo_pdf)
 
 
 # 人物ごと出入り回数の分布
@@ -79,23 +104,77 @@ df_in_out %>% mutate(keep = !join & !out) %>% dplyr::select(-exists) %>%
 
 map(1:13, function(x) filter(df_all %>% mutate(title = as.integer(title)), title == x) %>%
       unnest(cols = data) %>% select_if(is.numeric)) %>% bind_rows %>%
-  dplyr::select(title, 知力, 武力, 政治, 魅力) %>% group_by(title) %>% skim()
+  dplyr::select(title, 知力, 武力, 政治, 魅力, 統率) %>% group_by(title) %>% my_skim()
 
-# 標準化して分布をよく調べる
-df_norm <- list()
-for(i in 1:13){
-  df_norm[[i]] <- df_all %>% filter(title == as.character(i)) %>% unnest(cols = data) %>%
-    mutate_if(is.numeric, function(x) as.numeric(scale(x))) %>%
+df_append <- df_all %>% group_by(title) %>% group_map(
+  ~unnest(.x, cols = data) %>%
     rename_if(names(.) == "カリスマ", function(x) "魅力") %>%
-    select_if(names(.) %in% c("title", "name_id") | map_lgl(., is.numeric))
-}
+    select_if(names(.) %in% c("title", "name_id") | map_lgl(., is.numeric)),
+  keep = T
+)
 
-df_norm <- bind_rows(df_norm) %>% dplyr::select(title, name_id, 身体, 知力, 武力, 魅力, 運勢, 義理, 野望, 相性, 政治) %>%
+df_append <- bind_rows(df_append) %>%
+  dplyr::select(title, name_id, attend_times, at_first, 身体, 知力, 武力, 魅力, 運勢, 義理, 野望, 相性, 政治, 統率, 陸指, 水指) %>%
   mutate(title = factor(title, levels=1:13))
-# シリーズ皆勤賞人物に絞った場合も比較
-attend_times <- df_all %>% group_by(name_id) %>% summarise(attend_times = n()) %>% ungroup 
-df_norm <- inner_join(df_norm, attend_times, by = "name_id")
 
+# シリーズ別ステータス値の要約統計量
+descriptive_status <- df_append %>% group_by(title) %>% dplyr::select(title, 武力, 知力, 魅力, 政治) %>% my_skim() %>%
+  as_tibble() %>% rename_all(~str_remove(.x, "^numeric.")) %>% rename(missings = n_missing) %>% filter(skim_type == "numeric") %>%
+  dplyr::select(-skim_type, -complete_rate) %>% rename(variable = skim_variable, min = p0, max = p100, skewness = skew, kurtosis = kurto) %>%
+  mutate(title = as.integer(title))
+descriptive_status
+Hmisc::latex(descriptive_status %>% mutate_if(is.numeric, ~formatC(.x, digits = 2, format = "f")) %>%
+               dplyr::select(title, variable, min, p25, p50, p75, max, mean, sd, skewness, kurtosis),
+             file="doc/tab_descriptive.tex", rowname=NULL)
+
+# 要約統計量の変遷
+g <- descriptive_status %>% mutate(range = max - min) %>%
+  pivot_longer(-c(variable, title), names_to = "stat", values_to = "value") %>%
+  filter(stat %in% c("range", "mean", "sd", "skewness", "kurtosis")) %>%
+  mutate(stat = factor(stat, levels=c("range", "mean", "sd", "skewness", "kurtosis"))) %>%
+  ggplot(aes(x = title, y = value, group = variable, color = variable)) + geom_line(size = 2) +
+  facet_wrap(~stat, scales = "free_y", ncol = 1, strip.position = "left") + scale_color_colorblind()
+g + theme_document + theme(axis.title.y = element_blank(), legend.title = element_blank())
+ggsave(filename = paste0("doc/stat_document", ".pdf"), device = cairo_pdf)
+
+g <- descriptive_status %>% mutate(range = max - min) %>%
+  ggplot(aes(x = title, y = range, color = variable)) + geom_line(size = 2) + scale_color_colorblind()
+g + theme_presen + theme(legend.key.width = unit(3, "line"))
+ggsave(filename = paste0("doc/stat_presen", ".pdf"), device = cairo_pdf, width = 10, height = 4)
+
+
+# 1-100 だがレンジににばらつきがあるので正規化する
+df_norm <- df_append %>% group_by(title) %>% group_map(
+  ~mutate_if(.x, !names(.x) %in% c("attend_times", "at_first") & map_lgl(.x, is.numeric), function(x) scale_max_min(x) * 100),
+  keep = T
+) %>% bind_rows
+df_norm <- df_norm %>% rowwise %>% mutate(
+  total = mean(c(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T),
+  total_sd = sd(c(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T),
+  total_range = max(c(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T) -
+    min(c(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T)) %>% ungroup
+df_norm
+
+df_norm %>% group_by(title) %>% my_skim
+descriptive_status <- df_norm %>% group_by(title) %>% dplyr::select(title, 武力, 知力, 魅力, 政治) %>% my_skim() %>%
+  as_tibble() %>% rename_all(~str_remove(.x, "^numeric.")) %>% rename(missings = n_missing) %>% filter(skim_type == "numeric") %>%
+  dplyr::select(-skim_type, -complete_rate) %>% rename(variable = skim_variable, min = p0, max = p100, skewness = skew, kurtosis = kurto)
+descriptive_status
+Hmisc::latex(descriptive_status %>% mutate_if(is.numeric, ~formatC(.x, digits = 2, format = "f")) %>%
+               dplyr::select(title, variable, min, p25, p50, p75, max, mean, sd, skewness, kurtosis),
+             file="doc/tab_descriptive.tex", rowname=NULL)
+
+g <- descriptive_status %>%
+  pivot_longer(-c(variable, title), names_to = "stat", values_to = "value") %>%
+  filter(stat %in% c("mean", "sd", "skewness", "kurtosis")) %>%
+  mutate(stat = factor(stat, levels=c("mean", "sd", "skewness", "kurtosis"))) %>%
+  ggplot(aes(x = title, y = value, group = variable, color = variable)) + geom_line(size = 2) +
+  scale_color_colorblind() + 
+  facet_wrap(~stat, scales = "free_y", ncol = 1, strip.position = "left") + theme(axis.title.y = element_blank())
+g + theme_presen + theme(legend.key.width = unit(2.5, "line"))
+ggsave(filename = "doc/stat_norm_presen.pdf", device = cairo_pdf, width = 10, height = 8)
+g + theme_document + theme(axis.title.y = element_blank())
+ggsave(filename = "doc/stat_norm_document.pdf", device = cairo_pdf)
 
 
 for(i in 1:2){
@@ -111,19 +190,16 @@ for(i in 1:2){
     geom_line(size = 2) +
     facet_wrap(~name_id, ncol = 1, strip.position = "left") +
     scale_color_colorblind()
-  print(g)
+  print(g + theme_presen +
+          theme(axis.text.y = element_blank(),
+                legend.key.width = unit(3, "line"),
+                strip.text.y = element_text(angle = 180, vjust = .5, size = 32)
+          ) +
+          labs(x = "Title"))
   ggsave(filename = paste0("doc/personal", i, "_presen", ".pdf"),
-         plot = g + theme_presen +
-           theme(axis.title.x = element_blank(),
-                 axis.title.y = element_blank(), axis.text.y = element_blank(),
-                 legend.position = "bottom", legend.title = element_blank(),
-                 strip.text.y = element_text(angle = 180, vjust = .5, size = 32),
-                 strip.placement = "outside"
-           ) +
-           labs(x = "Title"),
          device = cairo_pdf, width = 10, height = 7)
 }
-g <- df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) %>%
+df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) %>%
   mutate(name_id = str_split(name_id, "", 2) %>% map_chr(function(x) paste(x, collapse = "\n"))) %>%
   dplyr::select(title, name_id, 武力, 魅力, 知力, 政治) %>%
   pivot_longer(-c(title, name_id), names_to = "status", values_to = "value") %>%
@@ -132,40 +208,190 @@ g <- df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) 
   facet_wrap(~name_id, ncol = 1, strip.position = "left") +
   scale_color_colorblind() +
   theme_document + theme(
-    legend.title = element_blank(),
     axis.title.y = element_blank(),
     strip.text.y = element_text(angle = 180, vjust = .5)
     )
-ggsave(filename = "doc/personal_document.pdf", plot = g, device = cairo_pdf)
-
-# シリーズ別ステータス値分布
-my_skim <- skim_with(numeric = sfl(skew = skewness, kurto = kurtosis, hist = NULL), append = T)
-descriptive_status <- df_norm %>% group_by(title) %>% dplyr::select(title, 武力, 知力, 魅力, 政治) %>% my_skim()
-descriptive_status 
-Hmisc::latex(descriptive_status %>% mutate_if(is.numeric, ~formatC(., digits = 2)) %>% dplyr::select(-skim_type),
-             file="doc/tab_descriptive.tex", rowname=NULL)
+ggsave(filename = "doc/personal_document.pdf", device = cairo_pdf)
 
 
-for(s in c("武力", "知力", "魅力", "政治")){
-  g <- ggplot(df_norm, aes_string(x = "title", y = s, fill = "as.numeric(title)")) +
+
+# シリーズごとの分布比較
+for(s in c("武力", "知力", "魅力", "政治", "主要値平均")){
+  g <- ggplot(df_norm %>% rename(主要値平均 = total), aes_string(x = "title", y = s, fill = "as.numeric(title)")) +
     geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) +
     scale_fill_continuous_tableau(guide = F) +
     labs(y = str_split(s, pattern = "") %>% unlist %>% paste(collapse = "\n"))
-  print(g)
-  ggsave(plot = g + theme_document + theme(axis.title.y = element_text(angle = 0, vjust = .5)) + labs(x = "タイトル"),
-         filename = paste0("doc/", s, "_document.pdf"), device = cairo_pdf)
-  ggsave(plot = g + labs(title = s) +  theme_presen +
-           theme(axis.title.x = element_blank(), axis.title.y = element_blank()),
-         filename = paste0("doc/", s, "_presen.pdf"), device = cairo_pdf, width = 10, height = 6)
-  g <- ggplot(df_norm, aes_string(x = "title", y = s, fill = "as.numeric(title)", color = "attend_times == 13")) +
-    geom_violin() + geom_boxplot(fill = NA, size = 0.5) +
-    scale_fill_continuous_tableau(guide = F) +
-    scale_color_colorblind()
-  print(g)
+  print(g + theme_document + theme(axis.title.y = element_text(angle = 0, vjust = .5)) + labs(x = "タイトル"))
+  ggsave(filename = paste0("doc/", s, "_document.pdf"), device = cairo_pdf, width = 10, height = 4)
+  print(g + labs(title = paste(s, "(min-max)")) + theme_presen)
+  ggsave(filename = paste0("doc/", s, "_presen.pdf"), device = cairo_pdf, width = 10, height = 4)
+}
+g_polarize <- ggplot(df_norm, aes(x = title, y = total, fill = as.integer(title))) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + scale_fill_continuous_tableau(guide = F, "Classic Blue")
+g_polarize_stat <- ggplot(df_norm, aes(x = as.integer(title), y=total)) + stat_summary(fun.y = sd, geom = "line", size = 2, aes(color = "1")) +
+  stat_summary(fun.y = sd, geom = "point", size = 4, aes(color = "1")) +
+  scale_color_colorblind(guide = F) + scale_x_continuous(breaks = 1:13) + labs(title = "標準偏差")
+g_polarize_kurto <- ggplot(df_norm, aes(x = as.integer(title), y=total)) + stat_summary(fun.y = kurtosis, geom = "line", size = 2, aes(color = "1")) +
+  stat_summary(fun.y = kurtosis, geom = "point", size = 4, aes(color = "1")) +
+  scale_color_colorblind(guide = F) + scale_x_continuous(breaks = 1:13) + labs(title = "尖度")
+g_polarize_kurto
+g_polarize + theme_presen
+ggsave(filename = "doc/主要値平均_presen1.pdf", device = cairo_pdf, width = 10, height = 5)
+
+(g_polarize_stat + theme_presen) / (g_polarize_kurto + theme_presen)
+ggsave(filename = "doc/主要値平均_presen2.pdf", device = cairo_pdf, width = 10, height = 8)
+
+(g_polarize + theme_document + theme(axis.title.y = element_blank(), axis.title.x = element_blank())) /
+  (g_polarize_stat + theme_document + theme(axis.title.y = element_blank(), axis.title = element_blank())) /
+  (g_polarize_kurto + theme_document + theme(axis.title.y = element_blank(), axis.title.x = element_text(size = 15)) + labs(x = "タイトル"))
+ggsave(filename = "doc/主要値平均_document.pdf", device = cairo_pdf)
+
+g <- ggplot(df_norm %>% dplyr::select(title, total_range, total_sd) %>%
+              pivot_longer(c(total_range, total_sd), names_to = "stat", values_to = "val") %>%
+              mutate(stat = str_remove(stat, "^total_")),
+       aes(x = title, y = val, fill = as.integer(title))) + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) +
+  scale_fill_continuous_tableau("Classic Blue", guide = F) +
+  facet_wrap(~stat, scales = "free_y", ncol = 1, strip.position = "left")
+g + theme_presen
+ggsave(filename = "doc/主要値moment_presen.pdf", device = cairo_pdf, width = 10, height = 7)
+g + theme_document + theme(axis.title.y = element_blank()) + labs(x =  "タイトル")
+ggsave(filename = "doc/主要値moment_document.pdf", device = cairo_pdf)
+
+# 3軸での比較
+g <- ggplot(df_norm, aes(x = 知力, y = 武力, color = attend_times)) + geom_point(shape = "x", size = 4) +
+  scale_color_continuous_tableau("Classic Blue", breaks=seq(1, 13, 4)) + labs(color = "登場回数")
+g + theme_presen + labs(y = "武\n力") +
+  theme(axis.title.y = element_text(angle = 0, vjust = .5), legend.key.width = unit(4, "line"), legend.title = element_text(size = 20))
+ggsave(filename = "doc/scatter_times_presen.pdf", device = cairo_pdf, width = 10, height = 7)
+g + theme_document
+ggsave(filename = "doc/scatter_times_document.pdf", device = cairo_pdf)
+
+ggplot(df_norm, aes(x = 武力, y = 魅力, color = attend_times)) + geom_point(shape = "x", size = 2)
+ggplot(df_norm, aes(x = 魅力, y = 政治, color = attend_times)) + geom_point(shape = "x", size = 2)
+ggplot(df_norm, aes(x = 知力, y = 政治, color = attend_times)) + geom_point(shape = "x", size = 2)
+
+# 塗りつぶされてるだけ?
+g_scatter_first <- ggplot(df_norm, aes(x = 知力, y = 武力, color = at_first)) + geom_point(shape = "x", size = 4) +
+  scale_color_continuous_tableau("Classic Blue", breaks=seq(1, 13, 4)) + labs(color = "初登場作品")
+g_scatter_first + theme_presen +  labs(y = "武\n力") +
+  theme(axis.title.y = element_text(angle = 0, vjust = .5), legend.key.width = unit(5, "line"), legend.title = element_text(size = 20))
+g_scatter_first + theme_document
+
+# ---- 勢力別に評価できるか? ----
+df_norm %>% group_by(title) %>%
+  filter(name_id %in% c("董卓", "曹操", "曹丕", "劉備", "劉禅", "孫堅", "孫権", "馬騰", "公孫瓚", "袁紹", "袁術", "劉表", "劉焉")) %>%
+  group_map(~ggplot(.x, aes(x = 相性, y = 相性, label = name_id)) + geom_label())
+
+# TODO: もっとかっこいいやり方
+df_norm_faction <- df_norm %>% filter(!is.na(相性)) %>% group_by(title) %>%
+  group_map(
+    ~mutate(.x,
+            蜀 = abs(相性 - filter(.x, name_id == "劉備")$相性),
+            魏 = abs(相性 - filter(.x, name_id == "曹操")$相性),
+            呉 = abs(相性 - filter(.x, name_id == "孫権")$相性)
+            ) %>% pivot_longer(tidyselect::vars_select(names(.), 魏, 呉, 蜀), names_to = "faction", values_to = "dist") %>%
+      group_by(name_id) %>% filter(rank(dist) == 1) %>% ungroup,
+    keep = T
+    ) %>% bind_rows %>% mutate(faction = factor(faction, levels = c("魏", "蜀", "呉")))
+
+set.seed(42)
+g_faction_str <- df_norm_faction %>% ggplot(aes(x = 相性, y = 武力, color = faction)) + geom_point() +
+  geom_label(aes(label = name_id), data = group_by(df_norm_faction, title, faction) %>% sample_n(2)) + facet_wrap(~title)
+g_faction_int <- df_norm_faction %>% ggplot(aes(x = 相性, y = 知力, color = faction)) + geom_point() +
+  geom_label(aes(label = name_id), data = group_by(df_norm_faction, title, faction) %>% sample_n(2)) + facet_wrap(~title)
+g_faction_total <- df_norm_faction %>% ggplot(aes(x = 相性, y = total, color = faction)) + geom_point() +
+  geom_label(aes(label = name_id), data = group_by(df_norm_faction, title, faction) %>% sample_n(2)) + facet_wrap(~title) +
+  labs(y = "主要ステータス平均")
+g_faction_violin <- df_norm_faction %>% ggplot(aes(x = faction, y = total, fill = faction)) + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + facet_wrap(~title)
+g_faction_violin + theme_document + theme(legend.title = element_blank()) + labs(y = "主要ステータス平均")
+ggsave(filename = "doc/faction_violin_document.pdf", device = cairo_pdf)
+
+
+g_faction_str + theme_document + theme(legend.title = element_blank())
+ggsave(filename = "doc/plot_by_faction_str_document.pdf", device = cairo_pdf)
+g_faction_int + theme_document + theme(legend.title = element_blank())
+ggsave(filename = "doc/plot_by_faction_int_document.pdf", device = cairo_pdf)
+g_faction_total + theme_document + theme(legend.title = element_blank())
+ggsave(filename = "doc/plot_by_faction_total_document.pdf", device = cairo_pdf)
+
+g <- df_norm_faction %>% filter(title %in% c(2, 5, 8, 12)) %>% ggplot(aes(x = faction, y = total, fill = faction)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) +
+  facet_wrap(~title, strip.position = "left")
+g + labs(y = "主要ステータス平均") +
+  theme_presen + theme(
+    strip.text.y = element_text(angle = -180),
+    legend.title = element_blank(), axis.title.x = element_blank(), axis.title.y = element_blank(),
+    axis.text.x = element_blank(), axis.ticks.x = element_blank())
+ggsave(filename = "doc/faction_violin_presen.pdf", device = cairo_pdf, width = 10, height = 7)
+
+# 平均値との相関
+df_norm %>% rowwise %>% mutate(
+  x = 武力,
+  y = mean(c(魅力, 政治, 知力), na.rm = T)
+  ) %>% ungroup %>%
+  ggplot(aes(x = x, y = y, color = attend_times)) + geom_point()
+
+df_norm %>% rowwise %>% mutate(
+  v = mean(c(武力, 魅力, 政治, 知力), na.rm = T)
+) %>% ungroup %>%
+  ggplot(aes(x = v, y = attend_times)) + geom_point()
+
+# ---- 主成分分析でなんかできないか ----
+
+# ワンライナーで書くと見づらすぎるので関数を定義して分割する
+get_design_mat_input <- function(df){
+  # デザイン行列作成に必要な列 + title, name_id を取り出す
+  df %>% select_if(str_detect(names(.), "name_id") | map_lgl(., ~!is.character(.x))) %>%
+    dplyr::select(-order, -matches("生年|誕生|没年|登場|顔番号|相性")) %>% drop_na
+}
+convert_design_mat <- function(df, name = T, center = T, scale = T){
+  # title, name_id 列を除いてデザイン行列に変換する (正規化処理オプションあり)
+  model.matrix(
+    ~.-1,
+    dplyr::select(df, -title, -name_id, -attend_times) %>% mutate_if(is.numeric, ~scale(.x, center = center, scale = scale))
+    ) %>% magrittr::set_rownames(df$name_id)
 }
 
-g <- ggplot(df_norm, aes(x = 知力, y = 武力, color = attend_times)) + geom_point(shape = "x", size = 2)
-g + theme_presen + labs(y = "武\n力") + theme(axis.title.y = element_text(angle = 0, vjust = .5), legend.key.width = unit(7, "line"))
-ggsave(plot = g + theme_presen + labs(y = "武\n力") + theme(axis.title.y = element_text(angle = 0, vjust = .5), legend.key.width = unit(7, "line")),
-       filename = "doc/scatter_presen.pdf", device = cairo_pdf, width = 10, height = 7)
-ggsave(plot = g + theme_document, filename = "doc/scatter_document.pdf", device = cairo_pdf)
+pca_conveted <- df_all %>% mutate(title = as.integer(title)) %>% group_by(title) %>%
+  group_map(
+    ~unnest(.x, cols = data) %>% get_design_mat_input %>% list(
+      title = .$title[1],
+      name = dplyr::select(., name_id, attend_times),
+      pca = convert_design_mat(.) %>% prcomp(center = F, scale. = F)
+      ),
+    keep = T
+    )
+map(pca_conveted, ~(fviz_eig(.x$pca) / fviz_pca_var(.x$pca)) + plot_annotation(title = .x$title))
+map(pca_conveted, ~fviz_pca_biplot(.x$pca) + labs(title=.x$title))
+
+# 資料用に保存
+fviz_pca_biplot(pca_conveted[[2]]$pca) + labs(
+  title = "三國志II", caption ="https://github.com/Gedevan-Aleksizde/Japan.R2019\nデータ出典: http://hima.que.ne.jp/sangokushi/")
+ggsave("doc/pca_scatter2.pdf", device = cairo_pdf)
+fviz_pca_biplot(pca_conveted[[9]]$pca) + labs(
+  title = "三國志IX", caption ="https://github.com/Gedevan-Aleksizde/Japan.R2019\nデータ出典: http://lee.serio.jp/novel/sangoku/san9busho.html")
+ggsave("doc/pca_scatter9.pdf", device = cairo_pdf)
+
+# 作品ごとの累積主成分寄与率を表示
+g <- map_dfr(pca_conveted, ~get_eig(.x$pca) %>% as_tibble(rownames = "d") %>%
+          dplyr::select(d, variance.percent) %>%
+          mutate(title = .x$title)) %>%
+  mutate(variance.percent = variance.percent/100, d = factor(d, levels = rev(unique(d)))) %>%
+  filter( d %in% paste0("Dim.", 1:2)) %>%
+  ggplot(aes(x = title, y = variance.percent, group = d, fill = d)) + geom_bar(stat = "identity", position = "stack") +
+  scale_fill_colorblind(guide = guide_legend(reverse = TRUE)) +
+  labs(y = "accumurated importance") + scale_y_continuous(labels = scales::percent) +
+  scale_x_continuous(breaks = 1:13) + theme(legend.title = element_blank())
+g + theme_presen + theme(axis.title.y = element_blank(), axis.title.x = element_blank())
+ggsave(filename = "doc/pca_importance_presen.pdf", device = cairo_pdf, width = 10, height = 8)
+g + theme_document + theme(legend.title = element_blank())
+ggsave(filename = "doc/pca_importance_document.pdf", device = cairo_pdf)
+
+df_pca <- map_dfr(pca_conveted,
+                  ~get_pca_ind(.x$pca)$coord %>%
+                    as_tibble(rownames = "name_id") %>%
+                    mutate(title = .x$title) %>%
+                    inner_join(.x$name, by = "name_id")) %>%
+  dplyr::select(name_id, title, attend_times, Dim.1:Dim.3)
+
+ggplot(df_pca, aes(x = Dim.1, y = Dim.2, color = attend_times)) + geom_point() + facet_wrap(~title)

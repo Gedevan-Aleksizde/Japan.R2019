@@ -103,3 +103,5 @@ walk2(
   1:13,
   function(x, y) write_html_list(x, here("data", paste0("source", y, ".rds")))
 )
+
+# tidying.R へ続く

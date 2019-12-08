@@ -28,12 +28,7 @@ df_identity <- df_identity %>% filter(!name %in% name_parenthesis)
 df_identity$name
 
 # 予め手作業で作った名寄せテーブルを読み込み
-df_identity <- bind_rows(
-  read_csv("data/df_non_jis.csv"),
-  # read_csv("data/df_name_length.csv")
-) %>% distinct
-
-# TODO: 名寄せ処理の検証待ち
+# TODO: 名寄せ処理のさらなる向上
 df_identity <- distinct(
   bind_rows(read_csv("data/df_non_jis.csv"), # 機種依存文字
             read_csv("data/df_name_length.csv"), # 長い名前調査の結果
@@ -67,3 +62,4 @@ tmp <- dplyr::select(df_all, name_id) %>% distinct %>% left_join(
 tmp %>% filter(is.na(in_mujins) & is.na(in_wiki)) %>% view
 
 write_rds(df_all, path = "data/df_all.rds")
+# analysis.R へ続く
