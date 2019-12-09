@@ -1,6 +1,8 @@
 # なにこれ
 2019/12/7 の Japan.R 発表資料
 
+https://speakerdeck.com/ktgrstsh/tutorial-on-data-analysis-with-three-kingdom
+
 # 使い方
 1. プログラムを再現する
   以下の順番で実行する
