@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 検証:「三國志」シリーズの人材は年々無個性化しているのか? | 三國志で学ぶデータ分析 (Japan.R 2019)</title>
+  <meta name="description" content="三国志で学べ" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 検証:「三國志」シリーズの人材は年々無個性化しているのか? | 三國志で学ぶデータ分析 (Japan.R 2019)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="三国志で学べ" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 検証:「三國志」シリーズの人材は年々無個性化しているのか? | 三國志で学ぶデータ分析 (Japan.R 2019)" />
+  
+  <meta name="twitter:description" content="三国志で学べ" />
+  
+
+<meta name="author" content="ill-identified" />
+
+
+<meta name="date" content="2020-03-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="前処理.html"/>
+<link rel="next" href="追加の分析.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Top</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 概要</a></li>
+<li class="chapter" data-level="2" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>2</b> イントロダクション</a><ul>
+<li class="chapter" data-level="2.1" data-path="イントロダクション.html"><a href="イントロダクション.html#三国志の背景"><i class="fa fa-check"></i><b>2.1</b> 三国志の背景</a></li>
+<li class="chapter" data-level="2.2" data-path="イントロダクション.html"><a href="イントロダクション.html#コーエーテクモのゲーム三國志シリーズ"><i class="fa fa-check"></i><b>2.2</b> コーエーテクモのゲーム『三國志』シリーズ</a></li>
+<li class="chapter" data-level="2.3" data-path="イントロダクション.html"><a href="イントロダクション.html#問題提起"><i class="fa fa-check"></i><b>2.3</b> 問題提起</a></li>
+<li class="chapter" data-level="2.4" data-path="イントロダクション.html"><a href="イントロダクション.html#先行関連研究"><i class="fa fa-check"></i><b>2.4</b> 先行・関連研究</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>3</b> 前処理</a><ul>
+<li class="chapter" data-level="3.1" data-path="前処理.html"><a href="前処理.html#データ取得元"><i class="fa fa-check"></i><b>3.1</b> データ取得元</a></li>
+<li class="chapter" data-level="3.2" data-path="前処理.html"><a href="前処理.html#スクレイピング"><i class="fa fa-check"></i><b>3.2</b> スクレイピング</a></li>
+<li class="chapter" data-level="3.3" data-path="前処理.html"><a href="前処理.html#データの整然化"><i class="fa fa-check"></i><b>3.3</b> データの整然化</a></li>
+<li class="chapter" data-level="3.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>3.4</b> さらなる名寄せ処理</a><ul>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#三国志以外の登場人物を除外する"><i class="fa fa-check"></i>三国志以外の登場人物を除外する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#漢字が使われていない名前を検査する"><i class="fa fa-check"></i>漢字が使われていない名前を検査する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#字以上の名前を検査する"><i class="fa fa-check"></i>3字以上の名前を検査する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#出現頻度の少ない人名を検査する"><i class="fa fa-check"></i>出現頻度の少ない人名を検査する</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="前処理.html"><a href="前処理.html#機械学習による名寄せ処理"><i class="fa fa-check"></i><b>3.5</b> 機械学習による名寄せ処理</a></li>
+<li class="chapter" data-level="3.6" data-path="前処理.html"><a href="前処理.html#草稿-ディープラーニングでなんとかできないか"><i class="fa fa-check"></i><b>3.6</b> [草稿] ディープラーニングでなんとかできないか?</a></li>
+<li class="chapter" data-level="3.7" data-path="前処理.html"><a href="前処理.html#補足-dbpedia-を利用した二重チェック"><i class="fa fa-check"></i><b>3.7</b> 補足: DBpedia を利用した二重チェック</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>4</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a><ul>
+<li class="chapter" data-level="4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>4.1</b> <code>ggplot2</code>による視覚化</a><ul>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-ggplot2の使い方"><i class="fa fa-check"></i>[テクニカル] ggplot2の使い方</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#補足-データビジュアライゼーションの教科書について"><i class="fa fa-check"></i><b>4.2</b> 補足: データビジュアライゼーションの教科書について</a></li>
+<li class="chapter" data-level="4.3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#skimrによる要約統計の計算"><i class="fa fa-check"></i><b>4.3</b> <code>skimr</code>による要約統計の計算</a></li>
+<li class="chapter" data-level="4.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>4.4</b> 要約統計量の視覚化による判断</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#作品ごとの要約統計量推移"><i class="fa fa-check"></i><b>4.4.1</b> 作品ごとの要約統計量推移</a></li>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-複数の折れ線グラフの描き方"><i class="fa fa-check"></i>[テクニカル] 複数の折れ線グラフの描き方</a></li>
+<li class="chapter" data-level="4.4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#人物別に確認する"><i class="fa fa-check"></i><b>4.4.2</b> 人物別に確認する</a></li>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-異なるグラフを1つにまとめる"><i class="fa fa-check"></i>[テクニカル] 異なるグラフを1つにまとめる</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#データの視覚化からわかったこと"><i class="fa fa-check"></i><b>4.5</b> データの視覚化からわかったこと</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>5</b> 追加の分析</a><ul>
+<li class="chapter" data-level="5.1" data-path="追加の分析.html"><a href="追加の分析.html#主成分分析の利用"><i class="fa fa-check"></i><b>5.1</b> 主成分分析の利用</a></li>
+<li class="chapter" data-level="5.2" data-path="追加の分析.html"><a href="追加の分析.html#魏呉蜀の勢力別ひいき"><i class="fa fa-check"></i><b>5.2</b> 魏・呉・蜀の勢力別ひいき</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="まとめ.html"><a href="まとめ.html"><i class="fa fa-check"></i><b>6</b> まとめ</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">三國志で学ぶデータ分析 (Japan.R 2019)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="検証三國志シリーズの人材は年々無個性化しているのか" class="section level1">
+<h1><span class="header-section-number">4</span> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</h1>
+
+<div class="rmdtip">
+ここでの処理は <code>analysis.R</code> に書かれている.
+</div>
+
+<div id="ggplot2による視覚化" class="section level2">
+<h2><span class="header-section-number">4.1</span> <code>ggplot2</code>による視覚化</h2>
+<p>以上で一旦名寄せ処理を切り上げて, 整形したデータから情報を読み取る. まずは大まかに集約した情報から, 徐々に個別の部分に拡大して解像度を挙げていこう.</p>
+<p>次に, 各作品で, 新しく登録された人物と除外された人物が何人かを表してみる. 以下では登場人物が各作品で採用されたか, 逆に前作と比較して採用を見送られたかを判定した結果を<code>df_in_out</code>に出力している.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># シリーズの参加回数</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">attend_times &lt;-<span class="st"> </span>df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name_id) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">attend_times =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span>ungroup </a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co"># 初登場人数・脱落人数の集計</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">at_first &lt;-<span class="st"> </span>df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(name_id, <span class="kw">as.integer</span>(title)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">at_first =</span> <span class="kw">as.integer</span>(<span class="kw">first</span>(title))) <span class="op">%&gt;%</span><span class="st"> </span>ungroup</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">df_all &lt;-<span class="st"> </span><span class="kw">inner_join</span>(df_all, attend_times, <span class="dt">by =</span> <span class="st">&quot;name_id&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="st">  </span><span class="kw">inner_join</span>(at_first, <span class="dt">by =</span> <span class="st">&quot;name_id&quot;</span>)</a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">df_in_out &lt;-<span class="st"> </span>df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, name_id) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">exists =</span> T, <span class="dt">title =</span> <span class="kw">as.integer</span>(title)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="st">  </span><span class="kw">right_join</span>(<span class="dt">x =</span> .,</a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">             <span class="dt">y =</span> <span class="kw">expand_grid</span>(<span class="dt">title =</span> <span class="kw">unique</span>(.<span class="op">$</span>title), <span class="dt">name_id =</span> <span class="kw">unique</span>(.<span class="op">$</span>name_id)),</a>
+<a class="sourceLine" id="cb15-11" data-line-number="11">             <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;title&quot;</span>, <span class="st">&quot;name_id&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">exists =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(exists), F, T)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="st">  </span><span class="kw">arrange</span>(name_id, title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">join =</span> <span class="op">!</span><span class="kw">lag</span>(exists) <span class="op">&amp;</span><span class="st"> </span>exists, <span class="dt">out =</span> <span class="op">!</span>exists <span class="op">&amp;</span><span class="st"> </span><span class="kw">lag</span>(exists)) <span class="op">%&gt;%</span><span class="st"> </span>ungroup</a></code></pre></div>
+<p>さらに, 各作品ごとに「新規採用」「不採用」「継続」の3通りの人数を集計する.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">df_in_out_summary &lt;-<span class="st"> </span>df_in_out <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_if</span>(is.logical, sum) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span>ungroup <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">keep =</span> exists <span class="op">-</span><span class="st"> </span>join) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>exists) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>title, <span class="dt">names_to =</span> <span class="st">&quot;var&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;number&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">var =</span> <span class="kw">factor</span>(var, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;out&quot;</span>, <span class="st">&quot;join&quot;</span>, <span class="st">&quot;keep&quot;</span>),</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">                      <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;out&quot;</span>, <span class="st">&quot;in&quot;</span>, <span class="st">&quot;keep&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">  </span><span class="kw">arrange</span>(title, var)</a></code></pre></div>
+<p>図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout">4.1</a>は, その結果をグラフで表したものである.前作から追加された人物が <code>in</code>, 逆に除外された人物を <code>out</code>, 続投している人物を <code>keep</code> で表した. つまり, <code>in + keep</code> が各作品に登場する人数である. この図からは, 4, 12 で前作より減っているものの基本的に最近の作品ほど登場人物が増えていることがわかる. よって, 少しづつ正史三国志に記述のある人物が増えていることが分かる<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(df_in_out_summary,</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> number, <span class="dt">group =</span> var, <span class="dt">fill =</span> var, <span class="dt">color =</span> var, <span class="dt">alpha =</span> (var <span class="op">!=</span><span class="st"> &quot;out&quot;</span>), <span class="dt">linetype =</span> (var <span class="op">==</span><span class="st"> &quot;out&quot;</span>))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="fl">.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">13</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_fill_colorblind</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_alpha_manual</span>(<span class="dt">guide =</span> F, <span class="dt">breaks =</span> <span class="kw">c</span>(F, T), <span class="dt">values=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">guide =</span>F, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_color_colorblind</span>(<span class="dt">guide =</span> F) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;タイトル&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;人数&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="st">  </span>theme_document</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:inout"></span>
+<img src="three-kingdoms_files/figure-html/inout-1.svg" alt="登録・除外フロー" width="75%" />
+<p class="caption">
+図4.1: 登録・除外フロー
+</p>
+</div>
+<div id="テクニカル-ggplot2の使い方" class="section level3 unnumbered">
+<h3>[テクニカル] ggplot2の使い方</h3>
+<p>図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout">4.1</a>を含め, 以降の画像はほぼ全て<code>ggplot2</code>で作成している. ggplot2は自由度が高く, かつデータビジュアライゼーションでよく使われる様々な形式のグラフを簡単に作成することができる. しかし図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout">4.1</a>はやや変わった見せ方をしているため, コードが長大化している. 細かいレイアウトにこだわらなければ2,3行以内で表示できるが, 今回はスライドと原稿で両立するようなレイアウトにしようとしたため, 多くの設定を手動調整している.</p>
+<p>ggplot2は自由度があるぶん, 全ての機能を説明するのは大変である. 今回は作例に使った構文で特に有用だったり使い方がわかりにくかったりするものだけを解説する.</p>
+
+<div class="rmdtip">
+Rで使えるggplot2以外のフレームワークとして, 例えば<code>plotly</code>がある. しかし現状では<code>ggplot2</code>と比較して(1)変数の増加に対してスケールせず, 冗長になりがちな構文であり(tidyverseとのシナジーが得られにくい), (2)デザインの微調整の構文が煩雑または機能が限定されている, という理由で私は使っていない. これらの特徴は繰り返し変数や軸を変えてグラフを描くことの多いデータ分析では大きなデメリットである<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>.
+</div>
+
+<p>棒グラフを作成するのに最低限必要な構文は以下のように最初の3行だけである. 色や軸ラベルの名称, メモリの細かさ, 凡例の位置など細かいところを調整するために以降の7行を追加している(図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout-simple">4.2</a>).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(df_in_out_summary,</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> number, <span class="dt">group =</span> var, <span class="dt">fill =</span> var, <span class="dt">color =</span> var)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="fl">.6</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:inout-simple"></span>
+<img src="three-kingdoms_files/figure-html/inout-simple-1.svg" alt="最低限で書けるが, 見栄えが悪い" width="75%" />
+<p class="caption">
+図4.2: 最低限で書けるが, 見栄えが悪い
+</p>
+</div>
+<p><code>ggplot2</code>でグラフを描くにあたって最低限必要なのは入力データの指定をする <code>ggplot()</code>, 軸を指定する <code>aes()</code>, そしてグラフの種類を決める, <code>geom_</code>で始まる各種関数である. 今回は<code>geom_bar()</code>でバープロットを描画している. <code>aes(x = title, y = number, group = var, fill = var, color = var)</code>について, <code>x</code>, <code>y</code>, <code>group</code>, <code>fill</code>, <code>color</code>はそれぞれx軸, y軸, グループ分け, 塗りつぶし色を指定する引数であり, 上記のようにグループごとに色分けした棒グラフを描くために必要な設定である. どのような設定が必要かは<code>geom_</code>の関数ごとに異なるため, 慣れないうちは必要な引数をヘルプで確認する必要があるだろう. <code>geom_bar()</code>ではさらに, <code>stat=&quot;identity&quot;</code>でy軸の計算方法を指定しているデフォルトは<code>stat=&quot;count&quot;</code>で, これは <code>aes(y=)</code>で指定した<strong><code>y</code>の件数をy軸に出力する</strong>. しかし今回は件数はすでに集計済みなので, <code>stat=&quot;identity&quot;</code>を指定し, 件数ではなく<code>y</code>の値をそのまま出すようにしている. <code>position=&quot;stack&quot;</code>は積み上げ棒グラフにする設定である (積み上げ棒グラフはデフォルトなのであえて指定する必要はない). 例えば<code>&quot;dodge&quot;</code>を指定すると, 以下の図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout-simple-dodge">4.3</a>のように横並びになる.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">ggplot</span>(df_in_out_summary,</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> number, <span class="dt">group =</span> var, <span class="dt">fill =</span> var, <span class="dt">color =</span> var)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">width =</span> <span class="fl">.6</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:inout-simple-dodge"></span>
+<img src="three-kingdoms_files/figure-html/inout-simple-dodge-1.svg" alt="棒グラフを横並びに" width="75%" />
+<p class="caption">
+図4.3: 棒グラフを横並びに
+</p>
+</div>
+<p><code>size</code>, <code>width</code>は名前の通り棒の大きさや幅を指定するオプションである.</p>
+<p>図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout">4.1</a>で上記の3行のプログラムに追加している, <code>scale_</code>で始まる関数は全て色や目盛りと言った見やすさに関するレイアウトを設定する関数である.
+さらに文字の大きさや見出しの非表示など細かい設定は, <code>theme()</code>関数を使うことになる. 今回は使いまわすため, プリセットしてあらかじめ作成した<code>theme_document</code>を使った.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">theme_document &lt;-<span class="st"> </span><span class="kw">theme_classic</span>(<span class="dt">base_family =</span> font_name) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">  <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="dt">strip.placement =</span> <span class="st">&quot;outside&quot;</span>,</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">  <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="st">&quot;line&quot;</span>),</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">  <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">)</a></code></pre></div>
+<p>これはレポート用の体裁とプレゼンテーション用のスライドでレイアウトを調整する必要があったからで, これとは別に<code>theme_presen</code>も作成している.</p>
+<p>自由になんでもして良いとなると, ついつい自分の好みが反映されてしまいがちである. しかしここでは視聴者に情報を適切に読み取ってもらうことが第一である. 我流のグラフやこだわった配色はかえって見やすさを損ねることが多く, また設定のために書くコードも増えてしまうため, なるべく基本的な構文だけで表現できないかをまず考えることが重要である. <code>ggthemes</code>パッケージは<code>ggplot2</code>用のテーマやカラーパレットを追加してくれる. その中にある<code>colorblind</code>/<code>pander</code>シリーズは色弱者に配慮した配色になっているため, 私はこれを常用している.</p>
+
+<div class="rmdtip">
+<p>自分の作成したグラフが色弱者にも認識しやすいかどうかを確認するには, 以下のサイトが便利である.</p>
+<p><a href="https://asada.website/webCVS/" class="uri">https://asada.website/webCVS/</a></p>
+<p><code>ggplot2</code>に限定するならば, <code>colorblindr</code>パッケージを使えばより簡単に色弱者にとっての見え方を確認できる.</p>
+<p><a href="https://github.com/clauswilke/colorblindr" class="uri">https://github.com/clauswilke/colorblindr</a></p>
+使い方は単純で, <code>cvd_grid()</code>にグラフオブジェクトを与えるだけである.
+</div>
+
+</div>
+</div>
+<div id="補足-データビジュアライゼーションの教科書について" class="section level2">
+<h2><span class="header-section-number">4.2</span> 補足: データビジュアライゼーションの教科書について</h2>
+<p>グラフの書き方にも流儀がある. 3D 円グラフはやめよう<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>, ユーレイ棒グラフはやめよう<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a>, という話は昔から喚起されているので知っている人も多いかもしれない. これだけでなく, もっと体系的なグラフ作成のルールというのがあるのだが, それをここで全て説明するのは大変だ. そのうち挑戦してみたくはあるが.</p>
+<p>グラフの書き方に関する本は <span class="citation">Tufte (<a href="#ref-tufte2001Visual">2001</a>)</span> が古典的?である. 彼の基本的な考え方は「グラフに余計な装飾をするな」であり, 見る者になんら情報をもたらさない装飾のあるグラフを “<em>chartjunk</em>” と呼んだ. そして線や点や色などの使用を最小限にしてデータの特徴を表現できているかの指標として, グラフを描くのに使ったインクの量に対してどれだけのデータを示せたかを表す「<strong>データ-インク比率</strong> (data-ink ratio)」を提唱している. つまり, データ-インク比率が少ないほど, 最小限のシンプルなグラフでより多くの情報を提示できているということになる. 3Dグラフは装飾過剰であることから, データ-インク比率の観点からも望ましいものでないことが分かる.</p>
+<p>最近のものとして <span class="citation">Schwabish (<a href="#ref-Schwabish2014">2014</a>)</span> は経済学の論文で実際に掲載された図を例に添削している. <span class="citation">Healy (<a href="#ref-healy2018Data">2018</a>)</span> はTufteの思想を受け継ぎつつ, 掲載されている全ての図に対して<code>ggplot2</code>によるコードを公開しているため, タイトル通り “practical” である. 一方で, これらはいずれも日本語訳がない<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a>. Tufte 流の理論に則ったという本では, <span class="citation">藤 and 渡部 (<a href="#ref-hujiwatanabe2019">2019</a>)</span> が比較的近い. ただしグラフの例は紹介されているものの実際に<strong>どのようなソフトウェアでどうやって作成するかといったことは書かれていない</strong>ため, 教科書としては物足りない. あるいはRではないが, Qlik Senseというソフトウェアでデータ-インク比率のルールに則した作例を紹介しているブログがある.</p>
+<p><a href="https://qlik-training.ashisuto.co.jp/data-ink-ratio/" class="uri">https://qlik-training.ashisuto.co.jp/data-ink-ratio/</a></p>
+<p><span class="citation">森藤 and あんちべ (<a href="#ref-morihujiantibayes2014">2014</a>)</span> もまた, グラフ作成のフレームワークとしてd3.jsの使用を前提にしているものの, 意味のあるグラフの作り方に焦点を置いている.</p>
+<p>これらの情報はある程度有用であるが, 教科書と呼べる程度に一般的な話題を扱い, かつRの作例を載せた実践的な日本語の教科書は現時点では存在しないようだ.</p>
+</div>
+<div id="skimrによる要約統計の計算" class="section level2">
+<h2><span class="header-section-number">4.3</span> <code>skimr</code>による要約統計の計算</h2>
+<p>では次に, シリーズごとの能力値の傾向を見ていこう. そのために次はグラフではなく要約統計量を確認してみる. 要約統計量を計算するのに役立つのが<code>skimr</code>パッケージである. 要約統計量を表示する関数は, 組み込みの<code>summary()</code>を始めいくつもあるが, <code>skimr</code>は</p>
+<ul>
+<li><code>summary()</code>よりも見やすい</li>
+<li><code>group_by()</code> したデータを与えるとグループ別集計してくれる</li>
+<li>出力もまたデータフレームである(体裁の修正がしやすい)</li>
+</ul>
+<p>といった便利さからおすすめする<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a><a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a>.</p>
+<p>基本的には<code>skim()</code>にデータフレームを与えるだけだが, 表示したい要約統計量を変更したい場合は<code>skimr::skim_with()</code>を使う. これは関数ジェネレータのように扱う. 例えば以下の例ではデフォルトの項目に加え歪度と尖度を表示するように変更した関数 <code>my_skim()</code> を作成している.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">my_skim &lt;-<span class="st"> </span><span class="kw">skim_with</span>(<span class="dt">numeric =</span> <span class="kw">sfl</span>(<span class="dt">n =</span> length, <span class="dt">mean =</span> mean, <span class="dt">skew =</span> skewness, <span class="dt">kurto =</span> kurtosis, <span class="dt">hist =</span> <span class="ot">NULL</span>))</a></code></pre></div>
+<p>これを使い, シリーズごとに能力値の要約統計量を求める(表<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#tab:skimr-tab">4.1</a>).</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">13</span>, <span class="cf">function</span>(x) <span class="kw">filter</span>(df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="kw">as.integer</span>(title)), title <span class="op">==</span><span class="st"> </span>x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">      </span><span class="kw">unnest</span>(<span class="dt">cols =</span> data) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(is.numeric)) <span class="op">%&gt;%</span><span class="st"> </span>bind_rows <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(title, 知力, 武力, 政治, 魅力, 統率) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">my_skim</span>()</a></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:skimr-tab">表4.1: </span>作品ごとの要約統計量(一部)
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+title
+</th>
+<th style="text-align:left;">
+status
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+missing
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+skew
+</th>
+<th style="text-align:right;">
+kurto
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+254
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56.4
+</td>
+<td style="text-align:right;">
+24.6
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.8
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+56.5
+</td>
+<td style="text-align:right;">
+77.8
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+312
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.4
+</td>
+<td style="text-align:right;">
+22.5
+</td>
+<td style="text-align:right;">
+-0.1
+</td>
+<td style="text-align:right;">
+1.9
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+59.5
+</td>
+<td style="text-align:right;">
+78.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+531
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56.1
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+2.8
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+57.0
+</td>
+<td style="text-align:right;">
+67.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+454
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.6
+</td>
+<td style="text-align:right;">
+19.7
+</td>
+<td style="text-align:right;">
+-0.2
+</td>
+<td style="text-align:right;">
+2.4
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+61.0
+</td>
+<td style="text-align:right;">
+71.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+59.5
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+-0.1
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+42.8
+</td>
+<td style="text-align:right;">
+61.0
+</td>
+<td style="text-align:right;">
+75.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+520
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+59.1
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+-0.3
+</td>
+<td style="text-align:right;">
+2.4
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+62.0
+</td>
+<td style="text-align:right;">
+73.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+538
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+57.6
+</td>
+<td style="text-align:right;">
+19.6
+</td>
+<td style="text-align:right;">
+-0.2
+</td>
+<td style="text-align:right;">
+2.2
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+61.0
+</td>
+<td style="text-align:right;">
+73.0
+</td>
+<td style="text-align:right;">
+97
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+567
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56.2
+</td>
+<td style="text-align:right;">
+19.2
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+2.2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+56.0
+</td>
+<td style="text-align:right;">
+70.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+663
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+59.3
+</td>
+<td style="text-align:right;">
+20.5
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+2.8
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+65.0
+</td>
+<td style="text-align:right;">
+73.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+650
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.5
+</td>
+<td style="text-align:right;">
+21.3
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+65.0
+</td>
+<td style="text-align:right;">
+74.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+671
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.9
+</td>
+<td style="text-align:right;">
+20.5
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+43.0
+</td>
+<td style="text-align:right;">
+65.0
+</td>
+<td style="text-align:right;">
+74.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+473
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+60.7
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+-0.7
+</td>
+<td style="text-align:right;">
+2.6
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+43.0
+</td>
+<td style="text-align:right;">
+68.0
+</td>
+<td style="text-align:right;">
+77.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+知力
+</td>
+<td style="text-align:right;">
+803
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+59.0
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+2.6
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+65.0
+</td>
+<td style="text-align:right;">
+74.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+254
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+57.4
+</td>
+<td style="text-align:right;">
+24.6
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.8
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+36.0
+</td>
+<td style="text-align:right;">
+57.5
+</td>
+<td style="text-align:right;">
+78.8
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+312
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.8
+</td>
+<td style="text-align:right;">
+21.3
+</td>
+<td style="text-align:right;">
+-0.1
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+61.0
+</td>
+<td style="text-align:right;">
+74.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+531
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+61.4
+</td>
+<td style="text-align:right;">
+17.1
+</td>
+<td style="text-align:right;">
+-0.5
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+52.0
+</td>
+<td style="text-align:right;">
+64.0
+</td>
+<td style="text-align:right;">
+71.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+454
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+61.4
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+2.6
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+49.2
+</td>
+<td style="text-align:right;">
+66.0
+</td>
+<td style="text-align:right;">
+75.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+60.3
+</td>
+<td style="text-align:right;">
+22.7
+</td>
+<td style="text-align:right;">
+-0.6
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+67.0
+</td>
+<td style="text-align:right;">
+76.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+520
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.4
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+-0.3
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+42.8
+</td>
+<td style="text-align:right;">
+62.5
+</td>
+<td style="text-align:right;">
+73.0
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+538
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+58.8
+</td>
+<td style="text-align:right;">
+20.4
+</td>
+<td style="text-align:right;">
+-0.5
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+45.2
+</td>
+<td style="text-align:right;">
+63.0
+</td>
+<td style="text-align:right;">
+74.0
+</td>
+<td style="text-align:right;">
+98
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="要約統計量の視覚化による判断" class="section level2">
+<h2><span class="header-section-number">4.4</span> 要約統計量の視覚化による判断</h2>
+<p>今回は見るべき項目が多いため要約統計量だけでも数値が非常に多く, 数値の羅列を眺めるだけでは何が読み取れるのか分かりにくい. そこでデータの要約統計量をさらに, グラフで見やすくする必要がある.</p>
+<div id="作品ごとの要約統計量推移" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> 作品ごとの要約統計量推移</h3>
+<p>ここまでで集計した各要約統計量の作品ごとの推移を折れ線グラフで表したのが図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:stat-line">4.4</a>である.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">df_append &lt;-<span class="st"> </span>df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_map</span>(</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="op">~</span><span class="kw">unnest</span>(.x, <span class="dt">cols =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">    </span><span class="kw">rename_if</span>(<span class="kw">names</span>(.) <span class="op">==</span><span class="st"> &quot;カリスマ&quot;</span>, <span class="cf">function</span>(x) <span class="st">&quot;魅力&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="st">    </span><span class="kw">select_if</span>(<span class="kw">names</span>(.) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;title&quot;</span>, <span class="st">&quot;name_id&quot;</span>) <span class="op">|</span><span class="st"> </span><span class="kw">map_lgl</span>(., is.numeric)),</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">  <span class="dt">keep =</span> T</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">) <span class="op">%&gt;%</span><span class="st"> </span>bind_rows <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="st">  </span><span class="kw">select</span>(title, name_id, attend_times, at_first, 身体, 知力, 武力, 魅力, 運勢, 義理, 野望, 相性, 政治, 統率, 陸指, 水指)</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">descriptive_status &lt;-<span class="st"> </span>df_append <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, 武力, 知力, 魅力, 政治) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">my_skim</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename_all</span>(<span class="op">~</span><span class="kw">str_remove</span>(.x, <span class="st">&quot;^numeric.&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">missings =</span> n_missing) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(skim_type <span class="op">==</span><span class="st"> &quot;numeric&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>skim_type, <span class="op">-</span>complete_rate) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">variable =</span> skim_variable, <span class="dt">min =</span> p0, <span class="dt">max =</span> p100, <span class="dt">skewness =</span> skew, <span class="dt">kurtosis =</span> kurto) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-12" data-line-number="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="kw">as.integer</span>(title))</a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb23-14" data-line-number="14">descriptive_status <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">range =</span> max <span class="op">-</span><span class="st"> </span>min) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span><span class="kw">c</span>(variable, title), <span class="dt">names_to =</span> <span class="st">&quot;stat&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-15" data-line-number="15"><span class="st">  </span><span class="kw">filter</span>(stat <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;range&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>, <span class="st">&quot;skewness&quot;</span>, <span class="st">&quot;kurtosis&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-16" data-line-number="16"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">stat =</span> <span class="kw">factor</span>(stat, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;range&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>, <span class="st">&quot;skewness&quot;</span>, <span class="st">&quot;kurtosis&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-17" data-line-number="17"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> value, <span class="dt">group =</span> variable, <span class="dt">color =</span> variable)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-18" data-line-number="18"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>stat, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">strip.position =</span> <span class="st">&quot;left&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_colorblind</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-19" data-line-number="19"><span class="st">  </span>theme_document_no_y</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:stat-line"></span>
+<img src="three-kingdoms_files/figure-html/stat-line-1.svg" alt="シリーズごとの要約統計量の推移" width="75%" />
+<p class="caption">
+図4.4: シリーズごとの要約統計量の推移
+</p>
+</div>
+<p>このグラフを見て特に気になるのは, レンジの変化である. 三國志シリーズのステータスは基本的に1~100の数値だが, 実際には最小値と最大値の幅が作品ごとに異なることがわかった. そのため, 値域を統一するためにシリーズごとにmin-max正規化を行う. 通常のmin-max正規化は0-1の範囲にする正規化処理だが, 今回は見やすさのため, レンジが100になるよう以下 <a href="検証三國志シリーズの人材は年々無個性化しているのか.html#eq:range-normalize">(4.1)</a> のようにさらに100を掛けてで調整している.
+<span class="math display" id="eq:range-normalize">\[\begin{aligned}
+z:= &amp; 100\times\frac{x-\min(x)}{\max(x)-\min(x)}\end{aligned}\tag{4.1}\]</span></p>
+<p>この式で, 主要な能力値を全てシリーズごとに調整して再集計した結果をグラフにする.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">scale_max_min &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">  (x <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(x)) <span class="op">/</span><span class="st"> </span>(<span class="kw">max</span>(x) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(x))</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">df_norm &lt;-<span class="st"> </span>df_append <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="kw">factor</span>(title, <span class="dt">levels=</span><span class="dv">1</span><span class="op">:</span><span class="dv">13</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_map</span>(</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7">  <span class="op">~</span><span class="kw">mutate_if</span>(.x, <span class="op">!</span><span class="kw">names</span>(.x) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;attend_times&quot;</span>, <span class="st">&quot;at_first&quot;</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">map_lgl</span>(.x, is.numeric), <span class="cf">function</span>(x) <span class="kw">scale_max_min</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">  <span class="dt">keep =</span> T</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9">) <span class="op">%&gt;%</span><span class="st"> </span>bind_rows <span class="op">%&gt;%</span><span class="st"> </span>rowwise <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb24-10" data-line-number="10">  <span class="dt">total =</span> <span class="kw">mean</span>(<span class="kw">c</span>(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), <span class="dt">na.rm =</span> T),</a>
+<a class="sourceLine" id="cb24-11" data-line-number="11">  <span class="dt">total_sd =</span> <span class="kw">sd</span>(<span class="kw">c</span>(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), <span class="dt">na.rm =</span> T),</a>
+<a class="sourceLine" id="cb24-12" data-line-number="12">  <span class="dt">total_range =</span> <span class="kw">max</span>(<span class="kw">c</span>(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), <span class="dt">na.rm =</span> T) <span class="op">-</span></a>
+<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="st">    </span><span class="kw">min</span>(<span class="kw">c</span>(武力, 知力, 魅力, 政治, 統率, 水指, 陸指), <span class="dt">na.rm =</span> T)) <span class="op">%&gt;%</span><span class="st"> </span>ungroup</a></code></pre></div>
+
+<div class="rmdtip">
+変数のスケーリングには他に標準化という有名な方法もあるが, 標準化は分散を固定してしまう方法である. 今回のテーマでは作品ごとのばらつきを見ることも重要なので, 標準化では必要な情報が得られない.
+</div>
+
+<p>調整後の要約統計量が図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:min-max-stat">4.5</a>である. min-max正規化はレンジを1に統一するため, rangeの値は掲載していない. 調整前と比較し, 後期作品ほど標準偏差が減少するような傾向が顕著になった. 逆に平均値は上昇傾向にあるように見える. 歪度も徐々にゼロから離れていることがわかる. 標準偏差の低下という意味では, これらから判断するに, 最近の作品ほど三国志演義で活躍の場面の少ない人物が再評価された結果, どの人物もまんべんなくそこそこの評価がされるようになり, 「没個性化」しつつあるとも読み取れる. しかし, 単純な要約統計量から得られる情報が全てではない. ため, もう少し他の観点からも見ていこう.</p>
+<div class="figure" style="text-align: center"><span id="fig:min-max-stat"></span>
+<img src="three-kingdoms_files/figure-html/min-max-stat-1.svg" alt="正規化後のシリーズごとの要約統計量" width="75%" />
+<p class="caption">
+図4.5: 正規化後のシリーズごとの要約統計量
+</p>
+</div>
+</div>
+<div id="テクニカル-複数の折れ線グラフの描き方" class="section level3 unnumbered">
+<h3>[テクニカル] 複数の折れ線グラフの描き方</h3>
+<p>今回の折れ線グラフの作例プログラムも少し長いが, 最低限必要なのは <code>ggplot()</code>, <code>aes()</code>, <code>geom_line()</code>, そして <code>facet_wrap()</code> である. 上記のプログラムのうち, 最初の2つのブロックはグラフ描画用にデータを集計しているものである. さらに最後のブロックでも, 最初の3行はデータフレームの中身を編集しているだけである. この3行で作成したデータフレームは以下の表<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#tab:ggplot-input-line">4.2</a>のようになっている.</p>
+<table>
+<caption>
+<span id="tab:ggplot-input-line">表4.2: </span>折れ線グラフの入力データ
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+title
+</th>
+<th style="text-align:left;">
+stat
+</th>
+<th style="text-align:right;">
+value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+57.3661417
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+sd
+</td>
+<td style="text-align:right;">
+24.6314293
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+skewness
+</td>
+<td style="text-align:right;">
+-0.0038454
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+kurtosis
+</td>
+<td style="text-align:right;">
+1.7950797
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+range
+</td>
+<td style="text-align:right;">
+85.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+武力
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+56.4276923
+</td>
+</tr>
+</tbody>
+</table>
+<p>元のデータフレームでは「平均」「標準偏差」といった項目がそれぞれ別の変数になっていたが, <code>ggplot2</code>では使用する変数を一列にする必要があるため, このように数値を1つの列にまとめたlong形式に整形している<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a>.</p>
+<p>今回新たに使う<code>facet_wrap()</code>は, <code>group</code>とはさらに別のグループを設定する関数である. ただし, <code>group=</code>と違って画面を分割して描く. 今回は「政治」「知力」「武力」といった異なるステータス値ごとに折れ線グラフを描きたい. しかし, スケールや単位の異なる変数を同じ画面に描画するのは非常に見づらいことが多い.</p>
+<p>このデータフレームはやや複雑なので, ここでは例としてもっとシンプルなデータフレームを利用して説明する.
+図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:lineplot-nonscale">4.6</a>は, 50~150を推移する変数<code>x</code>と, 0~1を推移する<code>y</code>の折れ線グラフを同時に描いたものである. スケールの小さな<code>y</code>がどう変化しているのか, 全くわからない.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">tibble</span>(<span class="dt">n =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">50</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span>, <span class="dt">y =</span> <span class="kw">runif</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> n, <span class="dt">y =</span> value, <span class="dt">group =</span> name, <span class="dt">color =</span> name)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">  </span>theme_document_no_y</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:lineplot-nonscale"></span>
+<img src="three-kingdoms_files/figure-html/lineplot-nonscale-1.svg" alt="スケールが一致しない例" width="75%" />
+<p class="caption">
+図4.6: スケールが一致しない例
+</p>
+</div>
+<p>しかし, <code>facet_wrap()</code> によって分割することで見やすくなる(図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:lineplot-facet">4.7</a>).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">tibble</span>(<span class="dt">n =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">50</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span>, <span class="dt">y =</span> <span class="kw">runif</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> n, <span class="dt">y =</span> value, <span class="dt">group =</span> name, <span class="dt">color =</span> name)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>name, <span class="dt">scales =</span> <span class="st">&#39;free_y&#39;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="st">  </span>theme_document_no_y</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:lineplot-facet"></span>
+<img src="three-kingdoms_files/figure-html/lineplot-facet-1.svg" alt="スケールの違う変数ごとに分割して作図" width="75%" />
+<p class="caption">
+図4.7: スケールの違う変数ごとに分割して作図
+</p>
+</div>
+<p><code>~name</code> は画面を分割する変数である. <code>pivot_longer()</code>で元のデータフレームをlong形式に変換しているため, <code>name</code>に元の変数名が格納されている. <code>scales=&quot;free_y&quot;</code>は, y軸のスケールを分割ごとに変動することを許可している. この設定によって, 図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:lineplot-facet">4.7</a>のようにスケールが調整され変化がわかりやすくなっている. <code>ncol=1</code>は, 分割の並べ方である. デフォルトでは横に並べてしまうため, <code>ncol=1</code> で横1列に制限している.</p>
+<p>さらに軸を増やしたい場合は, <code>facet_grid()</code>を使うこともできる.</p>
+
+<div class="rmdtip">
+異なる変数のスケールを調整して無理やり1つの画面に収めたグラフがたまに見られる. グラフの左右に単位の異なる目盛りが付いているのだが, そのようなグラフはえてして見づらく, 誤解を招きやすい.
+</div>
+
+<p>今回の作例は「ステータス値の種類」と「統計量の種類」という2つの軸が存在する. ステータス値はどの作品でも0~100に設定されているため分割する意義は少ない (むしろ比較のため分割しないほうがよい)が, 平均値や標準偏差といった要約統計量はそれぞれでスケールが全く異なる. よって, 統計量の種類ごとに <code>facet_wrap()</code>で分割している.</p>
+</div>
+<div id="人物別に確認する" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> 人物別に確認する</h3>
+<p>一旦, 個別の例に拡大して見てみよう. 4名の人物についてシリーズを通してステータスがどう変化しているかを見る. 主要人物は記述が多く, 演義と正史での評価の差異を細かく説明するのが大変である. そこで, 主要人物ではないが, 差異の分かりやすい人物をケーススタディの対象とする.</p>
+<ul>
+<li><ruby><strong>華雄</strong><rp>(</rp><rt>カユウ</rt><rp>)</rp></ruby>
+<ul>
+<li>正史: 「<ruby><strong>董卓</strong><rp>(</rp><rt>トウタク</rt><rp>)</rp></ruby>が派遣した<ruby><strong>胡軫</strong><rp>(</rp><rt>コシン</rt><rp>)</rp></ruby>の配下として従軍したが<ruby><strong>孫堅</strong><rp>(</rp><rt>ソンケン</rt><rp>)</rp></ruby>軍に討たれた」としか書かれていない(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B746&amp;oldid=1769696#%E5%AD%AB%E5%A0%85">呉書孫堅伝</a>,<a href="https://zh.wikisource.org/w/index.php?title=%E5%BE%8C%E6%BC%A2%E6%9B%B8/%E5%8D%B772&amp;oldid=1379095#%E8%91%A3%E5%8D%93">後漢書董卓伝</a>)</li>
+<li>演義: <strong>董卓</strong>配下の猛将で, <strong>孫堅</strong>を敗走させる. しかしに<ruby><strong>関羽</strong><rp>(</rp><rt>カンウ</rt><rp>)</rp></ruby>に即敗北する (<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC005%E5%9B%9E&amp;oldid=1594422">三国演義第五回</a>)</li>
+</ul></li>
+<li><ruby><strong>関興</strong><rp>(</rp><rt>カンコウ</rt><rp>)</rp></ruby>
+<ul>
+<li>正史: 「父<strong>関羽</strong>の死後, 抜擢され将来を嘱望されるも数年後病死」のみ (<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B736&amp;oldid=1745992#%E9%97%9C%E7%BE%BD">蜀書関羽伝の引く蜀記</a>)</li>
+<li>演義: 父の仇討ちを果たし, 数度の北伐で活躍(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC083%E5%9B%9E&amp;oldid=797051">三国演義第八十三回</a>, <a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC092%E5%9B%9E&amp;oldid=797060">第九十二回</a>等)</li>
+</ul></li>
+<li><ruby><strong>曹真</strong><rp>(</rp><rt>ソウシン</rt><rp>)</rp></ruby>
+<ul>
+<li>正史: 魏の将軍として<strong>諸葛亮</strong>の北伐に対する防衛を指揮し, 二度退ける(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B709&amp;oldid=1549863#%E6%9B%B9%E7%9C%9F">魏書曹真伝</a>)</li>
+<li>演義: 北伐では終始<strong>諸葛亮</strong>に翻弄され, 最期は罵倒され憤死した(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC100%E5%9B%9E&amp;oldid=797068">三国演義第一百回</a>等)</li>
+</ul></li>
+<li><ruby><strong>李通</strong><rp>(</rp><rt>リツウ</rt><rp>)</rp></ruby>
+<ul>
+<li>正史: <strong>曹操</strong>の本拠地, 豫州南部を守り抜く (<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B718&amp;oldid=1514642#%E6%9D%8E%E9%80%9A">魏書李通伝</a>)</li>
+<li>演義: <ruby><strong>馬超</strong><rp>(</rp><rt>バチョウ</rt><rp>)</rp></ruby>と一騎打ちし即敗北する (<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC058%E5%9B%9E&amp;oldid=796949">三国演義第五十八回</a>)</li>
+</ul></li>
+</ul>
+<p>図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:personal">4.8</a>では, 「演義で活躍の盛られている」代表である華雄, 関興はシリーズを通してあまり変化していない. すくなくとも低下しているようには見えない. 一方で, 「活躍の場を奪われていた」李通, 曹真は徐々に上昇しているように見える.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">df_norm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name_id <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;華雄&quot;</span>, <span class="st">&quot;関興&quot;</span>, <span class="st">&quot;李通&quot;</span>, <span class="st">&quot;曹真&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name_id =</span> <span class="kw">str_split</span>(name_id, <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map_chr</span>(<span class="op">~</span><span class="kw">paste</span>(.x, <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(title, name_id, 武力, 魅力, 知力, 政治) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span><span class="kw">c</span>(title, name_id), <span class="dt">names_to =</span> <span class="st">&quot;status&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> value, <span class="dt">group =</span> status, <span class="dt">color =</span> status, <span class="dt">linetype =</span> status)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>name_id, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">strip.position =</span> <span class="st">&quot;left&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_color_colorblind</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="st">  </span>theme_document_no_y <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">strip.text.y.left =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">0</span>))</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:personal"></span>
+<img src="three-kingdoms_files/figure-html/personal-1.svg" alt="4名のシリーズを通した変化" width="75%" />
+<p class="caption">
+図4.8: 4名のシリーズを通した変化
+</p>
+</div>
+<p>ということは, もしこれが全体の傾向にも当てはまるのなら, 三国志演義で活躍が誇張されている人物の評価はそのままで, 同時に正史の見直しによって従来ステータスの低い武将の値が底上げされれば, 「没個性化」になりうる. 全体の傾向ならば分布にも現れるはずである. そこで, シリーズの作品ほとんどで存在するステータス項目である, 「武力」「知力」「魅力」<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a>「政治」を確認してみる<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>. 分布の形状と言えばヒストグラムだが, シリーズごとの特徴をうまく表したい. 分布を表すものとして, 箱ひげ図(box plot)があるが, ここでは <code>geom_violin()</code> を使って<strong>バイオリン図</strong>を作図した(図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:violins1">4.9</a>).</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">df_norm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(主要値平均 =<span class="st"> </span>total)  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, 武力, 知力, 魅力, 政治, 主要値平均) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">-</span>title) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> value, <span class="dt">fill =</span> <span class="kw">as.numeric</span>(title))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_continuous_tableau</span>(<span class="dt">guide =</span> F) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>name, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">strip.position =</span> <span class="st">&quot;left&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="st">  </span>theme_document_no_y <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;タイトル&quot;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:violins1"></span>
+<img src="three-kingdoms_files/figure-html/violins1-1.svg" alt="シリーズごとの主要能力値の分布" width="75%" />
+<p class="caption">
+図4.9: シリーズごとの主要能力値の分布
+</p>
+</div>
+<p>バイオリン図で書くことで, シリーズごとに各ステータスの分布形状が変動していることがわかった. そして興味深いことに, 最近の作品ほど分布が二極化している. 平均より大きな値域で大きめの峰が, 平均より小さい値域でも小さい峰が発生している<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>. 図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:min-max-stat">4.5</a>の歪度の推移から, なんらかの形で分布が歪んでいることは予想できたが, 具体的な形状は実際にグラフにしないと分からない.</p>
+<p>「能力値平均」の項目では小さい方の峰は存在しない変わりに, 50より少し上のあたりに峰のピークがあり, 逆に50未満の裾野はかなり薄くなっている. この異なる傾向から以下の2つのことが読み取れる.</p>
+<ol style="list-style-type: decimal">
+<li>最近の作品ほど, ステータスの平均が50より少し上になる人物ばかりになっている.</li>
+<li>しかし同時に, 特定の能力値だけが低い or 高い設定の人物が増えている.</li>
+</ol>
+<p>なお, 箱ひげ図は <code>geom_violin()</code>を<code>geom_boxplot()</code>に置き換えるだけで作成できる(図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:boxplot">4.10</a>).</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">df_norm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(主要値平均 =<span class="st"> </span>total)  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, 武力, 知力, 魅力, 政治, 主要値平均) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="op">-</span>title) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> value, <span class="dt">fill =</span> <span class="kw">as.numeric</span>(title))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_continuous_tableau</span>(<span class="dt">guide =</span> F) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>name, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">strip.position =</span> <span class="st">&quot;left&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span>theme_document_no_y <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;タイトル&quot;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:boxplot"></span>
+<img src="three-kingdoms_files/figure-html/boxplot-1.svg" alt="箱ひげ図で表した場合" width="75%" />
+<p class="caption">
+図4.10: 箱ひげ図で表した場合
+</p>
+</div>
+</div>
+<div id="テクニカル-異なるグラフを1つにまとめる" class="section level3 unnumbered">
+<h3>[テクニカル] 異なるグラフを1つにまとめる</h3>
+<p>もっと情報を必要最小限のものに縮約できないだろうか? 図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:violins1">4.9</a>の「主要能力平均値」さえ提示すれば, 最近の作品ほど50より少し上野あたりに能力値平均のボリュームゾーンが存在し, それ以外の頻度が減っていることを示せる. 後は作品ごとの標準偏差, 尖度, 歪度の傾向を見せれば主張したいことに必要最小限の情報を提示できるので, そのような複合的な図を作成できないだろうか? もちろん,それぞれの図を個別に作成するだけのほうが簡単であるが, 作成できれば資料作成のときに何かと便利である.</p>
+<p>しかし, 既に紹介した <code>facet_wrap()</code>/<code>facet_grid()</code>は, 同じグラフを分割するだけで, 異なるグラフに分割する機能はない. 異なるグラフを1つの画像にまとめるには, <code>patchwork</code>パッケージを利用すると簡単である.</p>
+<p><code>geom_point()</code>や<code>geom_line()</code>が描く点や線は入力データの点に対して1対1に対応している. しかし今は集計した結果を点や線で描画したい. このような場合, 事前にデータフレームに集計処理を加えたものを与えることもできるが, <code>stat_summary()</code>を使うことでggplot内で集計した結果を表示することもできる.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">g_concentrate &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df_norm, <span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> total, <span class="dt">fill =</span> <span class="kw">as.integer</span>(title))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_continuous_tableau</span>(<span class="dt">guide =</span> F, <span class="st">&quot;Classic Blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;主要能力値平均&quot;</span>) <span class="op">+</span><span class="st"> </span>theme_document_no_y <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>())</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">g_concentrate_sd &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df_norm, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.integer</span>(title), <span class="dt">y=</span>total)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> sd, <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> sd, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;標準偏差&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="st">  </span>theme_document_no_y <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title =</span> <span class="kw">element_blank</span>())</a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">g_concentrate_kurto &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df_norm, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.integer</span>(title), <span class="dt">y=</span>total)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-10" data-line-number="10"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> kurtosis, <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-11" data-line-number="11"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> kurtosis, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;尖度&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-12" data-line-number="12"><span class="st">  </span>theme_document_no_y <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">15</span>))</a></code></pre></div>
+<p><code>g_concentrate_sd</code> は標準偏差の傾向を表すグラフである. <code>stat_summary(fun = sd)</code>は入力データのy軸に指定した変数に対して<code>sd()</code>つまり標準偏差を計算する関数を適用するということである. <code>g_concentrate_kurto</code>は同様に尖度を計算したものである.</p>
+
+<div class="rmdtip">
+この方法はグラフを描くたびに集計処理をする必要があるので, サイズの大きなデータを扱うときは非効率であることに注意する.
+</div>
+
+<p>最後に作成した3種類のグラフを <code>/</code> で垂直に連結する. これは <code>patchwork</code>パッケージ<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a>による機能である. これまでggplot2で作成した複数のグラフを連結して1つの画像にするには<code>gridExtra</code> が必要だった<a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a>. しかしこれは構文がやや複雑だ. そもそも複数のグラフを結合すると言っても10も20も連結したいときは稀である. 手軽にグラフを連結したい<a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a>場合は<code>patchwork</code>パッケージのほうが向いている. このパッケージは2年ほど前から存在したが, 最近CRANに登録された.</p>
+<p>以上の方法で作成した画像が図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:patchwork-demo">4.11</a>である.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">(g_concentrate <span class="op">/</span><span class="st"> </span>g_concentrate_sd <span class="op">/</span><span class="st"> </span>g_concentrate_kurto) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;タイトル&quot;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:patchwork-demo"></span>
+<img src="three-kingdoms_files/figure-html/patchwork-demo-1.svg" alt="シリーズごとの能力値分布の変遷" width="75%" />
+<p class="caption">
+図4.11: シリーズごとの能力値分布の変遷
+</p>
+</div>
+</div>
+</div>
+<div id="データの視覚化からわかったこと" class="section level2">
+<h2><span class="header-section-number">4.5</span> データの視覚化からわかったこと</h2>
+<p>今回取得できたもの以外にも, 各作品では登場人物に特徴を与える能力値の項目がいくつも存在する. 全ての能力値の項目を使って検証できていないという問題はあるが, 「最近の作品ほど能力値の多様性が乏しくなりつつある 」という仮説を裏付ける結果が得られた. 一方で, 個別のステータスの分布を見れば, 「二極化」が発生していることがわかる. つまりより正確には,「武力」や「知力」など一芸に特化した人物が増え, かつそのステータス値の多様性がなくなりつつある, と言うべきだろう.</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-healy2018Data">
+<p>Healy, Kieran. 2018. <em>Data Visualization: A Practical Introduction</em>. Princeton, NJ: Princeton University Press. <a href="https://kieranhealy.org/publications/dataviz/">https://kieranhealy.org/publications/dataviz/</a>.</p>
+</div>
+<div id="ref-Schwabish2014">
+<p>Schwabish, Jonathan A. 2014. “An Economist’s Guide to Visualizing Data.” <em>Journal of Economic Perspectives</em> 28 (1): 209–34. <a href="https://doi.org/10.1257/jep.28.1.209">https://doi.org/10.1257/jep.28.1.209</a>.</p>
+</div>
+<div id="ref-tufte2001Visual">
+<p>Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. 2nd ed. Cheshire, Conn: Graphics Press.</p>
+</div>
+<div id="ref-morihujiantibayes2014">
+<p>森藤, 大地, and あんちべ. 2014. <em>エンジニアのためのデータ可視化「実践」入門: D3.jsによるWebの可視化</em>. <a href="https://gihyo.jp/book/2014/978-4-7741-6326-0">https://gihyo.jp/book/2014/978-4-7741-6326-0</a>.</p>
+</div>
+<div id="ref-hujiwatanabe2019">
+<p>藤, 俊久仁, and 渡部良一. 2019. <em>データビジュアライゼーションの教科書</em>. 東京: 秀和システム. <a href="https://www.shuwasystem.co.jp/book/9784798053486.html">https://www.shuwasystem.co.jp/book/9784798053486.html</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="29">
+<li id="fn29"><p>今回のデータは, 各人物が三国志演義と正史三国志いずれに登場しているかをはっきり示す情報を含んでいない. 万全を期すならば詳細に調査すべきだが, 名寄せ処理と同様の理由で今回は割愛した.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref29" class="footnote-back">↩</a></p></li>
+<li id="fn30"><p>Pythonモジュールの例だが, 私がデータ分析で求めるグラフ作成ツールの要件について過去に書いたことがある. <a href="https://qiita.com/s_katagiri/items/26763fd39f3dd9756809" class="uri">https://qiita.com/s_katagiri/items/26763fd39f3dd9756809</a><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref30" class="footnote-back">↩</a></p></li>
+<li id="fn31"><p><a href="https://oku.edu.mie-u.ac.jp/~okumura/blog/node/2266">3D円グラフを使うのはやめよう | Okumura’s Blog</a> <a href="http://aikelab.net/wdgg/">Wonder Graph Generator</a>, <span class="citation">森藤 and あんちべ (<a href="#ref-morihujiantibayes2014">2014</a>)</span><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref31" class="footnote-back">↩</a></p></li>
+<li id="fn32"><p><a href="https://oku.edu.mie-u.ac.jp/~okumura/blog/node/2304">ユーレイ棒グラフ？ | Okumura’s Blog - 奥村研究室</a><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref32" class="footnote-back">↩</a></p></li>
+<li id="fn33"><p>Tufte の名前は日本語文献でもちらほらみられるようになったが, そもそも著作は未だに翻訳されていない. だれかやりましょう?<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref33" class="footnote-back">↩</a></p></li>
+<li id="fn34"><p>ただし日本語の情報が少ない. 私の知る限り『<a href="https://niszet.github.io/TokyoR72LT/TokyoR72LT.html#/skimrsummarytools">niszet氏のスライド</a>』の作者が唯一言及しているのみで, しかも現在はさらに仕様が変わっている.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref34" class="footnote-back">↩</a></p></li>
+<li id="fn35"><p>発表の反響を踏まえての追記: <code>skimr</code>以外にも見やすい表を提供するパッケージはある. 同じくniszet氏のブログに『<a href="https://niszet.hatenablog.com/entry/2018/07/23/073000">(R) summarytoolsパッケージ、便利そう…</a>』という記事がある. 私が<code>skimr</code>を挙げた理由として, プレーンテキストとして扱えるという点も大きいことを補足せねばならない. というのも, 私が資料を作成するときはLaTeXかRMarkdownなので, これらのフォーマットでの表に変換しやすい形で出力しやすい<code>skimr</code>を薦めた. <code>summarytools</code>もまた<code>skimr</code>と似た用途のパッケージである. ただし, summarytoolsはhtml出力を念頭に置いていることと, <code>group_by</code>によるグループ別の要約統計量の出力が見づらいという問題がある.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref35" class="footnote-back">↩</a></p></li>
+<li id="fn36"><p>変数ごとに別々に<code>geom_line()</code>で描画することもできるが, このやり方は色の割り当てまで手動指定する必要がある. このような使い方は<code>ggplot2</code>のアドバンテージを失うことになるためなるべく避けたい.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref36" class="footnote-back">↩</a></p></li>
+<li id="fn37"><p>三國志1のみ「カリスマ」という名称になっている<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref37" class="footnote-back">↩</a></p></li>
+<li id="fn38"><p>1~100の数値で表現されるステータス項目はシリーズごとに異なる. 武力, 魅力,知力, 政治, 統率, 陸指 (陸戦指揮), 水指 (水戦指揮) などがある.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref38" class="footnote-back">↩</a></p></li>
+<li id="fn39"><p>初期の作品である三國志3にも瓢箪めいたくびれがある. これは「陸指」「水指」という2つのパラメータで能力の差別化がなされているからである. この2項目を除外して平均を取ると, 多峰性は消える.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref39" class="footnote-back">↩</a></p></li>
+<li id="fn40"><p>公式: <a href="https://patchwork.data-imaginist.com/" class="uri">https://patchwork.data-imaginist.com/</a> 日本語しか読めないならばこのページが良い. <a href="https://qiita.com/nozma/items/4512623bea296ccb74ba" class="uri">https://qiita.com/nozma/items/4512623bea296ccb74ba</a><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref40" class="footnote-back">↩</a></p></li>
+<li id="fn41"><p><code>gridExtra</code>の使い方を日本語で説明したページは例えば次のようなものがある.: <a href="https://id.fnshr.info/2016/10/10/gridextra/" class="uri">https://id.fnshr.info/2016/10/10/gridextra/</a><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref41" class="footnote-back">↩</a></p></li>
+<li id="fn42"><p>手軽でない場合というのもあまり想定しにくいが, 例えば散布図の周りにヒストグラムまたは推定した密度関数を付け足したグラフをたまに見かける. 私はこのようなグラフが必須という状況に詳しくない(例えば紙面が限られる学会のポスター発表?)が, こういう複雑なものを描きたいのであれば, <code>cowplot</code>や<code>ggExtra</code>を使うという選択肢もある. しかし, <a href="https://github.com/wilkelab/cowplot/issues/40">cowplotの作例</a>, <a href="https://blog.atusy.net/2018/11/02/marginal-patchwork/">patchworkの作例</a>, <a href="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2.html">ggExtraの作例</a> などを見る限り, 煩雑さでは大差ないようである.<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fnref42" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="前処理.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="追加の分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"download": "pdf"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

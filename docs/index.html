@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>三國志で学ぶデータ分析 (Japan.R 2019)</title>
+  <meta name="description" content="三国志で学べ" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="三國志で学ぶデータ分析 (Japan.R 2019)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="三国志で学べ" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="三國志で学ぶデータ分析 (Japan.R 2019)" />
+  
+  <meta name="twitter:description" content="三国志で学べ" />
+  
+
+<meta name="author" content="ill-identified" />
+
+
+<meta name="date" content="2020-03-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="イントロダクション.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Top</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 概要</a></li>
+<li class="chapter" data-level="2" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>2</b> イントロダクション</a><ul>
+<li class="chapter" data-level="2.1" data-path="イントロダクション.html"><a href="イントロダクション.html#三国志の背景"><i class="fa fa-check"></i><b>2.1</b> 三国志の背景</a></li>
+<li class="chapter" data-level="2.2" data-path="イントロダクション.html"><a href="イントロダクション.html#コーエーテクモのゲーム三國志シリーズ"><i class="fa fa-check"></i><b>2.2</b> コーエーテクモのゲーム『三國志』シリーズ</a></li>
+<li class="chapter" data-level="2.3" data-path="イントロダクション.html"><a href="イントロダクション.html#問題提起"><i class="fa fa-check"></i><b>2.3</b> 問題提起</a></li>
+<li class="chapter" data-level="2.4" data-path="イントロダクション.html"><a href="イントロダクション.html#先行関連研究"><i class="fa fa-check"></i><b>2.4</b> 先行・関連研究</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>3</b> 前処理</a><ul>
+<li class="chapter" data-level="3.1" data-path="前処理.html"><a href="前処理.html#データ取得元"><i class="fa fa-check"></i><b>3.1</b> データ取得元</a></li>
+<li class="chapter" data-level="3.2" data-path="前処理.html"><a href="前処理.html#スクレイピング"><i class="fa fa-check"></i><b>3.2</b> スクレイピング</a></li>
+<li class="chapter" data-level="3.3" data-path="前処理.html"><a href="前処理.html#データの整然化"><i class="fa fa-check"></i><b>3.3</b> データの整然化</a></li>
+<li class="chapter" data-level="3.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>3.4</b> さらなる名寄せ処理</a><ul>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#三国志以外の登場人物を除外する"><i class="fa fa-check"></i>三国志以外の登場人物を除外する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#漢字が使われていない名前を検査する"><i class="fa fa-check"></i>漢字が使われていない名前を検査する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#字以上の名前を検査する"><i class="fa fa-check"></i>3字以上の名前を検査する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#出現頻度の少ない人名を検査する"><i class="fa fa-check"></i>出現頻度の少ない人名を検査する</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="前処理.html"><a href="前処理.html#機械学習による名寄せ処理"><i class="fa fa-check"></i><b>3.5</b> 機械学習による名寄せ処理</a></li>
+<li class="chapter" data-level="3.6" data-path="前処理.html"><a href="前処理.html#草稿-ディープラーニングでなんとかできないか"><i class="fa fa-check"></i><b>3.6</b> [草稿] ディープラーニングでなんとかできないか?</a></li>
+<li class="chapter" data-level="3.7" data-path="前処理.html"><a href="前処理.html#補足-dbpedia-を利用した二重チェック"><i class="fa fa-check"></i><b>3.7</b> 補足: DBpedia を利用した二重チェック</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>4</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a><ul>
+<li class="chapter" data-level="4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>4.1</b> <code>ggplot2</code>による視覚化</a><ul>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-ggplot2の使い方"><i class="fa fa-check"></i>[テクニカル] ggplot2の使い方</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#補足-データビジュアライゼーションの教科書について"><i class="fa fa-check"></i><b>4.2</b> 補足: データビジュアライゼーションの教科書について</a></li>
+<li class="chapter" data-level="4.3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#skimrによる要約統計の計算"><i class="fa fa-check"></i><b>4.3</b> <code>skimr</code>による要約統計の計算</a></li>
+<li class="chapter" data-level="4.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>4.4</b> 要約統計量の視覚化による判断</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#作品ごとの要約統計量推移"><i class="fa fa-check"></i><b>4.4.1</b> 作品ごとの要約統計量推移</a></li>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-複数の折れ線グラフの描き方"><i class="fa fa-check"></i>[テクニカル] 複数の折れ線グラフの描き方</a></li>
+<li class="chapter" data-level="4.4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#人物別に確認する"><i class="fa fa-check"></i><b>4.4.2</b> 人物別に確認する</a></li>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-異なるグラフを1つにまとめる"><i class="fa fa-check"></i>[テクニカル] 異なるグラフを1つにまとめる</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#データの視覚化からわかったこと"><i class="fa fa-check"></i><b>4.5</b> データの視覚化からわかったこと</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>5</b> 追加の分析</a><ul>
+<li class="chapter" data-level="5.1" data-path="追加の分析.html"><a href="追加の分析.html#主成分分析の利用"><i class="fa fa-check"></i><b>5.1</b> 主成分分析の利用</a></li>
+<li class="chapter" data-level="5.2" data-path="追加の分析.html"><a href="追加の分析.html#魏呉蜀の勢力別ひいき"><i class="fa fa-check"></i><b>5.2</b> 魏・呉・蜀の勢力別ひいき</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="まとめ.html"><a href="まとめ.html"><i class="fa fa-check"></i><b>6</b> まとめ</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">三國志で学ぶデータ分析 (Japan.R 2019)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">三國志で学ぶデータ分析 (Japan.R 2019)</h1>
+<p class="author"><em>ill-identified</em></p>
+<p class="date"><em>2020-03-14</em></p>
+</div>
+<div id="概要" class="section level1">
+<h1><span class="header-section-number">1</span> 概要</h1>
+<p>この記事は 2019/12/7 に開催された Japan.R の発表原稿をもとに作成した資料である.</p>
+<p>この記事の目的は2つ.</p>
+<ol style="list-style-type: decimal">
+<li>日本語資料の流入によって, 『三国志演義』以外の観点から登場人物の再評価が進んだことが, コーエーテクモのゲームシリーズ『三國志』にどのような影響を与えているかをデータに基づく分析で示す</li>
+<li>実際の作業の流れに沿って, 使用したRのコードを解説することで「データ分析のチュートリアル」としても使えるような構成にする</li>
+</ol>
+<p>当初は 5分間のLTの予定だったので要約統計量 (記述統計量) の見方とかを話すつもりだったが, 20分枠に変更されたことに合わせてボリュームを増そうとしたら急に三国志を題材にすることを思いついたのでバランスが狂った感じになった.</p>
+<p>注意1: 今回の内容は日本で普及しているフォントで表示できない文字が含まれるなどの写植上の制約から, フォントを埋め込んだ pdf 版を公開している. 例えば, <a href="https://fonts.jp/hanazono/">花園明朝B</a>をインストールしていないと表示できない文字がある.</p>
+<p>注意2: 教材として洗練させるため, 発表時の内容から一部変更している.</p>
+<div id="キーワード" class="section level4 unnumbered">
+<h4>キーワード</h4>
+<p>三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="イントロダクション.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"download": "pdf"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

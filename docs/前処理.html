@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 前処理 | 三國志で学ぶデータ分析 (Japan.R 2019)</title>
+  <meta name="description" content="三国志で学べ" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 前処理 | 三國志で学ぶデータ分析 (Japan.R 2019)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="三国志で学べ" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 前処理 | 三國志で学ぶデータ分析 (Japan.R 2019)" />
+  
+  <meta name="twitter:description" content="三国志で学べ" />
+  
+
+<meta name="author" content="ill-identified" />
+
+
+<meta name="date" content="2020-03-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="イントロダクション.html"/>
+<link rel="next" href="検証三國志シリーズの人材は年々無個性化しているのか.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Top</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 概要</a></li>
+<li class="chapter" data-level="2" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>2</b> イントロダクション</a><ul>
+<li class="chapter" data-level="2.1" data-path="イントロダクション.html"><a href="イントロダクション.html#三国志の背景"><i class="fa fa-check"></i><b>2.1</b> 三国志の背景</a></li>
+<li class="chapter" data-level="2.2" data-path="イントロダクション.html"><a href="イントロダクション.html#コーエーテクモのゲーム三國志シリーズ"><i class="fa fa-check"></i><b>2.2</b> コーエーテクモのゲーム『三國志』シリーズ</a></li>
+<li class="chapter" data-level="2.3" data-path="イントロダクション.html"><a href="イントロダクション.html#問題提起"><i class="fa fa-check"></i><b>2.3</b> 問題提起</a></li>
+<li class="chapter" data-level="2.4" data-path="イントロダクション.html"><a href="イントロダクション.html#先行関連研究"><i class="fa fa-check"></i><b>2.4</b> 先行・関連研究</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>3</b> 前処理</a><ul>
+<li class="chapter" data-level="3.1" data-path="前処理.html"><a href="前処理.html#データ取得元"><i class="fa fa-check"></i><b>3.1</b> データ取得元</a></li>
+<li class="chapter" data-level="3.2" data-path="前処理.html"><a href="前処理.html#スクレイピング"><i class="fa fa-check"></i><b>3.2</b> スクレイピング</a></li>
+<li class="chapter" data-level="3.3" data-path="前処理.html"><a href="前処理.html#データの整然化"><i class="fa fa-check"></i><b>3.3</b> データの整然化</a></li>
+<li class="chapter" data-level="3.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>3.4</b> さらなる名寄せ処理</a><ul>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#三国志以外の登場人物を除外する"><i class="fa fa-check"></i>三国志以外の登場人物を除外する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#漢字が使われていない名前を検査する"><i class="fa fa-check"></i>漢字が使われていない名前を検査する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#字以上の名前を検査する"><i class="fa fa-check"></i>3字以上の名前を検査する</a></li>
+<li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#出現頻度の少ない人名を検査する"><i class="fa fa-check"></i>出現頻度の少ない人名を検査する</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="前処理.html"><a href="前処理.html#機械学習による名寄せ処理"><i class="fa fa-check"></i><b>3.5</b> 機械学習による名寄せ処理</a></li>
+<li class="chapter" data-level="3.6" data-path="前処理.html"><a href="前処理.html#草稿-ディープラーニングでなんとかできないか"><i class="fa fa-check"></i><b>3.6</b> [草稿] ディープラーニングでなんとかできないか?</a></li>
+<li class="chapter" data-level="3.7" data-path="前処理.html"><a href="前処理.html#補足-dbpedia-を利用した二重チェック"><i class="fa fa-check"></i><b>3.7</b> 補足: DBpedia を利用した二重チェック</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>4</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a><ul>
+<li class="chapter" data-level="4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>4.1</b> <code>ggplot2</code>による視覚化</a><ul>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-ggplot2の使い方"><i class="fa fa-check"></i>[テクニカル] ggplot2の使い方</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#補足-データビジュアライゼーションの教科書について"><i class="fa fa-check"></i><b>4.2</b> 補足: データビジュアライゼーションの教科書について</a></li>
+<li class="chapter" data-level="4.3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#skimrによる要約統計の計算"><i class="fa fa-check"></i><b>4.3</b> <code>skimr</code>による要約統計の計算</a></li>
+<li class="chapter" data-level="4.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>4.4</b> 要約統計量の視覚化による判断</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#作品ごとの要約統計量推移"><i class="fa fa-check"></i><b>4.4.1</b> 作品ごとの要約統計量推移</a></li>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-複数の折れ線グラフの描き方"><i class="fa fa-check"></i>[テクニカル] 複数の折れ線グラフの描き方</a></li>
+<li class="chapter" data-level="4.4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#人物別に確認する"><i class="fa fa-check"></i><b>4.4.2</b> 人物別に確認する</a></li>
+<li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-異なるグラフを1つにまとめる"><i class="fa fa-check"></i>[テクニカル] 異なるグラフを1つにまとめる</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#データの視覚化からわかったこと"><i class="fa fa-check"></i><b>4.5</b> データの視覚化からわかったこと</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>5</b> 追加の分析</a><ul>
+<li class="chapter" data-level="5.1" data-path="追加の分析.html"><a href="追加の分析.html#主成分分析の利用"><i class="fa fa-check"></i><b>5.1</b> 主成分分析の利用</a></li>
+<li class="chapter" data-level="5.2" data-path="追加の分析.html"><a href="追加の分析.html#魏呉蜀の勢力別ひいき"><i class="fa fa-check"></i><b>5.2</b> 魏・呉・蜀の勢力別ひいき</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="まとめ.html"><a href="まとめ.html"><i class="fa fa-check"></i><b>6</b> まとめ</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">三國志で学ぶデータ分析 (Japan.R 2019)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="前処理" class="section level1">
+<h1><span class="header-section-number">3</span> 前処理</h1>
+<div id="データ取得元" class="section level2">
+<h2><span class="header-section-number">3.1</span> データ取得元</h2>
+<p>三國志シリーズの登場人物のステータス情報は, インターネット上のいくつかの個人サイトから取得した.</p>
+<ul>
+<li>三國志 1-7<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>, および 12: <a href="http://hima.que.ne.jp/sangokushi/%20">瀬戸大将-三國志 舞踏仙郷-</a></li>
+<li>三國志 8: <a href="http://web.archive.org/web/20120604085907/http://yo7.org/3594/san8/db/trtk.html">武将リスト (web archive)</a></li>
+<li>三國志 9: <a href="http://lee.serio.jp/novel/sangoku/san9busho.html">三國志9武将一覧</a></li>
+<li>三國志 10: <a href="http://channel2.s151.xrea.com/sansen/san10/10-ichiran.html">三国志10武将データ</a></li>
+<li>三國志 11: <a href="https://w.atwiki.jp/sangokushi11/pages/148.html">史実武将データ - 三國志11攻略wiki</a></li>
+<li>三國志 13: <a href="https://sangokushi13wiki.wiki.fc2.com/wiki/%E6%AD%A6%E5%B0%86%E4%B8%80%E8%A6%A7">武将一覧 - 三國志13 攻略 WIKI</a></li>
+</ul>
+<p>コーエーテクモ公式の資料集も存在するが, 全て紙媒体であり, 購入および転記のコスト(時間と転記時の書き間違えの可能性)を考えて利用しなかった.</p>
+
+<div class="rmdtip">
+前処理に使うパッケージの一部は外部プログラムに依存している. 具体的には<code>rvest</code>, <code>SPARQL</code>などスクレイピングに使う各種パッケージが依存している<code>curl</code>パッケージで, これは<code>libcurl</code>という外部プログラムのインターフェースにすぎない. Windowsの場合はパッケージインストール時にまとめてインストールできるが, <a href="https://github.com/jeroen/curl">公式リポジトリ</a>によればLinux系は個別にインストールする必要がある. また, 今回使用するパッケージの一部はCRANに登録されていないため, <code>remotes</code>パッケージを予めインストールしておく必要がある.
+</div>
+
+</div>
+<div id="スクレイピング" class="section level2">
+<h2><span class="header-section-number">3.2</span> スクレイピング</h2>
+
+<div class="rmdtip">
+ここで説明する処理は<code>scraping.R</code>である.
+</div>
+
+<p>まずは <code>rvest</code> パッケージで各ページを取得した. <code>rvest</code> はパイプ演算子でスクレイピングした html (xml) ノードデータを取得できるため, 使い勝手が良いパッケージである. 取得したページを <code>rvest</code> や <code>tidyverse</code> を使い整然データとする.</p>
+<p>たとえば, 三国志1の武将一覧は複数ページにまたがっているが, 語尾の<code>;p=</code>以降のページ数を書き換えれば簡単に複数ページを取得できる.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">url_<span class="dv">1</span> &lt;-<span class="st"> &quot;http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&amp;keys2%2C6=&amp;index=&amp;IDn001=AND&amp;sort=up6s&amp;print=100;p=&quot;</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">source1 &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>){</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  source1[[i]] &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="kw">paste0</span>(url_<span class="dv">1</span>, i<span class="dv">-1</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">Sys.sleep</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">}</a></code></pre></div>
+
+<div class="rmdtip">
+今回はデータ転送総量はさほどではないが, むやみにスクレイピングすることはホストサーバーに負荷を掛けうる. <code>robots.txt</code> を参照するなどして節度を守ってスクレイピングすべきであろう.
+</div>
+
+<p>ソースファイルを取得したら一旦ローカルに保存しておくべきだろう. するとここで注意点が1つある. <code>rvest</code>は<code>xml2</code>パッケージに依存しており<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, このパッケージは外部プログラムでxml(html)を制御している. このため出力されるRオブジェクトには一時的なポインタ情報しか含まれていないため, これをそのまま <code>save()</code>や<code>save.rds()</code>で保存して再読込すると, 外部データの参照ができなくなる. よって, xmlオブジェクトは一旦<strong>文字列に変換して</strong>から保存しなければならない. 全シリーズの取得結果を保存するため, 以下のような処理を書いている<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>. source1から13までがそれぞれ作品ごとに取得したxml文書オブジェクトである.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">sources &lt;-<span class="st"> </span><span class="kw">map2_dfr</span>(</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">list</span>(source1, source2, source3, source4, source5, source6, source7, source8, source9, source10, source11, source12, source13),</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="dv">1</span><span class="op">:</span><span class="dv">13</span>,</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="cf">function</span>(x, t) <span class="kw">tibble</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title=</span>t, <span class="dt">page=</span><span class="kw">row_number</span>())</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">html=</span><span class="kw">map</span>(x, as.character)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>x)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">write_rds</span>(sources, <span class="st">&quot;data/sources.rds&quot;</span>)</a></code></pre></div>
+</div>
+<div id="データの整然化" class="section level2">
+<h2><span class="header-section-number">3.3</span> データの整然化</h2>
+
+<div class="rmdtip">
+ここで説明する処理は<code>tidying.R</code>である.
+</div>
+
+<p>こうして読み込んだサイトは全て管理者が異なり, 非公式のものであるからフォーマットも違うため, それぞれ異なる処理を通して共通の構造をもつデータフレームに変換する必要がある(整然化). 多くは <code>&lt;table&gt;</code> タグを使って掲載されているため, <code>rvest::html_table()</code> 関数を使えば概ねうまくいく.</p>
+
+<div class="rmdtip">
+<p>データの整然化(tidying)について知らない場合は, 以下のページで基本的な理念を知れる.
+<a href="https://id.fnshr.info/2017/01/09/tidy-data-intro/" class="uri">https://id.fnshr.info/2017/01/09/tidy-data-intro/</a></p>
+<p>整然化の理念の実装は複数のパッケージで提供されるが, 現在は<code>tidyverse</code>というオールインワンパッケージをインストールすれば良いだろう.</p>
+<p>関連パッケージの用途については以下で解説されている
+<a href="https://uribo.hatenablog.com/entry/tidy_poem2017_day4" class="uri">https://uribo.hatenablog.com/entry/tidy_poem2017_day4</a></p>
+ただし, 関数の仕様は変わることがあるので情報の鮮度に注意が必要である.
+</div>
+
+<p>読み込んだものをテーブル形式に変換する具体例として『三國志II』の場合を解説する.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># (1)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">df2_header &lt;-<span class="st"> </span><span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)<span class="op">$</span>html[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>(<span class="dt">header =</span> F) <span class="op">%&gt;%</span><span class="st"> </span>as.character</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">df2_header[<span class="dv">1</span>] &lt;-<span class="st"> &quot;name&quot;</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>()</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  df2 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">    df2,</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)<span class="op">$</span>html[[i]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">      </span><span class="kw">map_dfr</span>(<span class="cf">function</span>(x) <span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">as.character</span>(x), <span class="dt">byrow =</span> T, <span class="dt">nrow =</span> <span class="dv">1</span>), <span class="dt">stringsAsFactors =</span> F))</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  )</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co"># (2)</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">df2 &lt;-<span class="st"> </span>df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(df2_header) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name <span class="op">!=</span><span class="st"> &quot;武将名&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(知力, 武力, 魅力, 義理, 野望, 相性), <span class="dt">.funs =</span> as.integer)</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co"># (3)</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">df2 &lt;-<span class="st"> </span><span class="kw">mutate</span>(df2, <span class="dt">title =</span> <span class="st">&quot;2&quot;</span>, <span class="dt">order =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, order, name, <span class="kw">everything</span>())</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co"># (4)</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="kw">check_dup</span>(df2)</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">df2<span class="op">$</span>name[<span class="kw">c</span>(<span class="dv">62</span>, <span class="dv">125</span>, <span class="dv">296</span>, <span class="dv">24</span>, <span class="dv">218</span>, <span class="dv">220</span>, <span class="dv">234</span>, <span class="dv">279</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;楽就&quot;</span>, <span class="st">&quot;辛評&quot;</span>, <span class="st">&quot;劉曄&quot;</span>, <span class="st">&quot;賈華&quot;</span>, <span class="st">&quot;陶謙&quot;</span>, <span class="st">&quot;董衡&quot;</span>, <span class="st">&quot;馬忠 (孫呉)&quot;</span>, <span class="st">&quot;李豊 (東漢)&quot;</span>)</a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="kw">check_dup</span>(df2)</a></code></pre></div>
+<p>この中では, (1) html内の<code>&lt;table&gt;</code>を読み込む, (2) データフレームに手動で列名を定義しなおす, (3) 各列の型を正しく認識させる, (4) 入力内容のおかしな部分がないか簡単にチェックする, という処理をおこなっている.</p>
+<p>(4)は単純な入力ミスの修正と, 数組の同姓同名の人物を識別するための処理である. このような修正をすべきかの判断は完全に自動化することはできないため, 各シリーズごとに名前の重複がないかなどを地道に調べる必要があった. そこで処理の終盤では以下のような, データフレームを入力として名前の重複を出力する関数を使用している.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">check_dup &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(n<span class="op">&gt;</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(x, <span class="dt">by=</span><span class="st">&quot;name&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(title, order, name, n, <span class="kw">everything</span>())</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">}</a></code></pre></div>
+<p>おもな同姓同名の人物には以下のようなものがある.</p>
+<ul>
+<li><strong><ruby>張温<rp>(</rp><rt>チョウオン</rt><rp>)</rp></ruby></strong>: 東漢 (後漢) の高級官僚と, 孫呉に仕えた人物</li>
+<li><strong><ruby>張闓<rp>(</rp><rt>チョウガイ</rt><rp>)</rp></ruby></strong>: 陶謙に仕えた武将と, 袁術に仕えた武将</li>
+<li><strong><ruby>張南<rp>(</rp><rt>チョウナン</rt><rp>)</rp></ruby></strong>: 袁紹に仕えたのち曹操に降伏した武将と, 蜀の武将</li>
+<li><strong><ruby>馬忠<rp>(</rp><rt>バチュウ</rt><rp>)</rp></ruby></strong>: 呉の孫権に仕えた武将と, 蜀の武将</li>
+<li><strong><ruby>李豊<rp>(</rp><rt>リホウ</rt><rp>)</rp></ruby></strong> : 袁術に仕えた武将と, 蜀漢の武将李厳の子, そして魏の人物</li>
+</ul>
+<p>これらは識別できなければならないため, 名前の末尾に「孫呉」「東漢」などと所属勢力を括弧書きで追加した. 上記の三國志IIの場合でいえば, 馬忠と李豊が当てはまる. それ以外は異なるステータスで名前の同じ項目があったため, 生没年や字の有無, ステータスの数値等から判断して修正している.</p>
+
+<div class="rmdtip">
+これ以外にも修正の必要な箇所が多く存在した. より大掛かりな名寄せ処理は後のセクションで解説する.
+</div>
+
+<p>各シリーズのうち特に手間がかかったのは, 表が整然化されていない三國志9と, 表の背景色でデータを表現していた三國志12のページである. 前者は一つのセルに複数の項目が文字列として入っていた (図<a href="前処理.html#fig:threekingdom9">3.1</a>) ため, <code>stringr::str_split_fixed()</code> など文字列を処理するパッケージを駆使して分解する必要があった. 後者は, 1名の人物あたり2行で掲載し, なおかつ一部の項目を文字ではなく背景色の塗りつぶしで表現していた (図<a href="前処理.html#fig:threekingdom12">3.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:threekingdom9"></span>
+<img src="img/three_kingdom9.png" alt="三國志9 の人物一覧ページ" width="75%" />
+<p class="caption">
+図3.1: 三國志9 の人物一覧ページ
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:threekingdom12"></span>
+<img src="img/three_kingdom12.png" alt="三國志12 の人物一覧ページ" width="75%" />
+<p class="caption">
+図3.2: 三國志12 の人物一覧ページ
+</p>
+</div>
+<p>三國志9の場合は<code>stringr::str_split_fixed()</code>で文字列を1文字ごとに分解し, 個別の列に分割している.</p>
+<p>まず, 以下はスクレイピング結果を読み込みデータフレームに変換し, 数値として扱いたい列を数値型に変換している</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">df9 &lt;-<span class="st"> </span><span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">9</span>)<span class="op">$</span>html[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>(<span class="dt">header =</span> T) <span class="op">%&gt;%</span><span class="st"> </span>as_tibble</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">df9 &lt;-<span class="st"> </span><span class="kw">filter</span>(df9, ID <span class="op">!=</span><span class="st"> &quot;ID&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate_all</span>(na_if, <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fill</span>(ID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">name =</span> 名前) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(統率, 武力, 知力, 政治, 誕生, 寿命, 相性, 義理, 野望), <span class="dt">.funs =</span> as.integer)</a></code></pre></div>
+<p>次に, 問題の列を分割している. これらはある能力を持っているかどうかを表す列であり, 3, 4個の能力を1つのセルにまとめて表示していた. これを<code>stringr::str_split_fixed()</code>によって分解している.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">df9 &lt;-<span class="st"> </span>df9 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_cols</span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>奮奮奮戦闘迅, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;奮戦&quot;</span>, <span class="st">&quot;奮闘&quot;</span>, <span class="st">&quot;奮迅&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>突突突破進撃, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;突破&quot;</span>, <span class="st">&quot;突進&quot;</span>, <span class="st">&quot;突撃&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>騎走飛射射射, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;騎射&quot;</span>, <span class="st">&quot;走射&quot;</span>, <span class="st">&quot;飛射&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>斉連連射射弩, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;斉射&quot;</span>, <span class="st">&quot;連射&quot;</span>, <span class="st">&quot;連弩&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>蒙楼闘衝船艦, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;蒙衝&quot;</span>, <span class="st">&quot;楼船&quot;</span>, <span class="st">&quot;闘艦&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>井衝投象闌車石兵, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;井闌&quot;</span>, <span class="st">&quot;衝車&quot;</span>, <span class="st">&quot;投石&quot;</span>, <span class="st">&quot;象兵&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>造石罠教営兵破唆, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;造営&quot;</span>, <span class="st">&quot;石兵&quot;</span>, <span class="st">&quot;罠破&quot;</span>, <span class="st">&quot;教唆&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span><span class="st">`</span><span class="dt">混罠心幻乱＿攻術</span><span class="st">`</span>, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;混乱&quot;</span>, <span class="st">&quot;罠&quot;</span>, <span class="st">&quot;心攻&quot;</span>, <span class="st">&quot;幻術&quot;</span>)),</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">  <span class="kw">str_split_fixed</span>(.<span class="op">$</span>罵鼓治妖声舞療術, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;罵声&quot;</span>, <span class="st">&quot;鼓舞&quot;</span>, <span class="st">&quot;治療&quot;</span>, <span class="st">&quot;妖術&quot;</span>))</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>奮奮奮戦闘迅, <span class="op">-</span>突突突破進撃, <span class="op">-</span>騎走飛射射射, <span class="op">-</span>斉連連射射弩, <span class="op">-</span>蒙楼闘衝船艦,</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">             <span class="op">-</span>井衝投象闌車石兵, <span class="op">-</span>造石罠教営兵破唆, <span class="op">-</span><span class="st">`</span><span class="dt">混罠心幻乱＿攻術</span><span class="st">`</span>, <span class="op">-</span>罵鼓治妖声舞療術)</a></code></pre></div>
+<p>元の列では能力の有無を “○”, “×” という文字で表しているため, この後の処理のために<code>logical</code>型に変換する. 加えて作成者のいたずらで不要な行が含まれていたので排除している.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">df9 &lt;-<span class="st"> </span><span class="kw">mutate_at</span>(df9, <span class="dt">.vars =</span> <span class="kw">colnames</span>(df9)[<span class="dv">15</span><span class="op">:</span><span class="dv">45</span>], <span class="cf">function</span>(x) <span class="kw">if_else</span>(x <span class="op">==</span><span class="st"> &quot;×&quot;</span>, F, T)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">rename_if</span>(is.logical, <span class="op">~</span><span class="kw">paste0</span>(.x, <span class="st">&quot;lgl&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(性格 =<span class="st"> </span><span class="kw">factor</span>(性格)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">!=</span><span class="st"> &quot;俺様&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="st">&quot;9&quot;</span>, <span class="dt">order =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, order, name, <span class="kw">everything</span>())</a></code></pre></div>
+<p>最後に, 三国志2と同様に人名の重複を確認して修正している.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">check_dup</span>(df9) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;武将&quot;</span>))</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">df9<span class="op">$</span>name[<span class="kw">c</span>(<span class="dv">414</span>, <span class="dv">501</span><span class="op">:</span><span class="dv">502</span>, <span class="dv">600</span><span class="op">:</span><span class="dv">601</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;張南 (蜀漢)&quot;</span>, <span class="st">&quot;馬忠 (孫呉)&quot;</span>, <span class="st">&quot;馬忠 (蜀漢)&quot;</span>, <span class="st">&quot;李豊 (東漢)&quot;</span>, <span class="st">&quot;李豊 (蜀漢)&quot;</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">df9<span class="op">$</span>name[<span class="dv">346</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;孫匡&quot;</span>) <span class="co"># この後の確認で名前に字が混入していたことを発見したので修正</span></a></code></pre></div>
+<p>三國志12は以下のようにテキスト情報とタグの属性をそれぞれ別に取得し結合する必要があった. マウスオーバーで表示を変えるように設定しているため, <code>html_nodes(&quot;.on, .off&quot;)</code>によって必要な部分を抜き出している.</p>
+<p>最初のブロックでは後続の見通しを良くするために列名だけを取り出して<code>df12_header</code>として整形している.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">df12_header &lt;-<span class="st"> </span><span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)<span class="op">$</span>html[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>html_table <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span>as.character</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">df12_header[<span class="kw">grepl</span>(<span class="st">&quot;^特技$&quot;</span>, df12_header)] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;特技&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">grep</span>(<span class="st">&quot;^特技$&quot;</span>, df12_header)))</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">df12_header[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;名前読み&quot;</span>, <span class="st">&quot;名前&quot;</span>, <span class="st">&quot;字読み&quot;</span>, <span class="st">&quot;字&quot;</span>)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">df12_header[<span class="kw">c</span>(<span class="dv">18</span>, <span class="dv">20</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;戦法2&quot;</span>, <span class="st">&quot;戦法3&quot;</span>)</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">df12_header[<span class="dv">38</span>] &lt;-<span class="st"> &quot;口調2&quot;</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">df12_header[<span class="dv">42</span>] &lt;-<span class="st"> &quot;格付け2&quot;</span></a></code></pre></div>
+<p>三国志12のサイトは複数ページにまたがっている. そのため, 1ページごとに処理して同じ形式のデータフレームを作成し, 最後に全て結合することにした. ここではページごとに共通する処理の関数を書いている. 特に<code>d_flag &lt;- ...</code>から始まる行が, htmlタグの属性を取り出す処理である. 複雑になると思われた処理だが, <code>rvest</code>の力を使えば比較的シンプルに書ける.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">parse_table12_by_page &lt;-<span class="st"> </span><span class="cf">function</span>(x, header){</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  d_main &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>html_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="kw">as.character</span>(<span class="kw">unlist</span>(x)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">byrow =</span> T) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">                                                               </span><span class="kw">as.data.frame</span>(<span class="dt">stringsAsFactors =</span> F) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(header)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">    </span>bind_rows <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(名前読み<span class="op">!=</span><span class="st">&quot;武将名&quot;</span>)</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  d_flag &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;.on, .off&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_attr</span>(<span class="st">&quot;class&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>{<span class="kw">ifelse</span>(. <span class="op">==</span><span class="st"> &quot;on&quot;</span>, T, F)} <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">20</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">  d_main[<span class="kw">sort</span>(<span class="kw">grep</span>(<span class="st">&quot;^特技[0-9]+$&quot;</span>, <span class="kw">colnames</span>(d_main)))] &lt;-<span class="st"> </span>d_flag</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="kw">return</span>(<span class="kw">as_tibble</span>(d_main))</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">}</a></code></pre></div>
+<p>各ページに並列して上記の関数を適用し, 結合する. その後列の型や名前を一括して調整した. 最後は例によって人名の調整である.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">df12 &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(<span class="kw">map</span>(<span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)<span class="op">$</span>html, read_html),</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">                <span class="cf">function</span>(x) <span class="kw">parse_table12_by_page</span>(x, df12_header))</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">df12 <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span><span class="st">`</span><span class="dt">合計</span><span class="st">`</span>, <span class="op">-</span><span class="st">`</span><span class="dt">格付け</span><span class="st">`</span>, <span class="op">-</span><span class="st">`</span><span class="dt">格付け2</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(統率, 武力, 知力, 政治, 義理, 勇猛, 相性, 誕生, 登場, 没年, 寿命), as.integer) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate_if</span>(is.character, <span class="cf">function</span>(x) <span class="kw">na_if</span>(x, <span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(口調, 口調2), as.factor) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">name =</span> 名前) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="st">&quot;12&quot;</span>, <span class="dt">order =</span> <span class="kw">row_number</span>())  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, order, name, <span class="kw">everything</span>())</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="kw">check_dup</span>(df12)</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co"># 呉の馬忠は落選</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="kw">filter</span>(df12, <span class="kw">str_detect</span>(name, <span class="st">&quot;馬忠|李豊|張温&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(name, 字, order, 相性, 誕生, 登場, 没年)</a>
+<a class="sourceLine" id="cb11-12" data-line-number="12">df12<span class="op">$</span>name[<span class="kw">c</span>(<span class="dv">257</span>, <span class="dv">332</span>, <span class="dv">403</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;張温 (孫呉)&quot;</span>, <span class="st">&quot;馬忠 (蜀漢)&quot;</span>, <span class="st">&quot;李豊 (東漢)&quot;</span>)</a></code></pre></div>
+<p>以上のような処理を13作品のデータに対して行い, <strong>7,115件</strong>, <strong>1,120名</strong>の人物データが入手できた. しかし, ここまでの例でわかるように三國志シリーズは作品ごとにステータス値の項目が異なる. この後の一括処理のため, いったん名前と登場作品以外の項目はネストしてしまう(表<a href="前処理.html#tab:nest-map">3.1</a>).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">list</span>(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">map_dfr</span>(<span class="op">~</span><span class="kw">group_by</span>(.x, title, order, name) <span class="op">%&gt;%</span><span class="st"> </span>nest <span class="op">%&gt;%</span><span class="st"> </span>ungroup)</a></code></pre></div>
+<table>
+<caption><span id="tab:nest-map">表3.1: </span>nestしたデータフレーム</caption>
+<thead>
+<tr class="header">
+<th align="left">title</th>
+<th align="right">order</th>
+<th align="left">name</th>
+<th align="left">data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">1</td>
+<td align="left">伊籍</td>
+<td align="left">list(読み = “イセキ”, 身体 = 74, 知力 = 86, 武力 = 18, カリスマ = 28, 運勢 = 75)</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="right">2</td>
+<td align="left">于禁</td>
+<td align="left">list(読み = “ウキン”, 身体 = 82, 知力 = 20, 武力 = 72, カリスマ = 25, 運勢 = 28)</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">3</td>
+<td align="left">袁胤</td>
+<td align="left">list(読み = “エンイン”, 身体 = 71, 知力 = 63, 武力 = 25, カリスマ = 92, 運勢 = 50)</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="right">4</td>
+<td align="left">袁煕</td>
+<td align="left">list(読み = “エンキ”, 身体 = 73, 知力 = 52, 武力 = 46, カリスマ = 89, 運勢 = 22)</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">5</td>
+<td align="left">袁紹</td>
+<td align="left">list(読み = “エンショウ”, 身体 = 35, 知力 = 54, 武力 = 82, カリスマ = 98, 運勢 = 86)</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="right">6</td>
+<td align="left">袁尚</td>
+<td align="left">list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カリスマ = 98, 運勢 = 61)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="さらなる名寄せ処理" class="section level2">
+<h2><span class="header-section-number">3.4</span> さらなる名寄せ処理</h2>
+<p>今回の情報源は複数の個人サイトによるもので, フォーマットも全く異なり表記にもかなりゆらぎがある. 単なる誤変換であるもの, 原典である『正史三国志』と『三国志演義』の間でもすでに食い違っているものなど, 原因は様々である. 使用するデータの品質向上のため, 当初は手動でいくつかの方法を試した.</p>
+<div id="三国志以外の登場人物を除外する" class="section level3 unnumbered">
+<h3>三国志以外の登場人物を除外する</h3>
+<p>既に述べたように, 春秋戦国時代や, 魏晉時より後代の人物が隠し要素として存在する. 三国志演義が史書とは異なる創作であり, 真実がなんであるかを問題としない以上, 2世紀末の中国で<strong>チンギス=ハン</strong>が覇を唱えようが<strong>織田信長</strong>が乱入しようが, <ruby>皇帝<rp>(</rp><rt>カイザー</rt><rp>)</rp></ruby><strong>ラインハルト</strong>率いる宇宙艦隊が遠征してこようが, 原則を言えばあらゆる創作を「三国志」として認めなければならない. しかし今回はあくまで, 三国志の人物の評価の変遷を知るのが目的である. こういった企画で採用される人物はその時代を代表する英雄であるため, しばしば非常に高いステータス値が設定されている. そういう人物が8以降の作品では数十人ほど登録されており, これを含めるかどうかで要約統計量の数値はかなり変わってくる. よって, 今回は『三国志演義』『正史三国志』『反三国志』および『花関索伝』で言及される人物<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>だけを対象とすることにした. この処理によって<strong>179名</strong>が除外された.</p>
+</div>
+<div id="漢字が使われていない名前を検査する" class="section level3 unnumbered">
+<h3>漢字が使われていない名前を検査する</h3>
+<p>まず, 正規表現で漢字以外の使われている人名を探した. 機種依存文字をカタカナ等で置き換えていたものを見つけた手動で修正した. 有名な例では, UTF-8 が普及する以前は<ruby><strong>張郃</strong><rp>(</rp><rt>チョウコウ</rt><rp>)</rp></ruby>の「郃」の字に対応した文字コードがなかったため, インターネット上でしばしば「合β」と表記されていた.</p>
+<p>そこで以下のように正規表現で漢字でない文字を含むものを取り出した上で, 既に書いたように同姓同名人物の識別のために付けた括弧付きの人名リスト<code>name_parenthesis</code>と一致するものを排除し, 確認が必要な人名を取り出した<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">filter</span>(df_all, <span class="kw">str_detect</span>(name, <span class="st">&quot;[^</span><span class="ch">\\</span><span class="st">p{Han}]&quot;</span>), <span class="op">!</span>name <span class="op">%in%</span><span class="st"> </span>name_parenthesis)</a></code></pre></div>
+<p>この方法では, <ruby><u><strong>龐</strong></u><strong>徳</strong><rp>(</rp><rt>ホウトク</rt><rp>)</rp></ruby><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>, <ruby><strong>賈</strong><u><strong>詡</strong></u><rp>(</rp><rt>カク</rt><rp>)</rp></ruby>, <ruby><u><strong>郝</strong></u><strong>昭</strong><rp>(</rp><rt>カクショウ</rt><rp>)</rp></ruby>, など同様の原因でカナで表記されるなど表記のゆらぎが発生している人名を<strong>122件</strong>発見した.</p>
+</div>
+<div id="字以上の名前を検査する" class="section level3 unnumbered">
+<h3>3字以上の名前を検査する</h3>
+<p>三国志の時代の人名は姓名それぞれ1字づつであることが多く, 3字以上の名前は珍しい. <strong>夏侯</strong>, <strong>諸葛</strong>, <strong>司馬</strong>, <strong>公孫</strong>など2字の姓は限られている. 名が2字以上になる人名も <ruby><strong>戯</strong><rp>(</rp><rt>ギ</rt><rp>)</rp></ruby> <ruby><strong>志才</strong><rp>(</rp><rt>シサイ</rt><rp>)</rp></ruby>, <ruby><strong>郭</strong><rp>(</rp><rt>カク</rt><rp>)</rp></ruby> <ruby><strong>攸之</strong><rp>(</rp><rt>ユウシ</rt><rp>)</rp></ruby>などかなり限られる. それ以外で3字以上の名前の多くは, <strong>於夫羅</strong>, <strong>卑弥呼</strong>, <strong>都市牛利</strong> など, 非漢民族の発音を当てたものと思われる. そこで, 名前が3字以上のものも手作業で確認してもさほど手間にならないと判断し確認した. 文字数は <code>stringr::str_length()</code> 関数で取得できる. その結果, 以下のような表記のゆらぎを<strong>19件</strong>見つけた. 事例の一部を抜粋する.</p>
+<ul>
+<li><ruby><strong>許劭</strong><rp>(</rp><rt>キョショウ</rt><rp>)</rp></ruby>/<strong>許子将</strong>. <strong>子将</strong>は字である<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>.</li>
+<li><ruby><strong>金環三結</strong><rp>(</rp><rt>キンカンサンケツ</rt><rp>)</rp></ruby>/<strong>金環結</strong>: 後者は三国志3でのみ見られた. 人名に3字までの制約があったのだと思われる.</li>
+<li><ruby><strong>祝融</strong><rp>(</rp><rt>シュクユウ</rt><rp>)</rp></ruby>/<strong>祝融夫人</strong>: これは誤りではないが, 同一人物の表記が異なるとその後の処理に支障を来す. <strong>「夫人</strong>」を除外した.</li>
+<li><ruby><strong>秦宜禄</strong><rp>(</rp><rt>シンギロク</rt><rp>)</rp></ruby>/<strong>秦誼</strong>: そもそも史書で表記のゆらぎがある.</li>
+<li><ruby><strong>邢道栄</strong><rp>(</rp><rt>ケイドウエイ</rt><rp>)</rp></ruby>/<strong>刑道栄</strong>: 「邢」をカタカナで置き換えるケースは既に見たが, 「刑」で置き換えているケースも発見.</li>
+<li><ruby><strong>劉豹</strong><rp>(</rp><rt>リュウヒョウ</rt><rp>)</rp></ruby>/<strong>左賢王</strong>: 左賢王は南匈奴の王の称号. 作中のテキストから, 史書で左賢王の地位にあった<strong>劉豹</strong>と同定される. <strong>劉豹</strong>は<strong>於夫羅</strong>の子.</li>
+</ul>
+<p>ただし, <strong>許劭</strong>/<strong>許子将</strong> や, <strong>秦宜禄</strong>/<strong>秦誼</strong>の組み合わせは, 単に3字以上の例を検索するだけでなく, 三国志の知識がなければただちには分からない. 現時点ではこのように作業する人間の予備知識なしでは名寄せ処理の品質を担保できない.</p>
+<p>さらに, 本来の意図ではないが, 3字以上の人名に誤記を見つけた. その抜粋は以下.</p>
+<ul>
+<li><ruby><strong>毌丘倹</strong><rp>(</rp><rt>カンキュウケン</rt><rp>)</rp></ruby>/<strong>母丘倹</strong>: 子弟である<strong>秀</strong>, <strong>甸</strong>にも同様の誤りが見られた.</li>
+<li><ruby><strong>諸葛瑾</strong><rp>(</rp><rt>ショカツキン</rt><rp>)</rp></ruby>/<strong>諸葛謹</strong>: オウ偏の<strong>瑾</strong>の字があまり使われないための誤記と思われる.</li>
+<li><ruby><strong>太史亨</strong><rp>(</rp><rt>タイシキョウ</rt><rp>)</rp></ruby>/<strong>太史享</strong>: 字の違いは微妙である.</li>
+</ul>
+</div>
+<div id="出現頻度の少ない人名を検査する" class="section level3 unnumbered">
+<h3>出現頻度の少ない人名を検査する</h3>
+<p>字数の多い名前での表記のゆらぎはすでに確認できた. 3字以上の名前だけを見てもこれだけ表記にゆらぎがあるならば, 2字の名前でも同様にゆらぎがあると予想できる. そこで, シリーズ全作品のデータを結合した上で, 出現回数が2回以下のものを確認した. これで, 誤字をいくらか発見できると考えた. しかし, 実際には知名度の低い人物が多くピックアップされただけであり, ここから表記のゆらぎを見つけるのは難しい. 誤記・誤変換ならばソートしても対になる人名が近くにくるとも限らない.</p>
+</div>
+</div>
+<div id="機械学習による名寄せ処理" class="section level2">
+<h2><span class="header-section-number">3.5</span> 機械学習による名寄せ処理</h2>
+
+<div class="rmdtip">
+<p>ここで説明する処理は<code>image_recognition.R</code>で実行している.</p>
+この処理はやや時間がかかるため, <code>all.R</code> ではこのスクリプトを読み込んでいない. 代わりにここで得られた結果をcsvにして<code>merge.R</code>で読み込んでいる.
+</div>
+
+<p>そこでさらなる名寄せ処理として, どうやって互いに類似する人名を取り出すか, ということを考える.</p>
+<p>多くの自然言語処理の研究では, 文章を対象としている. しかし, すでに述べたように人名のほとんどが2字, 多くとも4字である. 形状の似ている文字を見つけるということから, 画像認識の技術を応用できないか考えてみる. 画像認識の一種としての手書き文字の認識は昔から研究されている. しかし, これは癖のある字をどう認識するかという教師あり学習の問題として扱われることが多いため, 今回の問題と合致しない.</p>
+<p>今回の問題設定に合致するような先行研究がなかなか見つけられないため, 自分なりのアイディアとして, 人名の文字を画像データと見なし, 画像間の類似度を計算することで似たような字を見つける, と言う方法を採用した. これは表記ゆれを確実かつ漏れなく発見できるわけではないが, 総当りよりも効率よく見つけられると考えられる.</p>
+<p>画像として表示するにはフォントが必要である. しかし入力者がどのフォントを使っていたかは特定できない. また, 一部の人名は標準的な日本語フォントに対応していないものもある. 具体的には, 呉の景帝の太子の一人である「<ruby>孫𩅦 <rp>(</rp><rt>ソンワン</rt><rp>)</rp></ruby>」である. 「𩅦 」の字は Unicode では CJK統合漢字拡張Bのカテゴリに含まれているが<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>, 日本語フォントで対応しているものは少ない. 中国語圏で普及しているフォントには対応しているものもあるが, 今回の目的は日本人が日本語環境で入力したデータベースの名寄せだから, できる限り日本風のフォントを使う必要がある. これに対応する日本語フォントは<a href="https://fonts.jp/hanazono/">花園明朝</a>Bである. よって, 文字画像には<a href="https://fonts.jp/hanazono/">fonts.jp</a>で提供される花園明朝AおよびBを使うことにした.</p>
+<p>まず人名を2つ取り出し, それぞれ文字列のビットマップ情報<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>に変換する.</p>
+<p>例えば以下のような画像になる(図<a href="前処理.html#fig:name-bitmap">3.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:name-bitmap"></span>
+<img src="three-kingdoms_files/figure-html/name-bitmap-1.svg" alt="人名のビットマップ画像の例" width="75%" />
+<p class="caption">
+図3.3: 人名のビットマップ画像の例
+</p>
+</div>
+<p>それから, ビットマップ情報から特徴量を取り出す.</p>
+<p>特徴量の取り出し方は, 今回2通りの方法を試した.</p>
+<ol style="list-style-type: decimal">
+<li>ビットマップ単位の情報をそのまま使う.</li>
+<li><span class="citation">鴨下 et al. (<a href="#ref-kamoshitaEtAl1998">1998</a>)</span> の方法に即して特徴量を作成する.</li>
+</ol>
+<ol style="list-style-type: decimal">
+<li>の方法では, 特徴量は <span class="math inline">\(32\times128=4096\)</span> 次元の数値となる<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. (2) の方法は, ピクセルの並びの全ての行・列それぞれに対して, 背景色・文字色の変化の回数 (これを「微分」と呼ぶ), 文字色の割合 (これを「積分」と呼ぶ) を計算する方法である. これによって, <span class="math inline">\((32+128)\times2=320\)</span> 次元の特徴量が得られる (実際に使用したのは<span class="math inline">\(317\)</span>次元).</li>
+</ol>
+<p>最後に, 2つの文字画像の特徴量ベクトル <span class="math inline">\(\boldsymbol{x},\boldsymbol{y}\)</span> について, 距離 <span class="math inline">\(d(\boldsymbol{x},\boldsymbol{y})\)</span> を計算する.
+<span class="math display">\[\begin{aligned}
+s(x,y):= &amp; \frac{d(x,y)-\min d}{\max d-\min d}
+\end{aligned}\]</span>
+なお, このような類似度の求め方は<strong>テンプレートマッチング</strong>と呼ばれる(<span class="citation">糟谷 and 山名 (<a href="#ref-nukayaYamana2006">2006</a>)</span>). <span class="math inline">\(d(x,y)\)</span> の計算はユークリッド距離
+<span class="math display">\[\begin{aligned}
+d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert=\sqrt{(\boldsymbol{x}-\boldsymbol{y})^{\top}(\boldsymbol{x}-\boldsymbol{y})},
+\end{aligned}\]</span>
+とマンハッタン距離
+<span class="math display">\[\begin{aligned}
+d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert_{1}=\sum_{k}\left|x_{k}-y_{k}\right|,
+\end{aligned}\]</span>
+で計算した.</p>
+<p>これを全ての人名の組み合わせに対して実行し, min-max 正規化したものを類似度 <span class="math inline">\(s\)</span> として, 値の大きい順にソートした.</p>
+<p>特徴量のとり方の2通りのやり方はそれぞれ次元の大きさが全く異なるが, 提示された結果はかなり似ている. 上位30件を確認して発見した表記のゆらぎを表<a href="前処理.html#tab:sim">3.2</a>に抜粋する.</p>
+<table>
+<caption><span id="tab:sim">表3.2: </span> マンハッタン類似度上位10件, 誤字を強調</caption>
+<thead>
+<tr class="header">
+<th align="left">名前1</th>
+<th align="left">名前2</th>
+<th align="center">Manhattan</th>
+<th align="center">Euclid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>干</strong>糜</td>
+<td align="left">于糜</td>
+<td align="center"><span class="math inline">\(4.94\)</span></td>
+<td align="center"><span class="math inline">\(4.79\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">車<strong>胄</strong></td>
+<td align="left">車冑</td>
+<td align="center"><span class="math inline">\(4.87\)</span></td>
+<td align="center"><span class="math inline">\(4.93\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">王凌</td>
+<td align="left">王<strong>淩</strong></td>
+<td align="center"><span class="math inline">\(4.81\)</span></td>
+<td align="center"><span class="math inline">\(5.03\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">夏侯威</td>
+<td align="left">夏侯咸</td>
+<td align="center"><span class="math inline">\(4.73\)</span></td>
+<td align="center"><span class="math inline">\(4.79\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">呉<strong>鋼</strong></td>
+<td align="left">呉綱</td>
+<td align="center"><span class="math inline">\(4.65\)</span></td>
+<td align="center"><span class="math inline">\(4.79\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">薛<strong>翊</strong></td>
+<td align="left">薛珝</td>
+<td align="center"><span class="math inline">\(4.59\)</span></td>
+<td align="center"><span class="math inline">\(4.58\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">邢道栄</td>
+<td align="left"><strong>刑</strong>道栄</td>
+<td align="center"><span class="math inline">\(4.58\)</span></td>
+<td align="center"><span class="math inline">\(4.00\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">全禕</td>
+<td align="left">金禕</td>
+<td align="center"><span class="math inline">\(4.55\)</span></td>
+<td align="center"><span class="math inline">\(4.47\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">王匡</td>
+<td align="left">士匡</td>
+<td align="center"><span class="math inline">\(4.52\)</span></td>
+<td align="center"><span class="math inline">\(4.45\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">劉璝</td>
+<td align="left">劉<strong>潰</strong></td>
+<td align="center"><span class="math inline">\(4.46\)</span></td>
+<td align="center"><span class="math inline">\(4.47\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>特に紛らわしいのは表<a href="前処理.html#tab:confu">3.3</a>である. これは文字を拡大しないと気づきづらい.</p>
+<table>
+<caption><span id="tab:confu">表3.3: </span> 発見できた紛らわしい表記のゆらぎ例</caption>
+<thead>
+<tr class="header">
+<th align="center">正</th>
+<th align="center">誤</th>
+<th align="center">解説</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">車冑</td>
+<td align="center">車胄</td>
+<td align="center">「冑」の下</td>
+</tr>
+<tr class="even">
+<td align="center">関彝</td>
+<td align="center">関彜</td>
+<td align="center">「米糸」と「米分」</td>
+</tr>
+<tr class="odd">
+<td align="center">鍾会</td>
+<td align="center">鐘会</td>
+<td align="center">「鐘」ではない</td>
+</tr>
+</tbody>
+</table>
+<p>新たに多くの表記ゆれを発見できたが, 一方で<strong>誤検知</strong>もある. 表<a href="前処理.html#tab:sim">3.2</a>では, <ruby><strong>夏侯威</strong><rp>(</rp><rt>カコウイ</rt><rp>)</rp></ruby>と<ruby><strong>夏侯咸</strong><rp>(</rp><rt>カコウカン</rt><rp>)</rp></ruby>, <ruby><strong>全禕</strong><rp>(</rp><rt>ゼンイ</rt><rp>)</rp></ruby>と<ruby><strong>金禕</strong><rp>(</rp><rt>キンイ</rt><rp>)</rp></ruby>, <ruby><strong>王匡</strong><rp>(</rp><rt>オウキョウ</rt><rp>)</rp></ruby>と<ruby><strong>士匡</strong><rp>(</rp><rt>シキョウ</rt><rp>)</rp></ruby>との組み合わせは別人物である.</p>
+<p>今回の2つの方法はいずれも, 1字同じだけでもかなり一致度が高くなってしまう. 結果として勘でやったほうが修正の必要な箇所を多く見つけられたので, より精度が必要である. 一方で, <span class="citation">鴨下 et al. (<a href="#ref-kamoshitaEtAl1998">1998</a>)</span> はかなり古い研究で, 文字のビット数が小さく, さらに特徴量を大きく削減するなど計算量を削減しているが, 上記の結果とあまり変わらない結果が得られた. つまり, 特徴量のとり方しだいで差異をうまく表現できる余地があるのかもしれない.</p>
+<p>そもそもなぜ表記ゆらぎが起きるかと言えば, 登録時点でのミス, 原作時点でのミスである. 前者は音や形状の似た字への誤変換, 普及している日本語フォントではカバーしていない, あるいは IME が対応していない字 (いわゆる機種依存文字) の代用, 後者は同一文献や, 創作物ごとのゆらぎがある<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>. 見つけ出したい表記のゆらぎの典型例を挙げてみる.</p>
+<p>例: 原作からしてゆらぎがある<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a></p>
+<ul>
+<li><ruby><strong>李堪</strong><rp>(</rp><rt>リカン</rt><rp>)</rp></ruby>と<strong>李湛</strong> (三国志演義と吉川三国志)</li>
+<li><ruby><strong>楊脩</strong><rp>(</rp><rt>ヨウシュウ</rt><rp>)</rp></ruby>と<strong>楊修</strong></li>
+<li><ruby><strong>雷銅</strong><rp>(</rp><rt>ライドウ</rt><rp>)</rp></ruby>と<strong>雷同</strong></li>
+<li><ruby><strong>陳羣</strong><rp>(</rp><rt>チングン</rt><rp>)</rp></ruby>と<strong>陳群</strong></li>
+<li><ruby><strong>田豫</strong><rp>(</rp><rt>デンヨ</rt><rp>)</rp></ruby>と<strong>田予</strong></li>
+</ul>
+<p>例: 機種依存文字の影響で間違えやすい字: 部首が違う</p>
+<ul>
+<li><ruby><strong>劉璝</strong><rp>(</rp><rt>リュウカイ</rt><rp>)</rp></ruby> (正) <strong>劉潰</strong> (誤): 「璝」は日本語ではほぼ使われない</li>
+<li><ruby><strong>王凌</strong><rp>(</rp><rt>オウリョウ</rt><rp>)</rp></ruby> (正) と<strong>王淩</strong> (誤): ニスイ偏が正しい.</li>
+<li><ruby><strong>鍾会</strong><rp>(</rp><rt>ショウカイ</rt><rp>)</rp></ruby> (正) と<strong>鐘会</strong> (誤): カネではない<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>.</li>
+<li><ruby><strong>歩騭</strong><rp>(</rp><rt>ホシツ</rt><rp>)</rp></ruby> (正) と <strong>歩隲</strong> (誤): コザト偏の位置</li>
+</ul>
+<p>似ているが別人の例として, 既に紹介したもの以外にも以下のようなものがある.</p>
+<ul>
+<li><ruby><strong>鄧艾</strong><rp>(</rp><rt>トウガイ</rt><rp>)</rp></ruby>と<ruby><strong>鄧芝</strong><rp>(</rp><rt>トウシ</rt><rp>)</rp></ruby></li>
+<li><ruby><strong>桓楷</strong><rp>(</rp><rt>カンカイ</rt><rp>)</rp></ruby>と<ruby><strong>桓階</strong><rp>(</rp><rt>カンカイ</rt><rp>)</rp></ruby></li>
+</ul>
+<p>以上の傾向から, 字形の平均的な一致度ではなく, 部首単位での類似を考慮して類似度を計算することができれば効率的であると予想している. また, 教師データもground-truth なモデルも用意できないため, 「なるべく少ない労力で, たまたまでもうまく表記ゆらぎを見つけられるような類似度の求め方」が得られれば良い.</p>
+</div>
+<div id="草稿-ディープラーニングでなんとかできないか" class="section level2">
+<h2><span class="header-section-number">3.6</span> [草稿] ディープラーニングでなんとかできないか?</h2>
+
+<div class="rmdtip">
+<strong>このセクションは昨日思いついて試してみたけど時間がたりなかったので</strong>書きかけです. 完了していないタスクです. ディープラーニングじたいほとんどやってないので話半分で読んで欲しい.
+</div>
+
+<p>[画像認識と言えば最近はニューラルネットワークを使った話が流行っているので, 何か応用できるものがないか探してみた. 機械学習の問題としてみれば教師なし学習で, かつ2点間の類似度を出せるものがよい. ここまで試したのは2つの文字画像のピクセル<span class="math inline">\(\boldsymbol{x},\boldsymbol{y}\)</span> 間の距離である. 例えばユークリッド距離で,</p>
+<p><span class="math display">\[\begin{aligned}
+d(\boldsymbol{x},\boldsymbol{y}):= &amp; \sqrt{\left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert}\end{aligned}\]</span></p>
+<p>を2つの画像の類似度としてきた. しかしこれでは限界があることがわかったので, なんらかの適切な特徴量変換器 <span class="math inline">\(\boldsymbol{f}\)</span> を挟んで,
+<span class="math display">\[\begin{aligned}
+s(\boldsymbol{x},\boldsymbol{y}):= &amp; \sqrt{\left\Vert \boldsymbol{f}(\boldsymbol{x})-\boldsymbol{f}(\boldsymbol{y})\right\Vert_{2}}
+\end{aligned}\]</span>
+のような類似度計算ができるようになればいい. 機械学習の研究では, これを<strong>計量距離学習</strong> (metric learning) という<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
+<p>ここでいくつか関連しそうな研究を紹介しておく.</p>
+<p><span class="citation">Wang et al. (<a href="#ref-wang2014Learning">2014</a>)</span>, <span class="citation">Hoffer and Ailon (<a href="#ref-hoffer2015Deep">2015</a>)</span>, <span class="citation">Sanakoyeu, Bautista, and Ommer (<a href="#ref-sanakoyeu2018Deep">2018</a>)</span>, <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised">2019</a>)</span> などを参考にすると最近は計量距離学習では triplet network と呼ばれるモデルが流行しているらしい.</p>
+<p><span class="citation">Zhang and Komachi (<a href="#ref-zhang2019ChineseJapanese">2019</a>)</span> では, <a href="http://www.chise.org/ids/index.ja.html">CHASE プロジェクト</a>のデータベースから, 文字の部首情報を取り出して教師なしニューラル機械翻訳 (UNMT) をしている<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. しかしこれは画像認識ではない</p>
+<p><span class="citation">Liu et al. (<a href="#ref-Liu2017EncodingAR">2017</a>)</span> は音素も考慮しているが, 今回は日本語での入力の問題なので少し違う. あと教師あり学習.</p>
+<p>“In words, this encodes the pair of distances between each of x+ and x− against the reference x.”</p>
+<p><span class="citation">Wang et al. (<a href="#ref-wang2014Learning">2014</a>)</span>, <span class="citation">Hoffer and Ailon (<a href="#ref-hoffer2015Deep">2015</a>)</span> 前者は多クラス分類だが, 後者はランキング問題</p>
+<p>なお私は計量距離学習というトピックをこれまで全く知らなかった. 基本的な考え方を理解するために今回初めて <span class="citation">Bellet (<a href="#ref-bellet2013Tutorial">2013</a>)</span>, <span class="citation">Bellet, Habrard, and Sebban (<a href="#ref-bellet2014Survey">2014</a>)</span> などを参照した程度である (よって見落としているだけということもありうる). このサーベイ・チュートリアル資料で紹介されているアイディアの多くは教師ありないし半教師あり学習だが, 今回は教師ラベルを作るのが面倒な場合はどうするかというのが問題である. ここでは主に <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised">2019</a>)</span> の提案する半教師あり学習<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>をもとに試してみる. まず, 従来的な2点の比較は双生児 (siamese) ネットワークと呼ばれる:</p>
+<p><span class="math display">\[\begin{aligned}
+s_{\mathit{siamese}}(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert f(\boldsymbol{x})-f(\boldsymbol{y})\right\Vert_{2}.
+\end{aligned}\]</span></p>
+<p>一方で, 基準点 (anchor あるいは query と呼ばれる) <span class="math inline">\(\boldsymbol{x}^{a}\)</span>に対して正例<span class="math inline">\(\boldsymbol{x}^{p}\)</span>, 負例<span class="math inline">\(\boldsymbol{x}^{n}\)</span> の3対 (triplet) <span class="math inline">\((\boldsymbol{x}^{a},\boldsymbol{x}^{p},\boldsymbol{x}^{n})\)</span>を考慮したのが triplet network である.</p>
+<p><span class="math display">\[\begin{aligned}
+s_{\mathit{triplet}}(\boldsymbol{x},\boldsymbol{x}^{p},\boldsymbol{x}^{n}):= &amp; \begin{bmatrix}\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{p})\right\Vert_{2}\\
+\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{n})\right\Vert_{2}
+\end{bmatrix}\end{aligned}\]</span></p>
+<p>これら3点の相対的な距離をもとに学習するというのが triplet network のアイディアになる. さらに, <span class="citation">Wang et al. (<a href="#ref-wang2014Learning">2014</a>)</span> に従って triplet 損失を <span class="math display">\[\begin{aligned}
+L_{\mathit{triplet}}(\boldsymbol{x}^{a},\boldsymbol{x}^{p},\boldsymbol{x}^{n};\delta):= &amp; \left\lfloor \left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{p})\right\Vert_{2}-\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{n})\right\Vert_{2}+\delta\right\rfloor \end{aligned}\]</span> で定義する.</p>
+<p>しかし今回は教師ラベルがないため, <span class="math inline">\(\boldsymbol{x}^{p}\)</span>, <span class="math inline">\(\boldsymbol{x}^{n}\)</span> をどう選べばいいかが分からない. そこで, <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised">2019</a>)</span> の提案するように, 特徴量 <span class="math inline">\(\boldsymbol{x}\)</span> の距離で正例負例を与える.</p>
+</div>
+<div id="補足-dbpedia-を利用した二重チェック" class="section level2">
+<h2><span class="header-section-number">3.7</span> 補足: DBpedia を利用した二重チェック</h2>
+
+<div class="rmdtip">
+ここでの処理は <code>fetch_dbpedia.R</code> に書かれている.
+</div>
+
+<p>教師なし学習による探索だけでは心もとないので, Wikipedia の記事を使った二重チェックを行った. <a href="http://ja.dbpedia.org/">DBpedia</a>とは, Wikipedia を構造化したデータベースで, SPARQL によってデータを取得できる.</p>
+
+<div class="rmdtip">
+<p>SPAQLの構文について手っ取り早く知りたいなら, 例えば以下のブログが簡易なチュートリアルになっており手軽に読める.</p>
+<p><a href="https://midoriit.com/2014/03/lod%e3%81%a8sparql%e5%85%a5%e9%96%801.html" class="uri">https://midoriit.com/2014/03/lod%e3%81%a8sparql%e5%85%a5%e9%96%801.html</a></p>
+<p>もう少し詳しい話を知りたければ, 以下のページが参考になる.</p>
+<a href="http://www.aise.ics.saitama-u.ac.jp/~gotoh/IntroSPARQL.html" class="uri">http://www.aise.ics.saitama-u.ac.jp/~gotoh/IntroSPARQL.html</a>
+</div>
+
+<p>R上でSPARQLを実行するには, 同名の<code>SPARQL</code>パッケージを使う. 例えば以下はウィキペディアから「三国志の登場人物」のカテゴリ登録されているページの見出しと本文を全て取得するクエリを実行している.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">endpoint &lt;-<span class="st">&quot;http://ja.dbpedia.org/sparql&quot;</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">query &lt;-<span class="st"> &quot;</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">PREFIX dbpedia: &lt;http://ja.dbpedia.org/resource/&gt;</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">PREFIX dbp-owl: &lt;http://dbpedia.org/ontology/&gt;</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">PREFIX rdf: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="st">PREFIX category-ja: &lt;http://ja.dbpedia.org/resource/Category:&gt;</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="st">SELECT DISTINCT ?article, ?text</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="st">WHERE {</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="st">         ?article dbp-owl:wikiPageWikiLink category-ja:三国志の登場人物 .</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="st">         ?article rdf:comment ?text .</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="st">}</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13">res &lt;-<span class="st"> </span><span class="kw">SPARQL</span>(endpoint, query)</a>
+<a class="sourceLine" id="cb14-14" data-line-number="14">res<span class="op">$</span>results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(o, <span class="st">&quot;Category&quot;</span>))</a></code></pre></div>
+<p><code>SRARQL()</code>で取得した結果はリストで返され, その中の<code>result</code>要素にデータフレームとして収録されている. 中身はhtmlタグなども含んでいるため, 場合によってはここでも<code>rvest</code>の関数を利用する必要があるかもしれない.</p>
+
+<div class="rmdtip">
+SPARQLが取得するDBpediaの更新頻度は少ないため最新の状態を反映していない可能性がある. また, そもそもWikipediaは絶対の正しさを持つわけではない. 例えば「三国志の登場人物」ではなく「後漢の人物」のカテゴリに登録されている場合があるし, 単に投稿者の書き間違えがある可能性もある. よってあくまでも簡易的なクロスチェックにしかならないことに注意する.
+</div>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-bellet2013Tutorial">
+<p>Bellet, Aurélien. 2013. “Tutorial on Metric Learning.” <a href="http://researchers.lille.inria.fr/abellet/talks/metric_learning_tutorial_CIL.pdf">http://researchers.lille.inria.fr/abellet/talks/metric_learning_tutorial_CIL.pdf</a>.</p>
+</div>
+<div id="ref-bellet2014Survey">
+<p>Bellet, Aurélien, Amaury Habrard, and Marc Sebban. 2014. “A Survey on Metric Learning for Feature Vectors and Structured Data.” <em>arXiv:1306.6709 [Cs, Stat]</em>, February. <a href="http://arxiv.org/abs/1306.6709">http://arxiv.org/abs/1306.6709</a>.</p>
+</div>
+<div id="ref-hoffer2015Deep">
+<p>Hoffer, Elad, and Nir Ailon. 2015. “Deep Metric Learning Using Triplet Network.” In <em>International Workshop on Similarity-Based Pattern Recognition</em>, edited by Aasa Feragen, Marcello Pelillo, and Marco Loog, 9370:84–92. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-24261-3_7">https://doi.org/10.1007/978-3-319-24261-3_7</a>.</p>
+</div>
+<div id="ref-Liu2017EncodingAR">
+<p>Liu, Ming, Vasile Rus, Qiang Liao, and Li Liu. 2017. “Encoding and Ranking Similar Chinese Characters.” <em>Journal of Information Science and Engineering</em> 33: 1195–1211. <a href="https://www.semanticscholar.org/paper/Encoding-and-Ranking-Similar-Chinese-Characters-Liu-Rus/53432f26750d8814fd5edfa770c1e354a15fbd7e">https://www.semanticscholar.org/paper/Encoding-and-Ranking-Similar-Chinese-Characters-Liu-Rus/53432f26750d8814fd5edfa770c1e354a15fbd7e</a>.</p>
+</div>
+<div id="ref-sanakoyeu2018Deep">
+<p>Sanakoyeu, Artsiom, Miguel A. Bautista, and Björn Ommer. 2018. “Deep Unsupervised Learning of Visual Similarities.” <em>Pattern Recognition</em> 78 (June): 331–43. <a href="https://doi.org/10.1016/j.patcog.2018.01.036">https://doi.org/10.1016/j.patcog.2018.01.036</a>.</p>
+</div>
+<div id="ref-turpault2019Semisupervised">
+<p>Turpault, Nicolas, Romain Serizel, and Emmanuel Vincent. 2019. “Semi-Supervised Triplet Loss Based Learning of Ambient Audio Embeddings.” In <em>ICASSP 2019 - 2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</em>, 760–64. Brighton, United Kingdom: IEEE. <a href="https://doi.org/10.1109/ICASSP.2019.8683774">https://doi.org/10.1109/ICASSP.2019.8683774</a>.</p>
+</div>
+<div id="ref-wang2014Learning">
+<p>Wang, Jiang, Yang Song, Thomas Leung, Chuck Rosenberg, Jingbin Wang, James Philbin, Bo Chen, and Ying Wu. 2014. “Learning Fine-Grained Image Similarity with Deep Ranking.” In <em>2014 IEEE Conference on Computer Vision and Pattern Recognition</em>, 1386–93. Columbus, OH, USA: IEEE. <a href="https://doi.org/10.1109/CVPR.2014.180">https://doi.org/10.1109/CVPR.2014.180</a>.</p>
+</div>
+<div id="ref-zhang2019ChineseJapanese">
+<p>Zhang, Longtu, and Mamoru Komachi. 2019. “Chinese-Japanese Unsupervised Neural Machine Translation Using Sub-Character Level Information.” <a href="http://arxiv.org/abs/1903.00149">http://arxiv.org/abs/1903.00149</a>.</p>
+</div>
+<div id="ref-nukayaYamana2006">
+<p>糟谷, 勇児, and 山名早人. 2006. “二種類のSVMを用いたオンライン類似数式文字識別.” <em>電子情報通信学会技術研究報告. PRMU, パターン認識・メディア理解</em> 105 (614). 一般社団法人電子情報通信学会: 55–60. <a href="https://www.yama.info.waseda.ac.jp/~kasuya-u/2006_2_svm.pdf">https://www.yama.info.waseda.ac.jp/~kasuya-u/2006_2_svm.pdf</a>.</p>
+</div>
+<div id="ref-kamoshitaEtAl1998">
+<p>鴨下, 隆志, 奥村健一, 高橋和仁, 増村正男, and 矢野宏. 1998. “文字認識におけるマハラノビスの距離による判定の研究.” <em>品質工学会</em> 6 (4): 39–45. <a href="https://doi.org/10.18890/qes.6.4_39">https://doi.org/10.18890/qes.6.4_39</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="13">
+<li id="fn13"><p>『三國志』シリーズの正式名称は, 10作目まではローマ数字だが, ここでは便宜上全てアラビア数字で表記する.<a href="前処理.html#fnref13" class="footnote-back">↩</a></p></li>
+<li id="fn14"><p><a href="https://stackoverflow.com/questions/49961877/saving-xml-nodes-in-r" class="uri">https://stackoverflow.com/questions/49961877/saving-xml-nodes-in-r</a><a href="前処理.html#fnref14" class="footnote-back">↩</a></p></li>
+<li id="fn15"><p>この問題に対して<code>xml2</code>パッケージには<code>xml_serialize()</code>, <code>xml_unserialize()</code>という関数が用意されているが, コードが長くなりむしろ不便なので私は使っていない. <a href="https://stackoverflow.com/questions/44070577/write-xml-object-to-disk" class="uri">https://stackoverflow.com/questions/44070577/write-xml-object-to-disk</a><a href="前処理.html#fnref15" class="footnote-back">↩</a></p></li>
+<li id="fn16"><p>実際には『反三国志』に由来する人物は<ruby><strong>馬雲騄</strong><rp>(</rp><rt>バウンリョク</rt><rp>)</rp></ruby>, 花関索伝に由来する人物は<ruby><strong>鮑三娘</strong><rp>(</rp><rt>ホウサンジョウ</rt><rp>)</rp></ruby>だけであった.<a href="前処理.html#fnref16" class="footnote-back">↩</a></p></li>
+<li id="fn17"><p>全てを正規表現で表現することもできるが, 複雑すぎて可読性を損なうだろう.<a href="前処理.html#fnref17" class="footnote-back">↩</a></p></li>
+<li id="fn18"><p><strong>龐悳</strong>という別字表記もある. また, 同時代に名前のよく似た別人として<ruby><strong>龐徳公</strong><rp>(</rp><rt>ホウトクコウ</rt><rp>)</rp></ruby>という人物が存在するが, 今回取得した一覧には登録されていなかった.<a href="前処理.html#fnref18" class="footnote-back">↩</a></p></li>
+<li id="fn19"><p>この表記は 95年発売の『三國志V』にのみ見られ, また許劭/許子将がシリーズで初めて登場するのはこの作品である. <span class="citation">陳 (<a href="#ref-chin1974">1974</a>)</span> では字で表記しているので, これの影響か.<a href="前処理.html#fnref19" class="footnote-back">↩</a></p></li>
+<li id="fn20"><p>Unicode のグリフや対応フォントの情報は, <a href="http://www.fileformat.info/info/unicode/char/29166/fontsupport.htm">FileFormat.Info</a> や <a href="http://glyphwiki.org/wiki/u29166">グリフウィキ</a> で確認できる.<a href="前処理.html#fnref20" class="footnote-back">↩</a></p></li>
+<li id="fn21"><p>今回は既に3字以上の人名の名寄せを手動で行ったが, より汎用的な性能を確認したいため, ここでは3字以上の人名も含めて実施してみる. そのため, 画像のサイズは4文字分で固定し, 字数の少ない人名は横に引き伸ばしてレンダリングしたものを使う.<a href="前処理.html#fnref21" class="footnote-back">↩</a></p></li>
+<li id="fn22"><p>どの文字画像でも変化のないピクセルは情報を持たないため除外したところ, 実際に使用できたのは4025次元だった.<a href="前処理.html#fnref22" class="footnote-back">↩</a></p></li>
+<li id="fn23"><p>まれなケースとして, 字 (あざな) が使われている場合もあるが, 当時の名の多くは1字である一方, 字の多くは2文字であり, 文字数が多いため手作業でも比較的容易に発見できた.<a href="前処理.html#fnref23" class="footnote-back">↩</a></p></li>
+<li id="fn24"><p>初期の作品はハードの制約から, より簡単な表記を選んだとも考えられる.<a href="前処理.html#fnref24" class="footnote-back">↩</a></p></li>
+<li id="fn25"><p>現代の簡体字では統一して同じ字として扱われる.<a href="前処理.html#fnref25" class="footnote-back">↩</a></p></li>
+<li id="fn26"><p>要はクラスタリングのことだと思うのだが, この単語を見かけるようになったのは最近になってからな気がする.<a href="前処理.html#fnref26" class="footnote-back">↩</a></p></li>
+<li id="fn27"><p>実装は Python の <a href="https://github.com/vincentzlt/textprep" class="uri">https://github.com/vincentzlt/textprep</a> に依存している.<a href="前処理.html#fnref27" class="footnote-back">↩</a></p></li>
+<li id="fn28"><p><span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised">2019</a>)</span> は画像認識ではなく音声認識のテーマである<a href="前処理.html#fnref28" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="イントロダクション.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="検証三國志シリーズの人材は年々無個性化しているのか.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"download": "pdf"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
