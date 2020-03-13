@@ -1,12 +1,12 @@
-pacman::p_load(tidyverse, ggthemes, rvest, skimr, stringr, stringi, here, datapasta)
+# 全体の流れはall.Rで管理しています
+
+# sources <- read_rds(here("data", "sources.rds"))
 
 # 名前の重複を見つける関数
 check_dup <- function(x){
   x %>% group_by(name) %>% summarise(n=n()) %>% filter(n>1) %>% inner_join(x, by="name") %>%
     dplyr::select(title, order, name, n, everything())
 }
-
-sources <- read_rds(here("data", "sources.rds"))
 
 ##### I #####
 df1_header <- filter(sources, title == 1)$html[[1]] %>% read_html %>% html_node("table") %>% html_table(header = F) %>% as.character
@@ -49,7 +49,8 @@ check_dup(df2)
 # 名前が重複しているものは読みの欄から入力ミスとみなして修正
 # 読みが同じ場合は相性やステータスの特徴から判定
 # 鄧賢/陶謙, 劉繇/劉曄はゲーム実際にやってないと識別難しいのでは?
-df2$name[c(62, 125, 296, 24, 218, 220, 234, 279)] <- c("楽就", "辛評", "劉曄", "賈華", "陶謙", "董衡", "馬忠 (孫呉)", "李豊 (東漢)")
+# 2020/3/14: 張郃が張闓になってるのを発見
+df2$name[c(62, 125, 175, 296, 24, 218, 220, 234, 279)] <- c("楽就", "辛評", "張郃", "劉曄", "賈華", "陶謙", "董衡", "馬忠 (孫呉)", "李豊 (東漢)")
 check_dup(df2)
 
 ##### III ####
@@ -192,21 +193,21 @@ check_dup(df8)
 # フラグ変換処理が大量にある
 df9 <- filter(sources, title == 9)$html[[1]] %>% read_html %>% html_node("table") %>% html_node("table") %>% html_table(header = T) %>% as_tibble
 df9 <- filter(df9, ID != "ID") %>%
-  mutate_all(na_if, "") %>% fill(ID) %>%
-  mutate_at(.vars = vars(統率, 武力, 知力, 政治, 誕生, 寿命, 相性, 義理, 野望), .funs = as.integer) %>%
-  rename(name = 名前)
-df9 <- df9 %>%
-  dplyr::select(-奮奮奮戦闘迅, -突突突破進撃, -騎走飛射射射, -斉連連射射弩, -蒙楼闘衝船艦, -井衝投象闌車石兵,
-                -造石罠教営兵破唆, -`混罠心幻乱＿攻術`, -罵鼓治妖声舞療術) %>%
-  bind_cols(str_split_fixed(df9$奮奮奮戦闘迅, pattern = "", 3) %>% data.frame) %>% rename(奮戦 = X1, 奮闘 = X2, 奮迅 = X3) %>%
-  bind_cols(str_split_fixed(df9$突突突破進撃, pattern = "", 3) %>% data.frame) %>% rename(突破 = X1, 突進 = X2, 突撃 = X3) %>%
-  bind_cols(str_split_fixed(df9$騎走飛射射射, pattern = "", 3) %>% data.frame) %>% rename(騎射 = X1, 走射 = X2, 飛射 = X3) %>%
-  bind_cols(str_split_fixed(df9$斉連連射射弩, pattern = "", 3) %>% data.frame) %>% rename(斉射 = X1, 連射 = X2, 連弩 = X3) %>%
-  bind_cols(str_split_fixed(df9$蒙楼闘衝船艦, pattern = "", 3) %>% data.frame) %>% rename(蒙衝 = X1, 楼船 = X2, 闘艦 = X3) %>%
-  bind_cols(str_split_fixed(df9$井衝投象闌車石兵, pattern = "", 4) %>% data.frame) %>% rename(井闌 = X1, 衝車 = X2, 投石 = X3, 象兵 = X4) %>%
-  bind_cols(str_split_fixed(df9$造石罠教営兵破唆, pattern = "", 4) %>% data.frame) %>% rename(造営 = X1, 石兵 = X2, 罠破 = X3, 教唆 = X4) %>%
-  bind_cols(str_split_fixed(df9$`混罠心幻乱＿攻術`, pattern = "", 4) %>% data.frame) %>% rename(混乱 = X1, 罠 = X2, 心攻 = X3, 幻術 = X4) %>%
-  bind_cols(str_split_fixed(df9$罵鼓治妖声舞療術, pattern = "", 4) %>% data.frame) %>% rename(罵声 = X1, 鼓舞 = X2, 治療 = X3, 妖術 = X4)
+  mutate_all(na_if, "") %>% fill(ID) %>% rename(name = 名前) %>%
+  mutate_at(.vars = vars(統率, 武力, 知力, 政治, 誕生, 寿命, 相性, 義理, 野望), .funs = as.integer)
+
+df9 <- df9 %>% bind_cols(
+  str_split_fixed(.$奮奮奮戦闘迅, pattern = "", 3) %>% data.frame %>% set_names(c("奮戦", "奮闘", "奮迅")),
+  str_split_fixed(.$突突突破進撃, pattern = "", 3) %>% data.frame %>% set_names(c("突破", "突進", "突撃")),
+  str_split_fixed(.$騎走飛射射射, pattern = "", 3) %>% data.frame %>% set_names(c("騎射", "走射", "飛射")),
+  str_split_fixed(.$斉連連射射弩, pattern = "", 3) %>% data.frame %>% set_names(c("斉射", "連射", "連弩")),
+  str_split_fixed(.$蒙楼闘衝船艦, pattern = "", 3) %>% data.frame %>% set_names(c("蒙衝", "楼船", "闘艦")),
+  str_split_fixed(.$井衝投象闌車石兵, pattern = "", 4) %>% data.frame %>% set_names(c("井闌", "衝車", "投石", "象兵")),
+  str_split_fixed(.$造石罠教営兵破唆, pattern = "", 4) %>% data.frame %>% set_names(c("造営", "石兵", "罠破", "教唆")),
+  str_split_fixed(.$`混罠心幻乱＿攻術`, pattern = "", 4) %>% data.frame %>% set_names(c("混乱", "罠", "心攻", "幻術")),
+  str_split_fixed(.$罵鼓治妖声舞療術, pattern = "", 4) %>% data.frame %>% set_names(c("罵声", "鼓舞", "治療", "妖術"))
+) %>% select(-奮奮奮戦闘迅, -突突突破進撃, -騎走飛射射射, -斉連連射射弩, -蒙楼闘衝船艦,
+             -井衝投象闌車石兵, -造石罠教営兵破唆, -`混罠心幻乱＿攻術`, -罵鼓治妖声舞療術)
 df9 <- mutate_at(df9, .vars = colnames(df9)[15:45], function(x) if_else(x == "×", F, T)) %>%
   rename_if(is.logical, ~paste0(.x, "lgl")) %>%
   mutate(性格 = factor(性格)) %>%
@@ -215,12 +216,12 @@ df9 <- mutate_at(df9, .vars = colnames(df9)[15:45], function(x) if_else(x == "×
 
 check_dup(df9) %>% filter(!str_detect(name, "武将"))
 df9$name[c(414, 501:502, 600:601)] <- c("張南 (蜀漢)", "馬忠 (孫呉)", "馬忠 (蜀漢)", "李豊 (東漢)", "李豊 (蜀漢)")
-df9$name[346] <- c("孫匡") # この後の確認で名前に字が混入していたことを発見
+df9$name[346] <- c("孫匡") # この後の確認で名前に字が混入していたことを発見したので修正
 
 
 ###### X #####
-df10 <- filter(sources, title == 10)$html[[1]] %>% read_html %>% html_nodes("table") %>% html_table() %>%
-  .[[1]] %>% as_tibble
+df10 <- filter(sources, title == 10)$html[[1]] %>% read_html %>% html_nodes("table") %>%
+  html_table() %>% .[[1]] %>% as_tibble
 df10_header <- as.character(df10[2, ])
 df10_header[2] <- "name"
 df10 <- df10[-(1:2), ] %>% set_names(df10_header) %>% dplyr::select(-c(1, 8)) %>%
@@ -286,8 +287,4 @@ df13 <- filter(sources, title == 13)$html[[1]] %>% read_html %>% html_nodes("tab
 check_dup(df13)
 df13$name[c(415, 497, 780, 591, 770, 788:789)] <- c("張南 (東漢)", "馬忠 (蜀漢)", "馬忠 (孫呉)", "李豊 (東漢)", "張南 (蜀漢)", "李豊 (蜀漢)", "李豊 (曹魏)")
 
-#####
-
-save(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13, file="data/df.RData")
-rm(sources, df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13)
 # merge.R へ続く

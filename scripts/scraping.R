@@ -1,5 +1,4 @@
-pacman::p_load(tidyverse, ggthemes, rvest, robotstxt, zoo, skimr, stringr, here, datapasta)
-# datapasta, read.sp, wrapr
+# 全体の流れはall.Rで管理しています
 
 # 1-7, 12
 # http://hima.que.ne.jp/sangokushi/
@@ -89,19 +88,5 @@ for(i in 1:6){
 # 13
 source13 <- list(read_html("https://sangokushi13wiki.wiki.fc2.com/wiki/%E6%AD%A6%E5%B0%86%E4%B8%80%E8%A6%A7"))
 
-sources <-map2_dfr(
-  list(source1, source2, source3, source4, source5, source6, source7, source8, source9, source10, source11, source12, source13),
-  1:13,
-  function(x, t) tibble(x) %>% mutate(title=t, page=row_number())
-) %>% mutate(x=map(x, as.character)) %>% rename(html=x)
-write_rds(sources, "data/sources.rds")
-
-
-# save temporary
-walk2(
-  list(source1, source2, source3, source4, source5, source6, source7, source8, source9, source10, source11, source12, source13),
-  1:13,
-  function(x, y) write_html_list(x, here("data", paste0("source", y, ".rds")))
-)
 
 # tidying.R へ続く

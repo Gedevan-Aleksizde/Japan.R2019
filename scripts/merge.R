@@ -1,9 +1,6 @@
-# if(pacman::p_exists(patchwork)) pacman::p_install_gh("thomasp85/patchwork")
-pacman::p_load(tidyverse, ggthemes, stringr, here, datapasta, skimr, patchwork)
+# 全体の流れはall.Rで管理しています
 
-##### 全部まとめて調整 ####
-
-load(file=here("data", "df.RData"))
+# load(file=here("data", "df.RData"))
 df_all <- list(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) %>%
   map_dfr(function(x) group_by(x, title, order, name) %>% nest %>% ungroup)
 
@@ -19,7 +16,7 @@ df_all <- filter(df_all, !name %in% persona_non_grata$name)
 
 ##### 名寄せ処理 #####
 # 漢字以外の文字が使われている名前リストを取り出す
-irregular_names <- filter(df_all, grepl("[^\\p{Han}]", name, perl=T), !name %in% name_parenthesis)
+irregular_names <- filter(df_all, str_detect(name, "[^\\p{Han}]"), !name %in% name_parenthesis)
 irregular_names$name %>% unique
 # 名寄せのために新たに name_id を用意
 
@@ -36,7 +33,7 @@ df_identity <- distinct(
             read_csv("data/df_alias2.csv") # 機械学習
             )) %>% distinct
 
-df_all <- left_join(df_all, dplyr::select(df_identity, name, name_id), by="name") %>%
+df_all <- left_join(df_all, select(df_identity, name, name_id), by="name") %>%
   mutate(name_id=coalesce(name_id, name))
 
 filter(df_all, grepl("[^\\p{Han}]", name_id, perl=T), !name_id %in% name_parenthesis)$name_id %>% unique # 代字判定再確認
@@ -45,7 +42,7 @@ filter(df_all, grepl("[^\\p{Han}]", name_id, perl=T), !name_id %in% name_parenth
 filter(df_all, str_length(name_id)>=3 & !name_id %in% name_parenthesis)$name_id %>% unique %>% sort
 
 # 登場頻度の少ない人物も確認
-tmp <- dplyr::select(df_all, title, order, name,  name_id) %>% group_by(name_id) %>% summarise(n=n()) %>%
+tmp <- select(df_all, title, order, name,  name_id) %>% group_by(name_id) %>% summarise(n=n()) %>%
   arrange(n) %>% filter(n <= 2)
 view(tmp)
 
@@ -54,12 +51,12 @@ view(tmp)
 df_all %>% group_by(title, name_id) %>% summarise(n=n()) %>% ungroup %>% filter(n>1)
 
 # wiki, Mujins から取ってきた名前リストと照会
-tmp <- dplyr::select(df_all, name_id) %>% distinct %>% left_join(
-  read_csv("data/df_name_wiki.csv") %>% dplyr::select(name_id) %>% mutate(in_wiki = T),
+tmp <- select(df_all, name_id) %>% distinct %>% left_join(
+  read_csv("data/df_name_wiki.csv") %>% select(name_id) %>% mutate(in_wiki = T),
   by = "name_id") %>% 
-  left_join(read_csv("data/df_name_mujins.csv") %>% dplyr::select(name_id) %>%mutate(in_mujins = T),
+  left_join(read_csv("data/df_name_mujins.csv") %>% select(name_id) %>%mutate(in_mujins = T),
             by = "name_id")
 tmp %>% filter(is.na(in_mujins) & is.na(in_wiki)) %>% view
 
-write_rds(df_all, path = "data/df_all.rds")
+# write_rds(df_all, path = here("data", "df_all.rds"))
 # analysis.R へ続く

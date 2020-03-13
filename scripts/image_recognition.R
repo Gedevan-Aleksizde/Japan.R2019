@@ -1,6 +1,3 @@
-if(!pacman::p_exists(keras)) pacman::p_install_gh("rstudio/keras")
-pacman::p_load(tidyverse, ggthemes, cluster, factoextra, tictoc, magick, Metrics)
-
 # 花園明朝A, B フォントが必要
 # http://fonts.jp/hanazono/
 # TODO: マルチバイト字が多いと構文チェックがバグる, 開くたびにテキストがぐちゃぐちゃになる
@@ -146,8 +143,6 @@ tic("sim1")
 df_raster <- get_raster_feat(df_names, size = 32)
 df_sim_rank <- get_sim_rank(df_raster, df_names)
 toc(log = T, quiet = T)
-# save(df_names, df_raster, tab_rank_names, file="data/tmp1.RData")
-# load("data/tmp1.RData")
 
 df_sim_rank %>% arrange(desc(manhattan), desc(euclidean)) %>% head(20)
 df_sim_rank %>% arrange(euclidean, manhattan) %>% head(20)

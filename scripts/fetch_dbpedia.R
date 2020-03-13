@@ -1,6 +1,6 @@
-pacman::p_load(tidyverse, SPARQL, rvest)
-# https://midoriit.com/2014/03/lod%e3%81%a8sparql%e5%85%a5%e9%96%801.html
-
+require(tidyverse)
+require(SPARQL)
+require(rvest)
 endpoint <-"http://ja.dbpedia.org/sparql"
 
 # 記述が少なそうなマイナーな人物の場合
