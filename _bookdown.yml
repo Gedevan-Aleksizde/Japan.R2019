@@ -1,0 +1,15 @@
+book_filename: "three-kingdoms"
+number-sections: true
+html_document:
+    df_print: kable
+delete_merged_file: true
+output_dir: "docs"
+language:
+  # https://stackoverflow.com/questions/48247787/how-to-change-caption-label-names-in-a-single-document-with-bookdown
+  label:
+    fig: "図"
+    tab: "表"
+#  ui:
+#    chapter_name: "Chapter "
+#    appendix_name: ["Appendix ", ":"]
+# rmd_files:
