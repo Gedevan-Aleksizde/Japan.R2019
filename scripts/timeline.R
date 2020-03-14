@@ -1,4 +1,4 @@
-pacman::p_load(tidyverse, ggthemes, lubridate)
+# run source("scripts/set_environments.R") first
 
 df_tl <- tribble(
   ~"category", ~"start", ~"end", ~"title", ~"author", ~"publisher", ~"source",
@@ -60,15 +60,7 @@ df_tl <- df_tl %>% mutate(
   category = factor(category, levels = c("ゲーム", "漫画", "映像", "小説", "史書"))
   ) %>%
   mutate(flag = (author == "光栄") & str_detect(title, "^三國志[A-Z0-9]"))
-theme_document <- theme_classic(base_family = "Noto Sans CJK JP") +
-  theme(legend.title = element_blank(), legend.position = "bottom",
-        axis.title.y = element_text(angle = 0, vjust = .5))
-theme_presen <- theme_classic(base_family = "Noto Sans CJK JP", base_size = 20) + theme(
-  axis.title.y = element_blank(), axis.title.x = element_blank(),
-  legend.title = element_blank(), legend.position = "bottom",
-  legend.key.width = unit(3, "line"),
-  title = element_blank()
-)
+
 g <- ggplot(df_tl %>% mutate(id = row_number()),
        aes(x = category,
            y = start, ymin = start, ymax = end,
@@ -80,6 +72,6 @@ g <- ggplot(df_tl %>% mutate(id = row_number()),
   geom_text(aes(label = title), hjust = "left", position = position_dodge(.1)) +
   scale_y_reverse() + labs(y = "西\n暦", x = "カテゴリ", title = "現代日本の三国志文化年表") + scale_color_wsj()
 g + theme_document
-ggsave(filename = "doc/timeline_doc.pdf", device = cairo_pdf)
+ggsave(filename = here(dirname_img, "timeline_doc.pdf"), device = cairo_pdf)
 g + theme_presen
-ggsave(filename = "doc/timeline_presen.pdf", device = cairo_pdf, width = 10, height = 7)
+ggsave(filename = here(dirname_img, "timeline_presen.pdf"), device = cairo_pdf, width = 10, height = 7)

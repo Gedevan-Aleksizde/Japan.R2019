@@ -1,5 +1,5 @@
 # 全体の流れはall.Rで管理しています
-
+# run source("scripts/set_environments.R") first if you want to run this single script
 # sources <- read_rds(here("data", "sources.rds"))
 
 # 名前の重複を見つける関数

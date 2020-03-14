@@ -1,6 +1,5 @@
-require(tidyverse)
-require(SPARQL)
-require(rvest)
+# run source("scripts/set_environments.R") first if you want to run this single script
+
 endpoint <-"http://ja.dbpedia.org/sparql"
 
 # 記述が少なそうなマイナーな人物の場合
@@ -132,7 +131,7 @@ df_wiki %>% group_by(name_id) %>% summarise(n = n()) %>% arrange(desc(n))
 
 df_wiki %>% filter(is_tk | is_engi) %>% filter(!is_han)
 
-write_csv(df_wiki, path = "data/df_name_wiki.csv")
+write_csv(df_wiki, path = here(dirname_data, "df_name_wiki.csv"))
 
 # こっからも取ってくる
 # http://www.project-imagine.org/mujins/sanguo/
@@ -141,4 +140,4 @@ df_mujins <- read_html(url_base, encoding = "cp932") %>%
   html_nodes("a") %>% tibble(a = ., name_id = html_text(.), link = html_attr(., "href")) %>% dplyr::select(-a)
 df_mujins %>% filter(str_detect(name_id, "[^\\p{Han}]")) %>% view
 df_mujins <- df_names_hist %>% filter(!str_detect(name_id, "[^\\p{Han}]"))
-write_csv(df_mujins, path = "data/df_name_mujins.csv")
+write_csv(df_mujins, path = here(dirname_data, "df_name_mujins.csv"))

@@ -1,4 +1,5 @@
 # 全体の流れはall.Rで管理しています
+# run source("scripts/set_environments.R") first if you want to run this single script
 
 # 1-7, 12
 # http://hima.que.ne.jp/sangokushi/
