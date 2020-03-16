@@ -5,14 +5,14 @@ https://speakerdeck.com/ktgrstsh/tutorial-on-data-analysis-with-three-kingdom
 
 # 使い方
 1. プログラムを再現する
-  以下の順番で実行する
-  1. `scaraping.R`
-  2. `tidying.R`
-  3. `merging.R`
-  4. `analysis.R`
-それ以外のはなくても動く.
+
+`scripts/all.R` の実行
 
 # 資料だけ見たい
 `doc` 以下にあるpdfを読んで下さい. github 上だと見づらいのでダウンロードして pdf ビューアで読んでください.
+
+**UPDATE AT 2020/3/15**: 以下でチュートリアルとして作り直したドキュメントを公開しました. html/pdf/epub 媒体で読めます.
+https://gedevan-aleksizde.github.io/Japan.R2019/
+
 ## pdf が開けない
  sumatra とか pdf ビューアをインストールしてください.

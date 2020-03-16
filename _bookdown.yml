@@ -1,15 +1,40 @@
-book_filename: "three-kingdoms"
+
+book_filename: "three-kingdoms"                      
+repo: https://github.com/rstudio/bookdown/  # 謎
+output_dir: "docs"                                   # ファイル出力先. github pagesならdocs指定すると楽
+clean: [packages.bib, bookdown.bbl]                  # `clean_book()`で削除する場所
+delete_merged_file: true                             # 既にあるmain.Rmdに上書きするかどうか
+before_chapter_scrip: null                           # 各チャプター開始直前に実行するRスクリプトファイル. e.g., ワークスペースを初期化する等に使う
+after_chapter_script: null                           # 各チャプター開始直後に...
+view: "Gedevan-Aleksizde/Japan.R2019/blob/master/%s"
 number-sections: true
 html_document:
     df_print: kable
-delete_merged_file: true
-output_dir: "docs"
-language:
-  # https://stackoverflow.com/questions/48247787/how-to-change-caption-label-names-in-a-single-document-with-bookdown
+# ---- 見出し用語の変更 ----
+language:                 
   label:
-    fig: "図"
-    tab: "表"
-#  ui:
-#    chapter_name: "Chapter "
-#    appendix_name: ["Appendix ", ":"]
-# rmd_files:
+    fig: '図 '
+    tab: '表 '
+    eq: '式 '
+    thm: '定理 '
+    lem: '補題 '
+    cor: '系 '
+    prp: '命題 '
+    cnj: '予想 '
+    def: '定義 '
+    exm: '例 '
+    exr: '練習 '
+    proof: '証明. '
+    remark: '用例. '
+    solution: '解答. '
+  ui:
+    edit: "Edit"
+    chapter_name: ''
+    section_name: "SS "
+    appendix_name: '補遺'
+# どのファイルを読み込むか. デフォルトでは同じディレクトリの全ての.Rmdを読み込む. ここでファイルを指定するとそれしか読み込まない.
+rmd_files:
+  - index.Rmd  
+
+# 参考: https://bookdown.org/yihui/bookdown/configuration.html
+# 参考: https://bookdown.org/yihui/bookdown/internationalization.html

@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-03-15" />
+<meta name="date" content="2020-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -289,11 +289,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb4-4" data-line-number="4">}</a></code></pre></div>
 <p>おもな同姓同名の人物には以下のようなものがある.</p>
 <ul>
-<li><strong><ruby>張温<rp>(</rp><rt>チョウオン</rt><rp>)</rp></ruby></strong>: 東漢 (後漢) の高級官僚と, 孫呉に仕えた人物</li>
-<li><strong><ruby>張闓<rp>(</rp><rt>チョウガイ</rt><rp>)</rp></ruby></strong>: 陶謙に仕えた武将と, 袁術に仕えた武将</li>
-<li><strong><ruby>張南<rp>(</rp><rt>チョウナン</rt><rp>)</rp></ruby></strong>: 袁紹に仕えたのち曹操に降伏した武将と, 蜀の武将</li>
-<li><strong><ruby>馬忠<rp>(</rp><rt>バチュウ</rt><rp>)</rp></ruby></strong>: 呉の孫権に仕えた武将と, 蜀の武将</li>
-<li><strong><ruby>李豊<rp>(</rp><rt>リホウ</rt><rp>)</rp></ruby></strong> : 袁術に仕えた武将と, 蜀漢の武将李厳の子, そして魏の人物</li>
+<li><ruby><strong>張温</strong><rp>(</rp><rt>チョウオン</rt><rp>)</rp></ruby>: 東漢 (後漢) の高級官僚と, 孫呉に仕えた人物</li>
+<li><ruby><strong>張闓</strong><rp>(</rp><rt>チョウガイ</rt><rp>)</rp></ruby>: 陶謙に仕えた武将と, 袁術に仕えた武将</li>
+<li><ruby><strong>張南</strong><rp>(</rp><rt>チョウナン</rt><rp>)</rp></ruby>: 袁紹に仕えたのち曹操に降伏した武将と, 蜀の武将</li>
+<li><ruby><strong>馬忠</strong><rp>(</rp><rt>バチュウ</rt><rp>)</rp></ruby>: 呉の孫権に仕えた武将と, 蜀の武将</li>
+<li><ruby><strong>李豊</strong><rp>(</rp><rt>リホウ</rt><rp>)</rp></ruby>: 袁術に仕えた武将と, 蜀漢の武将李厳の子, そして魏の人物</li>
 </ul>
 <p>これらは識別できなければならないため, 名前の末尾に「孫呉」「東漢」などと所属勢力を括弧書きで追加した. 上記の三國志IIの場合でいえば, 馬忠と李豊が当てはまる. それ以外は異なるステータスで名前の同じ項目があったため, 生没年や字の有無, ステータスの数値等から判断して修正している.</p>
 
@@ -305,13 +305,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="figure" style="text-align: center"><span id="fig:threekingdom9"></span>
 <img src="images/three_kingdom9.png" alt="三國志9 の人物一覧ページ" width="75%" />
 <p class="caption">
-図3.1: 三國志9 の人物一覧ページ
+図 3.1: 三國志9 の人物一覧ページ
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:threekingdom12"></span>
 <img src="images/three_kingdom12.png" alt="三國志12 の人物一覧ページ" width="75%" />
 <p class="caption">
-図3.2: 三國志12 の人物一覧ページ
+図 3.2: 三國志12 の人物一覧ページ
 </p>
 </div>
 <p>三國志9の場合は<code>stringr::str_split_fixed()</code>で文字列を1文字ごとに分解し, 個別の列に分割している.</p>
@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb12-2" data-line-number="2">    title, order, name) <span class="op">%&gt;%</span><span class="st"> </span>nest <span class="op">%&gt;%</span><span class="st"> </span>ungroup)</a></code></pre></div>
 <table>
 <caption>
-<span id="tab:nest-map">表3.1: </span>nestしたデータフレーム
+<span id="tab:nest-map">表 3.1: </span>nestしたデータフレーム
 </caption>
 <thead>
 <tr>
@@ -500,14 +500,14 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <p>今回の情報源は複数の個人サイトによるもので, フォーマットも全く異なり表記にもかなりゆらぎがある. 単なる誤変換であるもの, 原典である『正史三国志』と『三国志演義』の間でもすでに食い違っているものなど, 原因は様々である. 使用するデータの品質向上のため, 当初は手動でいくつかの方法を試した.</p>
 <div id="三国志以外の登場人物を除外する" class="section level3 unnumbered">
 <h3>三国志以外の登場人物を除外する</h3>
-<p>既に述べたように, 春秋戦国時代や, 魏晉時より後代の人物が隠し要素として存在する. 三国志演義が史書とは異なる創作であり, 真実がなんであるかを問題としない以上, 2世紀末の中国で<strong>チンギス=ハン</strong>が覇を唱えようが<strong>織田信長</strong>が乱入しようが, <ruby>皇帝<rp>(</rp><rt>カイザー</rt><rp>)</rp></ruby><strong>ラインハルト</strong>率いる宇宙艦隊が遠征してこようが, 原則を言えばあらゆる創作を「三国志」として認めなければならない. しかし今回はあくまで, 三国志の人物の評価の変遷を知るのが目的である. こういった企画で採用される人物はその時代を代表する英雄であるため, しばしば非常に高いステータス値が設定されている. そういう人物が8以降の作品では数十人ほど登録されており, これを含めるかどうかで要約統計量の数値はかなり変わってくる. よって, 今回は『三国志演義』『正史三国志』『反三国志』および『花関索伝』で言及される人物<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>だけを対象とすることにした. この処理によって<strong>179名</strong>が除外された.</p>
+<p>既に述べたように, 春秋戦国時代や, 魏晉時より後代の人物が隠し要素として存在する. 三国志演義が史書とは異なる創作であり, 真実がなんであるかを問題としない以上, 2世紀末の中国で<strong>チンギス=ハン</strong>が覇を唱えようが<strong>織田信長</strong>が乱入しようが, <ruby><strong>皇帝</strong><rp>(</rp><rt>カイザー</rt><rp>)</rp></ruby><strong>ラインハルト</strong>率いる宇宙艦隊が遠征してこようが, 原則を言えばあらゆる創作を「三国志」として認めなければならない. しかし今回はあくまで, 三国志の人物の評価の変遷を知るのが目的である. こういった企画で採用される人物はその時代を代表する英雄であるため, しばしば非常に高いステータス値が設定されている. そういう人物が8以降の作品では数十人ほど登録されており, これを含めるかどうかで要約統計量の数値はかなり変わってくる. よって, 今回は『三国志演義』『正史三国志』『反三国志』および『花関索伝』で言及される人物<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>だけを対象とすることにした. この処理によって<strong>179名</strong>が除外された.</p>
 </div>
 <div id="漢字が使われていない名前を検査する" class="section level3 unnumbered">
 <h3>漢字が使われていない名前を検査する</h3>
 <p>まず, 正規表現で漢字以外の使われている人名を探した. 機種依存文字をカタカナ等で置き換えていたものを見つけた手動で修正した. 有名な例では, UTF-8 が普及する以前は<ruby><strong>張郃</strong><rp>(</rp><rt>チョウコウ</rt><rp>)</rp></ruby>の「郃」の字に対応した文字コードがなかったため, インターネット上でしばしば「合β」と表記されていた.</p>
 <p>そこで以下のように正規表現で漢字でない文字を含むものを取り出した上で, 既に書いたように同姓同名人物の識別のために付けた括弧付きの人名リスト<code>name_parenthesis</code>と一致するものを排除し, 確認が必要な人名を取り出した<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">filter</span>(df_all, <span class="kw">str_detect</span>(name, <span class="st">&quot;[^</span><span class="ch">\\</span><span class="st">p{Han}]&quot;</span>), <span class="op">!</span>name <span class="op">%in%</span><span class="st"> </span>name_parenthesis)</a></code></pre></div>
-<p>この方法では, <ruby><u><strong>龐</strong></u><strong>徳</strong><rp>(</rp><rt>ホウトク</rt><rp>)</rp></ruby><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>, <ruby><strong>賈</strong><u><strong>詡</strong></u><rp>(</rp><rt>カク</rt><rp>)</rp></ruby>, <ruby><u><strong>郝</strong></u><strong>昭</strong><rp>(</rp><rt>カクショウ</rt><rp>)</rp></ruby>, など同様の原因でカナで表記されるなど表記のゆらぎが発生している人名を<strong>122件</strong>発見した.</p>
+<p>この方法では, <ruby><strong>龐徳</strong><rp>(</rp><rt>ホウトク</rt><rp>)</rp></ruby><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>, <ruby><strong>賈詡</strong><rp>(</rp><rt>カク</rt><rp>)</rp></ruby>, <ruby><strong>郝昭</strong><rp>(</rp><rt>カクショウ</rt><rp>)</rp></ruby>, など同様の原因でカナで表記されるなど表記のゆらぎが発生している人名を<strong>122件</strong>発見した.</p>
 </div>
 <div id="字以上の名前を検査する" class="section level3 unnumbered">
 <h3>3字以上の名前を検査する</h3>
@@ -525,7 +525,7 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <ul>
 <li><ruby><strong>毌丘倹</strong><rp>(</rp><rt>カンキュウケン</rt><rp>)</rp></ruby>/<strong>母丘倹</strong>: 子弟である<strong>秀</strong>, <strong>甸</strong>にも同様の誤りが見られた.</li>
 <li><ruby><strong>諸葛瑾</strong><rp>(</rp><rt>ショカツキン</rt><rp>)</rp></ruby>/<strong>諸葛謹</strong>: オウ偏の<strong>瑾</strong>の字があまり使われないための誤記と思われる.</li>
-<li><ruby><strong>太史亨</strong><rp>(</rp><rt>タイシキョウ</rt><rp>)</rp></ruby>/<strong>太史享</strong>: 字の違いは微妙である.</li>
+<li><ruby><strong>太史亨</strong><rp>(</rp><rt>タイシキョウ</rt><rp>)</rp></ruby><strong>太史享</strong>: 名の「亨」の字が微妙に違う.</li>
 </ul>
 </div>
 <div id="出現頻度の少ない人名を検査する" class="section level3 unnumbered">
@@ -544,13 +544,13 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <p>そこでさらなる名寄せ処理として, どうやって互いに類似する人名を取り出すか, ということを考える.</p>
 <p>多くの自然言語処理の研究では, 文章を対象としている. しかし, すでに述べたように人名のほとんどが2字, 多くとも4字である. 形状の似ている文字を見つけるということから, 画像認識の技術を応用できないか考えてみる. 画像認識の一種としての手書き文字の認識は昔から研究されている. しかし, これは癖のある字をどう認識するかという教師あり学習の問題として扱われることが多いため, 今回の問題と合致しない.</p>
 <p>今回の問題設定に合致するような先行研究がなかなか見つけられないため, 自分なりのアイディアとして, 人名の文字を画像データと見なし, 画像間の類似度を計算することで似たような字を見つける, と言う方法を採用した. これは表記ゆれを確実かつ漏れなく発見できるわけではないが, 総当りよりも効率よく見つけられると考えられる.</p>
-<p>画像として表示するにはフォントが必要である. しかし入力者がどのフォントを使っていたかは特定できない. また, 一部の人名は標準的な日本語フォントに対応していないものもある. 具体的には, 呉の景帝の太子の一人である「<ruby>孫𩅦 <rp>(</rp><rt>ソンワン</rt><rp>)</rp></ruby>」である. 「𩅦 」の字は Unicode では CJK統合漢字拡張Bのカテゴリに含まれているが<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>, 日本語フォントで対応しているものは少ない. 中国語圏で普及しているフォントには対応しているものもあるが, 今回の目的は日本人が日本語環境で入力したデータベースの名寄せだから, できる限り日本風のフォントを使う必要がある. これに対応する日本語フォントは<a href="https://fonts.jp/hanazono/">花園明朝</a>Bである. よって, 文字画像には<a href="https://fonts.jp/hanazono/">fonts.jp</a>で提供される花園明朝AおよびBを使うことにした.</p>
+<p>画像として表示するにはフォントが必要である. しかし入力者がどのフォントを使っていたかは特定できない. また, 一部の人名は標準的な日本語フォントに対応していないものもある. 具体的には, 呉の景帝の太子の一人である「<ruby><strong>孫&#x29166;</strong><rp>(</rp><rt>ソンワン</rt><rp>)</rp></ruby>」である. 「&#x29166;」の字は Unicode では CJK統合漢字拡張Bのカテゴリに含まれているが<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>, 日本語フォントで対応しているものは少ない. 中国語圏で普及しているフォントには対応しているものもあるが, 今回の目的は日本人が日本語環境で入力したデータベースの名寄せだから, できる限り日本風のフォントを使う必要がある. これに対応する日本語フォントは<a href="https://fonts.jp/hanazono/">花園明朝</a>Bである. よって, 文字画像には<a href="https://fonts.jp/hanazono/">fonts.jp</a>で提供される花園明朝AおよびBを使うことにした.</p>
 <p>まず人名を2つ取り出し, それぞれ文字列のビットマップ情報<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>に変換する.</p>
 <p>例えば以下のような画像になる(図<a href="前処理.html#fig:name-bitmap">3.3</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:name-bitmap"></span>
 <img src="three-kingdoms_files/figure-html/name-bitmap-1.svg" alt="人名のビットマップ画像の例" width="75%" />
 <p class="caption">
-図3.3: 人名のビットマップ画像の例
+図 3.3: 人名のビットマップ画像の例
 </p>
 </div>
 <p>それから, ビットマップ情報から特徴量を取り出す.</p>
@@ -562,23 +562,23 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <ol style="list-style-type: decimal">
 <li>の方法では, 特徴量は <span class="math inline">\(32\times128=4096\)</span> 次元の数値となる<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. (2) の方法は, ピクセルの並びの全ての行・列それぞれに対して, 背景色・文字色の変化の回数 (これを「微分」と呼ぶ), 文字色の割合 (これを「積分」と呼ぶ) を計算する方法である. これによって, <span class="math inline">\((32+128)\times2=320\)</span> 次元の特徴量が得られる (実際に使用したのは<span class="math inline">\(317\)</span>次元).</li>
 </ol>
-<p>最後に, 2つの文字画像の特徴量ベクトル <span class="math inline">\(\boldsymbol{x},\boldsymbol{y}\)</span> について, 距離 <span class="math inline">\(d(\boldsymbol{x},\boldsymbol{y})\)</span> を計算する.
-<span class="math display">\[\begin{aligned}
+<p>最後に, 2つの文字画像の特徴量ベクトル <span class="math inline">\(\boldsymbol{x},\boldsymbol{y}\)</span> について, 距離 <span class="math inline">\(d(\boldsymbol{x},\boldsymbol{y})\)</span> を計算する.</p>
+<p><span class="math display">\[\begin{aligned}
 s(x,y):= &amp; \frac{d(x,y)-\min d}{\max d-\min d}
-\end{aligned}\]</span>
-なお, このような類似度の求め方は<strong>テンプレートマッチング</strong>と呼ばれる(<span class="citation">糟谷 and 山名 (<a href="#ref-nukayaYamana2006">2006</a>)</span>). <span class="math inline">\(d(x,y)\)</span> の計算はユークリッド距離
-<span class="math display">\[\begin{aligned}
+\end{aligned}\]</span></p>
+<p>なお, このような類似度の求め方は<strong>テンプレートマッチング</strong>と呼ばれる(<span class="citation">糟谷 and 山名 (<a href="#ref-nukayaYamana2006">2006</a>)</span>). <span class="math inline">\(d(x,y)\)</span> の計算はユークリッド距離</p>
+<p><span class="math display">\[\begin{aligned}
 d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert=\sqrt{(\boldsymbol{x}-\boldsymbol{y})^{\top}(\boldsymbol{x}-\boldsymbol{y})},
-\end{aligned}\]</span>
-とマンハッタン距離
-<span class="math display">\[\begin{aligned}
+\end{aligned}\]</span></p>
+<p>とマンハッタン距離</p>
+<p><span class="math display">\[\begin{aligned}
 d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert_{1}=\sum_{k}\left|x_{k}-y_{k}\right|,
-\end{aligned}\]</span>
-で計算した.</p>
+\end{aligned}\]</span></p>
+<p>で計算した.</p>
 <p>これを全ての人名の組み合わせに対して実行し, min-max 正規化したものを類似度 <span class="math inline">\(s\)</span> として, 値の大きい順にソートした.</p>
 <p>特徴量のとり方の2通りのやり方はそれぞれ次元の大きさが全く異なるが, 提示された結果はかなり似ている. 上位30件を確認して発見した表記のゆらぎを表<a href="前処理.html#tab:sim">3.2</a>に抜粋する.</p>
 <table>
-<caption><span id="tab:sim">表3.2: </span> マンハッタン類似度上位10件, 誤字を強調</caption>
+<caption><span id="tab:sim">表 3.2: </span> マンハッタン類似度上位10件, 誤字を強調</caption>
 <thead>
 <tr class="header">
 <th align="left">名前1</th>
@@ -652,7 +652,7 @@ d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y
 </table>
 <p>特に紛らわしいのは表<a href="前処理.html#tab:confu">3.3</a>である. これは文字を拡大しないと気づきづらい.</p>
 <table>
-<caption><span id="tab:confu">表3.3: </span> 発見できた紛らわしい表記のゆらぎ例</caption>
+<caption><span id="tab:confu">表 3.3: </span> 発見できた紛らわしい表記のゆらぎ例</caption>
 <thead>
 <tr class="header">
 <th align="center">正</th>
@@ -684,17 +684,17 @@ d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y
 <p>例: 原作からしてゆらぎがある<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a></p>
 <ul>
 <li><ruby><strong>李堪</strong><rp>(</rp><rt>リカン</rt><rp>)</rp></ruby>と<strong>李湛</strong> (三国志演義と吉川三国志)</li>
-<li><ruby><strong>楊脩</strong><rp>(</rp><rt>ヨウシュウ</rt><rp>)</rp></ruby>と<strong>楊修</strong></li>
+<li><ruby><strong>楊脩</strong><rp>(</rp><rt>ヨウシュウ</rt><rp>)</rp></ruby><strong>楊修</strong></li>
 <li><ruby><strong>雷銅</strong><rp>(</rp><rt>ライドウ</rt><rp>)</rp></ruby>と<strong>雷同</strong></li>
 <li><ruby><strong>陳羣</strong><rp>(</rp><rt>チングン</rt><rp>)</rp></ruby>と<strong>陳群</strong></li>
 <li><ruby><strong>田豫</strong><rp>(</rp><rt>デンヨ</rt><rp>)</rp></ruby>と<strong>田予</strong></li>
 </ul>
 <p>例: 機種依存文字の影響で間違えやすい字: 部首が違う</p>
 <ul>
-<li><ruby><strong>劉璝</strong><rp>(</rp><rt>リュウカイ</rt><rp>)</rp></ruby> (正) <strong>劉潰</strong> (誤): 「璝」は日本語ではほぼ使われない</li>
+<li><ruby><strong>劉璝</strong><rp>(</rp><rt>リュウカイ</rt><rp>)</rp></ruby> (正) と<strong>劉潰</strong> (誤): 「璝」は日本語ではほぼ使われない</li>
 <li><ruby><strong>王凌</strong><rp>(</rp><rt>オウリョウ</rt><rp>)</rp></ruby> (正) と<strong>王淩</strong> (誤): ニスイ偏が正しい.</li>
 <li><ruby><strong>鍾会</strong><rp>(</rp><rt>ショウカイ</rt><rp>)</rp></ruby> (正) と<strong>鐘会</strong> (誤): カネではない<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>.</li>
-<li><ruby><strong>歩騭</strong><rp>(</rp><rt>ホシツ</rt><rp>)</rp></ruby> (正) と <strong>歩隲</strong> (誤): コザト偏の位置</li>
+<li><ruby><strong>歩騭</strong><rp>(</rp><rt>ホシツ</rt><rp>)</rp></ruby> (正) と<strong>歩隲</strong> (誤): コザト偏の位置</li>
 </ul>
 <p>似ているが別人の例として, 既に紹介したもの以外にも以下のようなものがある.</p>
 <ul>
@@ -713,11 +713,11 @@ d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y
 <p>[画像認識と言えば最近はニューラルネットワークを使った話が流行っているので, 何か応用できるものがないか探してみた. 機械学習の問題としてみれば教師なし学習で, かつ2点間の類似度を出せるものがよい. ここまで試したのは2つの文字画像のピクセル<span class="math inline">\(\boldsymbol{x},\boldsymbol{y}\)</span> 間の距離である. 例えばユークリッド距離で,</p>
 <p><span class="math display">\[\begin{aligned}
 d(\boldsymbol{x},\boldsymbol{y}):= &amp; \sqrt{\left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert}\end{aligned}\]</span></p>
-<p>を2つの画像の類似度としてきた. しかしこれでは限界があることがわかったので, なんらかの適切な特徴量変換器 <span class="math inline">\(\boldsymbol{f}\)</span> を挟んで,
-<span class="math display">\[\begin{aligned}
+<p>を2つの画像の類似度としてきた. しかしこれでは限界があることがわかったので, なんらかの適切な特徴量変換器 <span class="math inline">\(\boldsymbol{f}\)</span> を挟んで,</p>
+<p><span class="math display">\[\begin{aligned}
 s(\boldsymbol{x},\boldsymbol{y}):= &amp; \sqrt{\left\Vert \boldsymbol{f}(\boldsymbol{x})-\boldsymbol{f}(\boldsymbol{y})\right\Vert_{2}}
-\end{aligned}\]</span>
-のような類似度計算ができるようになればいい. 機械学習の研究では, これを<strong>計量距離学習</strong> (metric learning) という<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
+\end{aligned}\]</span></p>
+<p>のような類似度計算ができるようになればいい. 機械学習の研究では, これを<strong>計量距離学習</strong> (metric learning) という<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
 <p>ここでいくつか関連しそうな研究を紹介しておく.</p>
 <p><span class="citation">Wang et al. (<a href="#ref-wang2014Learning">2014</a>)</span>, <span class="citation">Hoffer and Ailon (<a href="#ref-hoffer2015Deep">2015</a>)</span>, <span class="citation">Sanakoyeu, Bautista, and Ommer (<a href="#ref-sanakoyeu2018Deep">2018</a>)</span>, <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised">2019</a>)</span> などを参考にすると最近は計量距離学習では triplet network と呼ばれるモデルが流行しているらしい.</p>
 <p><span class="citation">Zhang and Komachi (<a href="#ref-zhang2019ChineseJapanese">2019</a>)</span> では, <a href="http://www.chise.org/ids/index.ja.html">CHASE プロジェクト</a>のデータベースから, 文字の部首情報を取り出して教師なしニューラル機械翻訳 (UNMT) をしている<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. しかしこれは画像認識ではない</p>
@@ -733,7 +733,8 @@ s_{\mathit{siamese}}(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert f(\boldsy
 s_{\mathit{triplet}}(\boldsymbol{x},\boldsymbol{x}^{p},\boldsymbol{x}^{n}):= &amp; \begin{bmatrix}\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{p})\right\Vert_{2}\\
 \left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{n})\right\Vert_{2}
 \end{bmatrix}\end{aligned}\]</span></p>
-<p>これら3点の相対的な距離をもとに学習するというのが triplet network のアイディアになる. さらに, <span class="citation">Wang et al. (<a href="#ref-wang2014Learning">2014</a>)</span> に従って triplet 損失を <span class="math display">\[\begin{aligned}
+<p>これら3点の相対的な距離をもとに学習するというのが triplet network のアイディアになる. さらに, <span class="citation">Wang et al. (<a href="#ref-wang2014Learning">2014</a>)</span> に従って triplet 損失を</p>
+<p><span class="math display">\[\begin{aligned}
 L_{\mathit{triplet}}(\boldsymbol{x}^{a},\boldsymbol{x}^{p},\boldsymbol{x}^{n};\delta):= &amp; \left\lfloor \left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{p})\right\Vert_{2}-\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{n})\right\Vert_{2}+\delta\right\rfloor \end{aligned}\]</span> で定義する.</p>
 <p>しかし今回は教師ラベルがないため, <span class="math inline">\(\boldsymbol{x}^{p}\)</span>, <span class="math inline">\(\boldsymbol{x}^{n}\)</span> をどう選べばいいかが分からない. そこで, <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised">2019</a>)</span> の提案するように, 特徴量 <span class="math inline">\(\boldsymbol{x}\)</span> の距離で正例負例を与える.</p>
 </div>
@@ -875,13 +876,17 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": null,
+"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
-"download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
+"download": ["three-kingdoms.epub"],
 "toc": {
-"collapse": "subsection",
-"download": "pdf"
+"collapse": "none",
+"download": ["pdf", "epub"],
+"sharing": {
+"github": true,
+"facebook": false
+}
 }
 });
 });

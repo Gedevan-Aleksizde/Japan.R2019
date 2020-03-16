@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-03-15" />
+<meta name="date" content="2020-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -232,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="figure" style="text-align: center"><span id="fig:inout"></span>
 <img src="three-kingdoms_files/figure-html/inout-1.svg" alt="登録・除外フロー" width="75%" />
 <p class="caption">
-図4.1: 登録・除外フロー
+図 4.1: 登録・除外フロー
 </p>
 </div>
 <div id="テクニカル-ggplot2の使い方" class="section level3 unnumbered">
@@ -250,7 +250,7 @@ Rで使えるggplot2以外のフレームワークとして, 例えば<code>plot
 <div class="figure" style="text-align: center"><span id="fig:inout-simple"></span>
 <img src="three-kingdoms_files/figure-html/inout-simple-1.svg" alt="最低限で書けるが, 見栄えが悪い" width="75%" />
 <p class="caption">
-図4.2: 最低限で書けるが, 見栄えが悪い
+図 4.2: 最低限で書けるが, 見栄えが悪い
 </p>
 </div>
 <p><code>ggplot2</code>でグラフを描くにあたって最低限必要なのは入力データの指定をする <code>ggplot()</code>, 軸を指定する <code>aes()</code>, そしてグラフの種類を決める, <code>geom_</code>で始まる各種関数である. 今回は<code>geom_bar()</code>でバープロットを描画している. <code>aes(x = title, y = number, group = var, fill = var, color = var)</code>について, <code>x</code>, <code>y</code>, <code>group</code>, <code>fill</code>, <code>color</code>はそれぞれx軸, y軸, グループ分け, 塗りつぶし色を指定する引数であり, 上記のようにグループごとに色分けした棒グラフを描くために必要な設定である. どのような設定が必要かは<code>geom_</code>の関数ごとに異なるため, 慣れないうちは必要な引数をヘルプで確認する必要があるだろう. <code>geom_bar()</code>ではさらに, <code>stat=&quot;identity&quot;</code>でy軸の計算方法を指定しているデフォルトは<code>stat=&quot;count&quot;</code>で, これは <code>aes(y=)</code>で指定した<strong><code>y</code>の件数をy軸に出力する</strong>. しかし今回は件数はすでに集計済みなので, <code>stat=&quot;identity&quot;</code>を指定し, 件数ではなく<code>y</code>の値をそのまま出すようにしている. <code>position=&quot;stack&quot;</code>は積み上げ棒グラフにする設定である (積み上げ棒グラフはデフォルトなのであえて指定する必要はない). 例えば<code>&quot;dodge&quot;</code>を指定すると, 以下の図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:inout-simple-dodge">4.3</a>のように横並びになる.</p>
@@ -259,7 +259,7 @@ Rで使えるggplot2以外のフレームワークとして, 例えば<code>plot
 <div class="figure" style="text-align: center"><span id="fig:inout-simple-dodge"></span>
 <img src="three-kingdoms_files/figure-html/inout-simple-dodge-1.svg" alt="棒グラフを横並びに" width="75%" />
 <p class="caption">
-図4.3: 棒グラフを横並びに
+図 4.3: 棒グラフを横並びに
 </p>
 </div>
 <p><code>size</code>, <code>width</code>は名前の通り棒の大きさや幅を指定するオプションである.</p>
@@ -315,7 +315,7 @@ Rで使えるggplot2以外のフレームワークとして, 例えば<code>plot
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:skimr-tab">表4.1: </span>作品ごとの要約統計量(一部)
+<span id="tab:skimr-tab">表 4.1: </span>作品ごとの要約統計量(一部)
 </caption>
 <thead>
 <tr>
@@ -1213,7 +1213,7 @@ max
 <div class="figure" style="text-align: center"><span id="fig:stat-line"></span>
 <img src="three-kingdoms_files/figure-html/stat-line-1.svg" alt="シリーズごとの要約統計量の推移" width="75%" />
 <p class="caption">
-図4.4: シリーズごとの要約統計量の推移
+図 4.4: シリーズごとの要約統計量の推移
 </p>
 </div>
 <p>このグラフを見て特に気になるのは, レンジの変化である. 三國志シリーズのステータスは基本的に1~100の数値だが, 実際には最小値と最大値の幅が作品ごとに異なることがわかった. そのため, 値域を統一するためにシリーズごとにmin-max正規化を行う. 通常のmin-max正規化は0-1の範囲にする正規化処理だが, 今回は見やすさのため, レンジが100になるよう以下 <a href="検証三國志シリーズの人材は年々無個性化しているのか.html#eq:rangenormalize">(4.1)</a> のようにさらに100を掛けてで調整している.
@@ -1241,7 +1241,7 @@ z:= &amp; 100\times\frac{x-\min(x)}{\max(x)-\min(x)}\end{aligned}\tag{4.1}\]</sp
 <div class="figure" style="text-align: center"><span id="fig:min-max-stat"></span>
 <img src="three-kingdoms_files/figure-html/min-max-stat-1.svg" alt="正規化後のシリーズごとの要約統計量" width="75%" />
 <p class="caption">
-図4.5: 正規化後のシリーズごとの要約統計量
+図 4.5: 正規化後のシリーズごとの要約統計量
 </p>
 </div>
 </div>
@@ -1250,7 +1250,7 @@ z:= &amp; 100\times\frac{x-\min(x)}{\max(x)-\min(x)}\end{aligned}\tag{4.1}\]</sp
 <p>今回の折れ線グラフの作例プログラムも少し長いが, 最低限必要なのは <code>ggplot()</code>, <code>aes()</code>, <code>geom_line()</code>, そして <code>facet_wrap()</code> である. 上記のプログラムのうち, 最初の2つのブロックはグラフ描画用にデータを集計しているものである. さらに最後のブロックでも, 最初の3行はデータフレームの中身を編集しているだけである. この3行で作成したデータフレームは以下の表<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#tab:ggplot-input-line">4.2</a>のようになっている.</p>
 <table>
 <caption>
-<span id="tab:ggplot-input-line">表4.2: </span>折れ線グラフの入力データ
+<span id="tab:ggplot-input-line">表 4.2: </span>折れ線グラフの入力データ
 </caption>
 <thead>
 <tr>
@@ -1366,7 +1366,7 @@ mean
 <div class="figure" style="text-align: center"><span id="fig:lineplot-nonscale"></span>
 <img src="three-kingdoms_files/figure-html/lineplot-nonscale-1.svg" alt="スケールが一致しない例" width="75%" />
 <p class="caption">
-図4.6: スケールが一致しない例
+図 4.6: スケールが一致しない例
 </p>
 </div>
 <p>しかし, <code>facet_wrap()</code> によって分割することで見やすくなる(図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:lineplot-facet">4.7</a>).</p>
@@ -1378,7 +1378,7 @@ mean
 <div class="figure" style="text-align: center"><span id="fig:lineplot-facet"></span>
 <img src="three-kingdoms_files/figure-html/lineplot-facet-1.svg" alt="スケールの違う変数ごとに分割して作図" width="75%" />
 <p class="caption">
-図4.7: スケールの違う変数ごとに分割して作図
+図 4.7: スケールの違う変数ごとに分割して作図
 </p>
 </div>
 <p><code>~name</code> は画面を分割する変数である. <code>pivot_longer()</code>で元のデータフレームをlong形式に変換しているため, <code>name</code>に元の変数名が格納されている. <code>scales=&quot;free_y&quot;</code>は, y軸のスケールを分割ごとに変動することを許可している. この設定によって, 図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:lineplot-facet">4.7</a>のようにスケールが調整され変化がわかりやすくなっている. <code>ncol=1</code>は, 分割の並べ方である. デフォルトでは横に並べてしまうため, <code>ncol=1</code> で横1列に制限している.</p>
@@ -1397,7 +1397,7 @@ mean
 <li><ruby><strong>華雄</strong><rp>(</rp><rt>カユウ</rt><rp>)</rp></ruby>
 <ul>
 <li>正史: 「<ruby><strong>董卓</strong><rp>(</rp><rt>トウタク</rt><rp>)</rp></ruby>が派遣した<ruby><strong>胡軫</strong><rp>(</rp><rt>コシン</rt><rp>)</rp></ruby>の配下として従軍したが<ruby><strong>孫堅</strong><rp>(</rp><rt>ソンケン</rt><rp>)</rp></ruby>軍に討たれた」としか書かれていない(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B746&amp;oldid=1769696#%E5%AD%AB%E5%A0%85">呉書孫堅伝</a>,<a href="https://zh.wikisource.org/w/index.php?title=%E5%BE%8C%E6%BC%A2%E6%9B%B8/%E5%8D%B772&amp;oldid=1379095#%E8%91%A3%E5%8D%93">後漢書董卓伝</a>)</li>
-<li>演義: <strong>董卓</strong>配下の猛将で, <strong>孫堅</strong>を敗走させる. しかしに<ruby><strong>関羽</strong><rp>(</rp><rt>カンウ</rt><rp>)</rp></ruby>に即敗北する (<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC005%E5%9B%9E&amp;oldid=1594422">三国演義第五回</a>)</li>
+<li>演義: <strong>董卓</strong>配下の猛将で, <strong>孫堅</strong>を敗走させる. しかし<ruby><strong>関羽</strong><rp>(</rp><rt>カンウ</rt><rp>)</rp></ruby>に即敗北する (<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC005%E5%9B%9E&amp;oldid=1594422">三国演義第五回</a>)</li>
 </ul></li>
 <li><ruby><strong>関興</strong><rp>(</rp><rt>カンコウ</rt><rp>)</rp></ruby>
 <ul>
@@ -1406,7 +1406,7 @@ mean
 </ul></li>
 <li><ruby><strong>曹真</strong><rp>(</rp><rt>ソウシン</rt><rp>)</rp></ruby>
 <ul>
-<li>正史: 魏の将軍として<strong>諸葛亮</strong>の北伐に対する防衛を指揮し, 二度退ける(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B709&amp;oldid=1549863#%E6%9B%B9%E7%9C%9F">魏書曹真伝</a>)</li>
+<li>正史: 魏の将軍として<ruby><strong>諸葛亮</strong><rp>(</rp><rt>ショカツリョウ</rt><rp>)</rp></ruby>の北伐に対する防衛を指揮し, 二度退ける(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B709&amp;oldid=1549863#%E6%9B%B9%E7%9C%9F">魏書曹真伝</a>)</li>
 <li>演義: 北伐では終始<strong>諸葛亮</strong>に翻弄され, 最期は罵倒され憤死した(<a href="https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9/%E7%AC%AC100%E5%9B%9E&amp;oldid=797068">三国演義第一百回</a>等)</li>
 </ul></li>
 <li><ruby><strong>李通</strong><rp>(</rp><rt>リツウ</rt><rp>)</rp></ruby>
@@ -1426,7 +1426,7 @@ mean
 <div class="figure" style="text-align: center"><span id="fig:personal"></span>
 <img src="three-kingdoms_files/figure-html/personal-1.svg" alt="4名のシリーズを通した変化" width="75%" />
 <p class="caption">
-図4.8: 4名のシリーズを通した変化
+図 4.8: 4名のシリーズを通した変化
 </p>
 </div>
 <p>ということは, もしこれが全体の傾向にも当てはまるのなら, 三国志演義で活躍が誇張されている人物の評価はそのままで, 同時に正史の見直しによって従来ステータスの低い武将の値が底上げされれば, 「没個性化」になりうる. 全体の傾向ならば分布にも現れるはずである. そこで, シリーズの作品ほとんどで存在するステータス項目である, 「武力」「知力」「魅力」<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a>「政治」を確認してみる<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>. 分布の形状と言えばヒストグラムだが, シリーズごとの特徴をうまく表したい. 分布を表すものとして, 箱ひげ図(box plot)があるが, ここでは <code>geom_violin()</code> を使って<strong>バイオリン図</strong>を作図した(図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:violins1">4.9</a>).</p>
@@ -1438,7 +1438,7 @@ mean
 <div class="figure" style="text-align: center"><span id="fig:violins1"></span>
 <img src="three-kingdoms_files/figure-html/violins1-1.svg" alt="シリーズごとの主要能力値の分布" width="75%" />
 <p class="caption">
-図4.9: シリーズごとの主要能力値の分布
+図 4.9: シリーズごとの主要能力値の分布
 </p>
 </div>
 <p>バイオリン図で書くことで, シリーズごとに各ステータスの分布形状が変動していることがわかった. そして興味深いことに, 最近の作品ほど分布が二極化している. 平均より大きな値域で大きめの峰が, 平均より小さい値域でも小さい峰が発生している<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>. 図<a href="検証三國志シリーズの人材は年々無個性化しているのか.html#fig:min-max-stat">4.5</a>の歪度の推移から, なんらかの形で分布が歪んでいることは予想できたが, 具体的な形状は実際にグラフにしないと分からない.</p>
@@ -1456,7 +1456,7 @@ mean
 <div class="figure" style="text-align: center"><span id="fig:boxplot"></span>
 <img src="three-kingdoms_files/figure-html/boxplot-1.svg" alt="箱ひげ図で表した場合" width="75%" />
 <p class="caption">
-図4.10: 箱ひげ図で表した場合
+図 4.10: 箱ひげ図で表した場合
 </p>
 </div>
 </div>
@@ -1487,7 +1487,7 @@ mean
 <div class="figure" style="text-align: center"><span id="fig:patchwork-demo"></span>
 <img src="three-kingdoms_files/figure-html/patchwork-demo-1.svg" alt="シリーズごとの能力値分布の変遷" width="75%" />
 <p class="caption">
-図4.11: シリーズごとの能力値分布の変遷
+図 4.11: シリーズごとの能力値分布の変遷
 </p>
 </div>
 </div>
@@ -1579,13 +1579,17 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": null,
+"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
-"download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
+"download": ["three-kingdoms.epub"],
 "toc": {
-"collapse": "subsection",
-"download": "pdf"
+"collapse": "none",
+"download": ["pdf", "epub"],
+"sharing": {
+"github": true,
+"facebook": false
+}
 }
 });
 });

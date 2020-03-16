@@ -1,27 +1,41 @@
+# ---- gitbook(html)の出力設定 ----
 bookdown::gitbook:
-  keep_md: true
-  dev: svglite
-  css: css/style.css
+  keep_md: true           # Rmdからpandocで変換したmdファイルを残すかどうか
+  dev: svglite            # 画像の出力デバイス
+  css: css/style.css      # 出力ディレクトリにコピーするするcssファイルの場所
+  # split_by: section     # 出力ファイルを分割するかどうか
   config:
     toc:
+      collapse: none
       before: |
         <li><a href="./index.html">Top</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-      download: ["pdf"]
+      download: ["pdf", "epub"]
+      # ----- ソーシャルリンク -----
+      sharing:
+        github: yes
+        facebook: no
+bookdown::html_chapters:
+  css: [css/style.css, css/toc.css]
+# ---- pdfの出力設定 ----
 bookdown::pdf_book:
+  # ----- 本文前に読み込むtexファイル -----
   includes:
     in_header: latex/preamble.tex
     before_body: latex/before_body.tex
     after_body: latex/after_body.tex
-  latex_engine: xelatex
-  keep_tex: yes
-  citation_package: natbib
-  pandoc_args: --top-level-division=chapter
+  latex_engine: xelatex                     # 日本語を扱うならxelatex/lualatexが良い
+  keep_tex: yes                             # .texファイルを残すかどうか
+  citation_package: natbib                  # 引用スタイルパッケージ
+  pandoc_args: --top-level-division=section
+  tamplate: null
   toc-unnumbered: no
   toc_appendix: yes
-  toc_depth: 2
+  toc_depth: 3
   dev: "cairo_pdf"
+  quote_footer: ["\\VA{", "}{}"]
+# ---- epubの出力設定 ----
 bookdown::epub_book:
   dev: svglite
   stylesheet: css/style.css

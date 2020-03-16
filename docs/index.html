@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-03-15" />
+<meta name="date" content="2020-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">三國志で学ぶデータ分析 (Japan.R 2019)</h1>
 <p class="author"><em>ill-identified</em></p>
-<p class="date"><em>2020-03-15</em></p>
+<p class="date"><em>2020-03-17</em></p>
 </div>
 <div id="概要" class="section level1">
 <h1><span class="header-section-number">1</span> 概要</h1>
@@ -204,12 +204,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>この記事の目的は2つ.</p>
 <ol style="list-style-type: decimal">
 <li>日本語資料の流入によって, 『三国志演義』以外の観点から登場人物の再評価が進んだことが, コーエーテクモのゲームシリーズ『三國志』にどのような影響を与えているかをデータに基づく分析で示す</li>
-<li>実際の作業の流れに沿って, 使用したRのコードを解説することで「データ分析のチュートリアル」としても使えるような構成にする</li>
+<li>実際の作業の流れに沿って, 使用したRのコードを解説することで「Rを使ったデータ分析のチュートリアル」としても使えるような構成にする</li>
 </ol>
+<p>ここでいう「データ分析」とは, なるべく複雑高度なテクニックを乱用せず必要最小限の方法で何かを言おうというものである. 今回の「データ分析」はスクレイピングによるデータ取得, データの加工整形, 要約統計量の計算, グラフによる視覚化, というよくあるデータ分析のアプローチであり, 使っているパッケージも<code>rvest</code>(スクレイピング), <code>tidyr</code>と <code>dplyr</code>(データの加工整形),<code>ggplot2</code>(グラフ作成)など様々な場面で使われるRの代表的なパッケージばかりで, 一部を除き高度な知識や専門性を要求するものではない. 個別のパッケージの使い方であれば, 公式リファレンスその他のより詳しい資料があるため, 今回はデータ分析の流れを意識できるように説明するというのが今回の狙いである.</p>
 <p>当初は 5分間のLTの予定だったので要約統計量 (記述統計量) の見方とかを話すつもりだったが, 20分枠に変更されたことに合わせてボリュームを増そうとしたら急に三国志を題材にすることを思いついたのでバランスが狂った感じになった.</p>
 
 <div class="rmdtip">
-今回の内容は日本で普及しているフォントで表示できない文字が含まれるなどの写植上の制約から, フォントを埋め込んだ pdf 版を公開している. 例えば, <a href="https://fonts.jp/hanazono/">花園明朝B</a>をインストールしていないと表示できない文字がある.
+今回の内容は<a href="https://fonts.jp/hanazono/">花園明朝B</a>をインストールしていないと表示できない文字がある. フォントをインストールするか. フォントを埋め込んだpdf版を閲覧することを推奨する.
 </div>
 
 
@@ -219,7 +220,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <div class="rmdtip">
-配布元: <a href="https://gedevan-aleksizde.github.io/Japan.R2019/" class="uri">https://gedevan-aleksizde.github.io/Japan.R2019/</a>
+<p>本記事のソースおよびプログラム全文は以下で公開している</p>
+<a href="https://gedevan-aleksizde.github.io/Japan.R2019/" class="uri">https://gedevan-aleksizde.github.io/Japan.R2019/</a>
 </div>
 
 <div id="キーワード" class="section level4 unnumbered">
@@ -272,13 +274,17 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": null,
+"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
-"download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
+"download": ["three-kingdoms.epub"],
 "toc": {
-"collapse": "subsection",
-"download": "pdf"
+"collapse": "none",
+"download": ["pdf", "epub"],
+"sharing": {
+"github": true,
+"facebook": false
+}
 }
 });
 });

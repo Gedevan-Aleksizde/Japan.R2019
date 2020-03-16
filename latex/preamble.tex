@@ -1,26 +1,29 @@
-\usepackage{zxjatype}
+
+
+%\numberwithin{equation}{section}
+
+%-----------------
+
+\usepackage{ifthen}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[bf,singlelinecheck=off]{caption}
 \usepackage{fontspec}
-\setmainfont[Ligatures=TeX]{Palatino Linotype}
-\setsansfont[Ligatures=TeX]{Arial}
-\setmonofont{Migu 1M}
+%\usepackage[AutoFallBack=true]{zxjatype} %和文フォント指定用
+\usepackage{zxjatype} %和文フォント指定用
+\usepackage{pxrubrica}  %ルビ
+
+
+% XeLaTeX用和文フォント指定
+% 欧文フォント指定はindex.Rmdでも指定できる.
 \setjamainfont{Noto Serif CJK JP} %和文フォント指定
 \setjasansfont{Noto Sans CJK JP} %和文サンセリフ指定
 \setjamonofont{Ricty Diminished} %和文等幅フォント
 
-\numberwithin{equation}{section}
-\hypersetup{
-bookmarks=true,
-bookmarksnumbered=false,
-bookmarksopen=false,
-pdfborder={0 0 1}, %
-citecolor=blue, %アンカーリンクの色
-linkcolor=magenta, %外部URLリンクの色
-pdfborderstyle={}, %リンクを枠で囲わない (アレ本当に邪魔)
-backref=falsecolorlinks=false
-}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage[bf,singlelinecheck=off]{caption}
+% 孫ワン対策. CJK拡張漢字がいらないなら不要.
+\setjafamilyfont{HMA}{花園明朝A}
+\setjafamilyfont{HMB}{花園明朝B}
+
 \usepackage{framed,color}
 \definecolor{shadecolor}{RGB}{248,248,248}
 
@@ -31,8 +34,15 @@ backref=falsecolorlinks=false
 
 \renewenvironment{quote}{\begin{VF}}{\end{VF}}
 \let\oldhref\href
-\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
 
+% ---- ハイパーリンクを脚注に置き換えるかどうか ---
+% 印刷物として出すなら必要かもしれないが
+% この単純なマクロは脚注内のリンクなどを想定していない
+
+%\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+
+
+% ---- XeLaTeX 専用のあれ ----
 \ifxetex
   \usepackage{letltxmacro}
   \setlength{\XeTeXLinkMargin}{1pt}
@@ -67,11 +77,12 @@ backref=falsecolorlinks=false
  \at@end@of@kframe}
 \makeatother
 
+
+% --- 特殊ブロックをLaTeXで表現するためのマクロ ---
 \makeatletter
 \@ifundefined{Shaded}{
 }{\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}}
 \makeatother
-
 
 \newenvironment{rmdblock}[1]
   {
@@ -106,7 +117,9 @@ backref=falsecolorlinks=false
   {\end{rmdblock}}
 
 
-%\usepackage{makeidx}
+% ---- 索引 ----
+% TODO: 索引使わないことを想定していないぞんざいなコーディング
+\usepackage{makeidx}
 %\makeindex
 
 \urlstyle{tt}
@@ -121,7 +134,8 @@ backref=falsecolorlinks=false
 
 \frontmatter
 
-
+% 環境名を日本語に
+% ほとんどbookdown側で指定できるので不要
 %\@ifpackageloaded{prettyref}{
 %  \newrefformat{eq}{\textup{(\ref{#1})}}%
 %  \newrefformat{lem}{補題\ref{#1}}%

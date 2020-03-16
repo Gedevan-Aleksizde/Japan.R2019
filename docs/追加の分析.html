@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-03-15" />
+<meta name="date" content="2020-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -230,7 +230,7 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="figure" style="text-align: center"><span id="fig:pca-biplot"></span>
 <img src="three-kingdoms_files/figure-html/pca-biplot-1.svg" alt="シリーズごとの第2主成分までの累積寄与率" width="75%" />
 <p class="caption">
-図5.1: シリーズごとの第2主成分までの累積寄与率
+図 5.1: シリーズごとの第2主成分までの累積寄与率
 </p>
 </div>
 <p>三國志2, 9 についてこの方法で求めた第1・第2主成分でプロットした散布図が図<a href="追加の分析.html#fig:biplot-2">5.2</a>,<a href="追加の分析.html#fig:biplot-9">5.3</a>である.</p>
@@ -238,14 +238,14 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="figure" style="text-align: center"><span id="fig:biplot-2"></span>
 <img src="three-kingdoms_files/figure-html/biplot-2-1.svg" alt="三國志2の主成分バイプロット図" width="75%" />
 <p class="caption">
-図5.2: 三國志2の主成分バイプロット図
+図 5.2: 三國志2の主成分バイプロット図
 </p>
 </div>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">fviz_pca_biplot</span>(pca_conveted[[<span class="dv">9</span>]]<span class="op">$</span>pca) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;三國志IX&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;https://github.com/Gedevan-Aleksizde/Japan.R2019</span><span class="ch">\n</span><span class="st">データ出典: http://lee.serio.jp/novel/sangoku/san9busho.html&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:biplot-9"></span>
 <img src="three-kingdoms_files/figure-html/biplot-9-1.svg" alt="三国志9の主成分バイプロット図" width="75%" />
 <p class="caption">
-図5.3: 三国志9の主成分バイプロット図
+図 5.3: 三国志9の主成分バイプロット図
 </p>
 </div>
 <p>これらの傾向から, 概ね, 知力と武力は別の要素として見られる傾向がある.</p>
@@ -253,7 +253,7 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div id="魏呉蜀の勢力別ひいき" class="section level2">
 <h2><span class="header-section-number">5.2</span> 魏・呉・蜀の勢力別ひいき</h2>
 <p>発表中に視聴者からも指摘があったが, 魏の曹操を主役にした漫画『蒼天航路』の人気を反映して, 従来は悪役であることが多い魏の人物の能力を底上げしたことが, 三國志シリーズのプロデューサーによって語られている<a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a>.</p>
-<p>三國志シリーズには「相性」というマスクステータス値があり, 主君と配下の値の差で相性が決まるようになっている. 今回参考にしたサイトの中にも相性値を掲載しているものもあったので, それらをもとに登場人物がどこに属するかを分類してステータス値をプロットする. 各人物について, <strong>劉備</strong>, <strong>曹操</strong>, <strong>孫権</strong>, のいずれに最も相性値が近いかによって, 魏・呉・蜀のどれに属するかを判定する<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a>. 散布図で「武力」と「知力」で表したのが , 主要ステータス数値の平均を, 散布図とバイオリン図でそれぞれ表したのが図<a href="追加の分析.html#fig:matching-STR">5.4</a>, <a href="追加の分析.html#fig:matching-INT">5.5</a>, <a href="追加の分析.html#fig:matching-total">5.6</a>, <a href="追加の分析.html#fig:matching-total-violin">5.7</a>である.</p>
+<p>三國志シリーズには「相性」というマスクステータス値があり, 主君と配下の値の差で相性が決まるようになっている. 今回参考にしたサイトの中にも相性値を掲載しているものもあったので, それらをもとに登場人物がどこに属するかを分類してステータス値をプロットする. 各人物について, <strong>劉備</strong>, <strong>曹操</strong>, <ruby><strong>孫権</strong><rp>(</rp><rt>ソンケン</rt><rp>)</rp></ruby>, のいずれに最も相性値が近いかによって, 魏・呉・蜀のどれに属するかを判定する<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a>. 散布図で「武力」と「知力」で表したのが , 主要ステータス数値の平均を, 散布図とバイオリン図でそれぞれ表したのが図<a href="追加の分析.html#fig:matching-STR">5.4</a>, <a href="追加の分析.html#fig:matching-INT">5.5</a>, <a href="追加の分析.html#fig:matching-total">5.6</a>, <a href="追加の分析.html#fig:matching-total-violin">5.7</a>である.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">df_norm_faction &lt;-<span class="st"> </span>df_norm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(相性)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_map</span>(<span class="op">~</span><span class="kw">mutate</span>(.x, </a>
 <a class="sourceLine" id="cb36-2" data-line-number="2">    蜀 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;劉備&quot;</span>)<span class="op">$</span>相性), 魏 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb36-3" data-line-number="3"><span class="st">        </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;曹操&quot;</span>)<span class="op">$</span>相性), 呉 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> </span></a>
@@ -268,7 +268,7 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="figure" style="text-align: center"><span id="fig:matching-STR"></span>
 <img src="three-kingdoms_files/figure-html/matching-STR-1.svg" alt="三国別武力の散布図" width="75%" />
 <p class="caption">
-図5.4: 三国別武力の散布図
+図 5.4: 三国別武力の散布図
 </p>
 </div>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> 知力, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
@@ -277,7 +277,7 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="figure" style="text-align: center"><span id="fig:matching-INT"></span>
 <img src="three-kingdoms_files/figure-html/matching-INT-1.svg" alt="三国別知力の散布図" width="75%" />
 <p class="caption">
-図5.5: 三国別知力の散布図
+図 5.5: 三国別知力の散布図
 </p>
 </div>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> total, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
@@ -287,7 +287,7 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="figure" style="text-align: center"><span id="fig:matching-total"></span>
 <img src="three-kingdoms_files/figure-html/matching-total-1.svg" alt="三国別主要ステータス値平均の散布図" width="75%" />
 <p class="caption">
-図5.6: 三国別主要ステータス値平均の散布図
+図 5.6: 三国別主要ステータス値平均の散布図
 </p>
 </div>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> faction, <span class="dt">y =</span> total, <span class="dt">fill =</span> faction)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, </a>
@@ -296,10 +296,10 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="figure" style="text-align: center"><span id="fig:matching-total-violin"></span>
 <img src="three-kingdoms_files/figure-html/matching-total-violin-1.svg" alt="主要ステータス値平均のバイオリン図" width="75%" />
 <p class="caption">
-図5.7: 主要ステータス値平均のバイオリン図
+図 5.7: 主要ステータス値平均のバイオリン図
 </p>
 </div>
-<p>ここからわかるのは, 三国志6以前で呉に属する人物のステータスの低さである. 確かに, 三国志2では呉で武力が90を超える人物は<ruby><strong>孫堅</strong><rp>(</rp><rt>ソンケン</rt><rp>)</rp></ruby> (90), <ruby><strong>孫策</strong><rp>(</rp><rt>ソンサク</rt><rp>)</rp></ruby> (94), <ruby><strong>太史慈</strong><rp>(</rp><rt>タイシジ</rt><rp>)</rp></ruby> (95), <ruby><strong>甘寧</strong><rp>(</rp><rt>カンネイ</rt><rp>)</rp></ruby> (92) の4名が存在する (ただし<strong>孫堅</strong>, <strong>孫策</strong>は呉の成立前に死亡する)が, 一方で魏・蜀はともに武力が90を超える人物は10名近く存在する. 武勇を示すエピソードの多い武将でも<ruby><strong>周泰</strong><rp>(</rp><rt>シュウタイ</rt><rp>)</rp></ruby> (85), <ruby><strong>呂蒙</strong><rp>(</rp><rt>リョモウ</rt><rp>)</rp></ruby>(83), <ruby><strong>程普</strong><rp>(</rp><rt>テイフ</rt><rp>)</rp></ruby></ruby> (60), <ruby><strong>韓当</strong><rp>(</rp><rt>カントウ</rt><rp>)</rp></ruby></ruby> (58) <ruby><strong>董襲</strong><rp>(</rp><rt>トウシュウ</rt><rp>)</rp></ruby> (56) などは他2国の人物と比較しても低く設定されているように見える. 実態として呉の人材が豊富でなかったという話ではなく, 作品ごとの推移でみると最近の作品ほど分布の形が徐々に画一化してきているという意味である.</p>
+<p>ここからわかるのは, 三国志6以前で呉に属する人物のステータスの低さである. 確かに, 三国志2では呉で武力が90を超える人物は<strong>孫堅</strong> (90), <ruby><strong>孫策</strong><rp>(</rp><rt>ソンサク</rt><rp>)</rp></ruby> (94), <ruby><strong>太史慈</strong><rp>(</rp><rt>タイシジ</rt><rp>)</rp></ruby> (95), <ruby><strong>甘寧</strong><rp>(</rp><rt>カンネイ</rt><rp>)</rp></ruby> (92) の4名が存在する (ただし<strong>孫堅</strong>, <strong>孫策</strong>は呉の成立前に死亡する)が, 一方で魏・蜀はともに武力が90を超える人物は10名近く存在する. 呉には武勇を示すエピソードのある武将が他にも多くいるが, <ruby><strong>周泰</strong><rp>(</rp><rt>シュウタイ</rt><rp>)</rp></ruby> (85), <ruby><strong>呂蒙</strong><rp>(</rp><rt>リョモウ</rt><rp>)</rp></ruby> (83), <ruby><strong>程普</strong><rp>(</rp><rt>テイフ</rt><rp>)</rp></ruby> (60), <ruby><strong>韓当</strong><rp>(</rp><rt>カントウ</rt><rp>)</rp></ruby> (58), <ruby><strong>董襲</strong><rp>(</rp><rt>トウシュウ</rt><rp>)</rp></ruby> (56) などは他2国の人物と比較しても低く設定されているように見える. 実態として呉の人材が豊富でなかったという話ではなく, 作品ごとの推移でみると最近の作品ほど分布の形が徐々に画一化してきているという意味である.</p>
 </div>
 </div>
 <div class="footnotes">
@@ -308,7 +308,7 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <li id="fn43"><p>さらに, 今回参照したページは非公式のものなので, そもそも全ての項目が掲載されているわけではない.<a href="追加の分析.html#fnref43" class="footnote-back">↩</a></p></li>
 <li id="fn44"><p>ただし, 作品によっては人物がある技能をもつかどうかのフラグが大量に掲載されているものがあり, これらも変数に含めた結果寄与率が下がっている可能性もある.<a href="追加の分析.html#fnref44" class="footnote-back">↩</a></p></li>
 <li id="fn45"><p>『<a href="https://mantan-web.jp/article/20151229dog00m200061000c.html">三國志：人気歴史ゲームの誕生秘話　シブサワ・コウに聞く - MANTANWEB（まんたんウェブ）</a>』<a href="追加の分析.html#fnref45" class="footnote-back">↩</a></p></li>
-<li id="fn46"><p>よって, 実際には各陣営に属していなかった群雄が三国に分類されることもある. 例えば, シリーズを通して董卓は曹操と相性値が近く, 公孫瓚や袁紹とその配下の人物は劉備や孫権に近い.<a href="追加の分析.html#fnref46" class="footnote-back">↩</a></p></li>
+<li id="fn46"><p>よって, 実際には各陣営に属していなかった群雄が三国に分類されることもある. 例えば, シリーズを通して<strong>董卓</strong>は<strong>曹操</strong>と相性値が近く, <ruby><strong>公孫瓚</strong><rp>(</rp><rt>コウソンサン</rt><rp>)</rp></ruby>や<ruby><strong>袁紹</strong><rp>(</rp><rt>エンショウ</rt><rp>)</rp></ruby>とその配下の人物は劉備や孫権に近い.<a href="追加の分析.html#fnref46" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -356,13 +356,17 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": null,
+"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
-"download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
+"download": ["three-kingdoms.epub"],
 "toc": {
-"collapse": "subsection",
-"download": "pdf"
+"collapse": "none",
+"download": ["pdf", "epub"],
+"sharing": {
+"github": true,
+"facebook": false
+}
 }
 });
 });
