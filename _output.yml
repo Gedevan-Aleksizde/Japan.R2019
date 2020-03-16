@@ -16,6 +16,9 @@ bookdown::gitbook:
       sharing:
         github: yes
         facebook: no
+        vk: yes
+        linkedin: yes
+        weibo: yes
 bookdown::html_chapters:
   css: [css/style.css, css/toc.css]
 # ---- pdfの出力設定 ----
