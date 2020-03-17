@@ -1,29 +1,30 @@
---- 
-title: "三國志で学ぶデータ分析 (Japan.R 2019)"
-author: "ill-identified"
-date: "2020-03-17"
-description: "三国志で学べ"
-cover-image: images/cover.png               # epubに使う画像
-knit: "bookdown::render_book"               # knitコマンドでもできるようにするために
-site: bookdown::bookdown_site
+---
+title: "三國志で学ぶデータ分析 (Japan.R 2019)" # 表題
+author: "ill-identified"                       # 著者名
+date: "2020-03-17"                         # 日付
+ # ソーシャルリンクで共有するときの見出し文
+description: |
+  "三国志を題材にしたRを使ったデータ分析のチュートリアル" 
+cover-image: images/cover.png                  # SNS共有やepubの表紙に使う画像
+knit: "bookdown::render_book"                  # knitボタンでも生成できるようにする
+site: bookdown::bookdown_site                  # この記述は必須
 url: https://gedevan-aleksizde.github.io/Japan.R2019
-github-repo: Gedevan-Aleksizde/Japan.R2019  #
-always_allow_html: true
-link-citations: yes                         # html用. 文中の引用に末尾引用文献リストへのアンカーリンクを付けるかどうか
-colorlinks: yes                             # html用
-lot: no                                     # *LaTeX用. list of tables. 「表一覧」を出力するかどうか
-lof: no                                     # *LaTeX用. list of figures. 「図一覧」を出力するかどうか
-mainfont: "Palatino Linotype"               # xelatex/LuaLaTeX用. \setmainfontに対応するフォントなので欧文用フォント. in_headerより後に読み込まれる
-mainfontoptions: "Ligatures=TeX"            # 同上. \setmainfont のオプション
-sansfont: "Arial"                           # 同上. \setsansfont のやつ
-sansfontoptions: "Ligatures=TeX"            # 同上.
-monofont: "Ricty Diminished Discord"        # 同上. \setmonofont
-monofontoptions: ""                         # 同上.
-documentclass: bxjsbook                     # *LaTeX用.
-classoption: ja=standard, xelatex           # *LaTeX用. 文書クラスオプション
-bibliography: doc-src/threekingdom.bib      # 参考文献. latexの場合はアンダースコアのあるパス名はエスケープすること
-biblio-style: doc-src/jecon-custom          # bibtex用bstファイル. 拡張子を書いてはならない. パス名の注意はbibliogpraphyに同じ
-
+github-repo: Gedevan-Aleksizde/Japan.R2019
+always_allow_html: true                        #
+link-citations: yes                            # html用. 文中の引用に末尾引用文献リストへのアンカーリンクを付けるかどうか
+colorlinks: yes                                # html用.
+lot: false                                     # *LaTeX用. list of tables. 「表一覧」を出力するかどうか. yes/no **ではなく** true/false
+lof: false                                     # *LaTeX用. list of figures. 「図一覧」を出力するかどうか. yes/no **ではなく** true/false
+mainfont: "Palatino Linotype"                  # xelatex/LuaLaTeX用. \setmainfontに対応するフォントなので欧文用フォント. in_headerより後に読み込まれる
+mainfontoptions: "Ligatures=TeX"               # 同上. \setmainfont のオプション
+sansfont: "Arial"                              # 同上. \setsansfont のやつ
+sansfontoptions: "Ligatures=TeX"               # 同上.
+monofont: "Ricty Diminished Discord"           # 同上. \setmonofont
+monofontoptions: ""                            # 同上.
+documentclass: bxjsreport                      # *LaTeX用.
+classoption: ja=standard, xelatex              # *LaTeX用. 文書クラスオプション
+bibliography: doc-src/threekingdom.bib         # 参考文献のbibファイルパス. texファイルに埋め込むのでlatexの場合はアンダースコアのあるパス名は"\"でエスケープすること
+biblio-style: doc-src/jecon-custom             # bibtex用bstファイル. 拡張子を書いてはならない. パス名の注意事項はbibliogpraphyに同じ
 ---
 
 
@@ -33,7 +34,10 @@ biblio-style: doc-src/jecon-custom          # bibtex用bstファイル. 拡張�
 
 
 
-# 概要
+
+
+
+# 概要 {-}
 
 この記事は 2019/12/7 に開催された Japan.R の発表原稿をもとに作成した資料である.
 
@@ -59,6 +63,7 @@ https://gedevan-aleksizde.github.io/Japan.R2019/</div>\EndKnitrBlock{rmdtip}
 
 三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析
 
+\mainmatter
 
 # イントロダクション
 
@@ -147,8 +152,9 @@ https://gedevan-aleksizde.github.io/Japan.R2019/</div>\EndKnitrBlock{rmdtip}
 たとえば, 三国志1の武将一覧は複数ページにまたがっているが, 語尾の`;p=`以降のページ数を書き換えれば簡単に複数ページを取得できる. 
 
 
-```r
-url_1 <- "http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&keys2%2C6=&index=&IDn001=AND&sort=up6s&print=100;p="
+```{.r .numberLines}
+url_1 <- "http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&keys2%2C6=&index=&IDn001=AND&sort=
+up6s&print=100;p="
 source1 <- list()
 for (i in 1:3) {
     source1[[i]] <- read_html(paste0(url_1, i - 1))
@@ -163,11 +169,11 @@ for (i in 1:3) {
 ソースファイルを取得したら一旦ローカルに保存しておくべきだろう. するとここで注意点が1つある. `rvest`は`xml2`パッケージに依存しており[^xml2], このパッケージは外部プログラムでxml(html)を制御している. このため出力されるRオブジェクトには一時的なポインタ情報しか含まれていないため, これをそのまま `save()`や`save.rds()`で保存して再読込すると, 外部データの参照ができなくなる. よって, xmlオブジェクトは一旦**文字列に変換して**から保存しなければならない. 全シリーズの取得結果を保存するため, 以下のような処理を書いている[^xml2-serialize]. source1から13までがそれぞれ作品ごとに取得したxml文書オブジェクトである.
 
 
-```r
-sources <- map2_dfr(list(source1, source2, source3, source4, source5, source6, source7, 
-    source8, source9, source10, source11, source12, source13), 1:13, function(x, 
-    t) tibble(x) %>% mutate(title = t, page = row_number())) %>% mutate(html = map(x, 
-    as.character)) %>% select(-x)
+```{.r .numberLines}
+sources <- map2_dfr(list(source1, source2, source3, source4, source5, source6, 
+    source7, source8, source9, source10, source11, source12, source13), 
+    1:13, function(x, t) tibble(x) %>% mutate(title = t, page = row_number())) %>% 
+    mutate(html = map(x, as.character)) %>% select(-x)
 write_rds(sources, here(dirname_data, "sources.rds"))
 ```
 
@@ -181,6 +187,7 @@ write_rds(sources, here(dirname_data, "sources.rds"))
 こうして読み込んだサイトは全て管理者が異なり, 非公式のものであるからフォーマットも違うため, それぞれ異なる処理を通して共通の構造をもつデータフレームに変換する必要がある(整然化). 多くは `<table>` タグを使って掲載されているため, `rvest::html_table()` 関数を使えば概ねうまくいく.
 
 \BeginKnitrBlock{rmdtip}<div class="rmdtip">データの整然化(tidying)について知らない場合は, 以下のページで基本的な理念を知れる.
+
 https://id.fnshr.info/2017/01/09/tidy-data-intro/
   
 整然化の理念の実装は複数のパッケージで提供されるが, 現在は`tidyverse`というオールインワンパッケージをインストールすれば良いだろう.
@@ -193,7 +200,7 @@ https://uribo.hatenablog.com/entry/tidy_poem2017_day4
 読み込んだものをテーブル形式に変換する具体例として『三國志II』の場合を解説する.
 
 
-```r
+```{.r .numberLines}
 # (1)
 df2_header <- filter(sources, title == 2)$html[[1]] %>% read_html %>% html_node("table") %>% 
     html_table(header = F) %>% as.character
@@ -205,16 +212,17 @@ for (i in 1:4) {
         byrow = T, nrow = 1), stringsAsFactors = F)))
 }
 # (2)
-df2 <- df2 %>% set_names(df2_header) %>% filter(name != "武将名") %>% mutate_at(.vars = vars(知力, 
-    武力, 魅力, 義理, 野望, 相性), .funs = as.integer)
+df2 <- df2 %>% set_names(df2_header) %>% filter(name != "武将名") %>% 
+    mutate_at(.vars = vars(知力, 武力, 魅力, 義理, 野望, 相性), 
+        .funs = as.integer)
 # (3)
-df2 <- mutate(df2, title = "2", order = row_number()) %>% select(title, order, name, 
-    everything())
+df2 <- mutate(df2, title = "2", order = row_number()) %>% select(title, 
+    order, name, everything())
 
 # (4)
 check_dup(df2)
-df2$name[c(62, 125, 296, 24, 218, 220, 234, 279)] <- c("楽就", "辛評", "劉曄", 
-    "賈華", "陶謙", "董衡", "馬忠 (孫呉)", "李豊 (東漢)")
+df2$name[c(62, 125, 296, 24, 218, 220, 234, 279)] <- c("楽就", "辛評", 
+    "劉曄", "賈華", "陶謙", "董衡", "馬忠 (孫呉)", "李豊 (東漢)")
 check_dup(df2)
 ```
 
@@ -223,7 +231,7 @@ check_dup(df2)
 (4)は単純な入力ミスの修正と, 数組の同姓同名の人物を識別するための処理である.  このような修正をすべきかの判断は完全に自動化することはできないため, 各シリーズごとに名前の重複がないかなどを地道に調べる必要があった. そこで処理の終盤では以下のような, データフレームを入力として名前の重複を出力する関数を使用している.
 
 
-```r
+```{.r .numberLines}
 check_dup <- function(x) {
     x %>% group_by(name) %>% summarise(n = n()) %>% filter(n > 1) %>% inner_join(x, 
         by = "name") %>% select(title, order, name, n, everything())
@@ -258,53 +266,55 @@ check_dup <- function(x) {
 まず, 以下はスクレイピング結果を読み込みデータフレームに変換し, 数値として扱いたい列を数値型に変換している
 
 
-```r
+```{.r .numberLines}
 df9 <- filter(sources, title == 9)$html[[1]] %>% read_html %>% html_node("table") %>% 
     html_node("table") %>% html_table(header = T) %>% as_tibble
-df9 <- filter(df9, ID != "ID") %>% mutate_all(na_if, "") %>% fill(ID) %>% rename(name = 名前) %>% 
-    mutate_at(.vars = vars(統率, 武力, 知力, 政治, 誕生, 寿命, 相性, 
-        義理, 野望), .funs = as.integer)
+df9 <- filter(df9, ID != "ID") %>% mutate_all(na_if, "") %>% fill(ID) %>% 
+    rename(name = 名前) %>% mutate_at(.vars = vars(統率, 武力, 知力, 
+    政治, 誕生, 寿命, 相性, 義理, 野望), .funs = as.integer)
 ```
 
 次に, 問題の列を分割している. これらはある能力を持っているかどうかを表す列であり, 3, 4個の能力を1つのセルにまとめて表示していた. これを`stringr::str_split_fixed()`によって分解している.
 
 
-```r
-df9 <- df9 %>% bind_cols(str_split_fixed(.$奮奮奮戦闘迅, pattern = "", 3) %>% 
-    data.frame %>% set_names(c("奮戦", "奮闘", "奮迅")), str_split_fixed(.$突突突破進撃, 
-    pattern = "", 3) %>% data.frame %>% set_names(c("突破", "突進", "突撃")), 
-    str_split_fixed(.$騎走飛射射射, pattern = "", 3) %>% data.frame %>% set_names(c("騎射", 
-        "走射", "飛射")), str_split_fixed(.$斉連連射射弩, pattern = "", 
-        3) %>% data.frame %>% set_names(c("斉射", "連射", "連弩")), str_split_fixed(.$蒙楼闘衝船艦, 
-        pattern = "", 3) %>% data.frame %>% set_names(c("蒙衝", "楼船", "闘艦")), 
-    str_split_fixed(.$井衝投象闌車石兵, pattern = "", 4) %>% data.frame %>% 
-        set_names(c("井闌", "衝車", "投石", "象兵")), str_split_fixed(.$造石罠教営兵破唆, 
-        pattern = "", 4) %>% data.frame %>% set_names(c("造営", "石兵", "罠破", 
-        "教唆")), str_split_fixed(.$`混罠心幻乱＿攻術`, pattern = "", 4) %>% 
-        data.frame %>% set_names(c("混乱", "罠", "心攻", "幻術")), str_split_fixed(.$罵鼓治妖声舞療術, 
-        pattern = "", 4) %>% data.frame %>% set_names(c("罵声", "鼓舞", "治療", 
-        "妖術"))) %>% select(-奮奮奮戦闘迅, -突突突破進撃, -騎走飛射射射, 
-    -斉連連射射弩, -蒙楼闘衝船艦, -井衝投象闌車石兵, -造石罠教営兵破唆, 
-    -`混罠心幻乱＿攻術`, -罵鼓治妖声舞療術)
+```{.r .numberLines}
+df9 <- df9 %>% bind_cols(str_split_fixed(.$奮奮奮戦闘迅, pattern = "", 
+    3) %>% data.frame %>% set_names(c("奮戦", "奮闘", "奮迅")), str_split_fixed(.$突突突破進撃, 
+    pattern = "", 3) %>% data.frame %>% set_names(c("突破", "突進", 
+    "突撃")), str_split_fixed(.$騎走飛射射射, pattern = "", 3) %>% 
+    data.frame %>% set_names(c("騎射", "走射", "飛射")), str_split_fixed(.$斉連連射射弩, 
+    pattern = "", 3) %>% data.frame %>% set_names(c("斉射", "連射", 
+    "連弩")), str_split_fixed(.$蒙楼闘衝船艦, pattern = "", 3) %>% 
+    data.frame %>% set_names(c("蒙衝", "楼船", "闘艦")), str_split_fixed(.$井衝投象闌車石兵, 
+    pattern = "", 4) %>% data.frame %>% set_names(c("井闌", "衝車", 
+    "投石", "象兵")), str_split_fixed(.$造石罠教営兵破唆, pattern = "", 
+    4) %>% data.frame %>% set_names(c("造営", "石兵", "罠破", "教唆")), 
+    str_split_fixed(.$`混罠心幻乱＿攻術`, pattern = "", 4) %>% 
+        data.frame %>% set_names(c("混乱", "罠", "心攻", "幻術")), 
+    str_split_fixed(.$罵鼓治妖声舞療術, pattern = "", 4) %>% data.frame %>% 
+        set_names(c("罵声", "鼓舞", "治療", "妖術"))) %>% select(-奮奮奮戦闘迅, 
+    -突突突破進撃, -騎走飛射射射, -斉連連射射弩, -蒙楼闘衝船艦, 
+    -井衝投象闌車石兵, -造石罠教営兵破唆, -`混罠心幻乱＿攻術`, 
+    -罵鼓治妖声舞療術)
 ```
 
 元の列では能力の有無を "&#9675;", "×" という文字で表しているため, この後の処理のために`logical`型に変換する. 加えて作成者のいたずらで不要な行が含まれていたので排除している.
 
 
-```r
-df9 <- mutate_at(df9, .vars = colnames(df9)[15:45], function(x) if_else(x == "×", 
-    F, T)) %>% rename_if(is.logical, ~paste0(.x, "lgl")) %>% mutate(性格 = factor(性格)) %>% 
-    filter(name != "俺様") %>% mutate(title = "9", order = row_number()) %>% select(title, 
-    order, name, everything())
+```{.r .numberLines}
+df9 <- mutate_at(df9, .vars = colnames(df9)[15:45], function(x) if_else(x == 
+    "×", F, T)) %>% rename_if(is.logical, ~paste0(.x, "lgl")) %>% mutate(性格 = factor(性格)) %>% 
+    filter(name != "俺様") %>% mutate(title = "9", order = row_number()) %>% 
+    select(title, order, name, everything())
 ```
 
 最後に, 三国志2と同様に人名の重複を確認して修正している.
 
 
-```r
+```{.r .numberLines}
 check_dup(df9) %>% filter(!str_detect(name, "武将"))
-df9$name[c(414, 501:502, 600:601)] <- c("張南 (蜀漢)", "馬忠 (孫呉)", "馬忠 (蜀漢)", 
-    "李豊 (東漢)", "李豊 (蜀漢)")
+df9$name[c(414, 501:502, 600:601)] <- c("張南 (蜀漢)", "馬忠 (孫呉)", 
+    "馬忠 (蜀漢)", "李豊 (東漢)", "李豊 (蜀漢)")
 df9$name[346] <- c("孫匡")  # この後の確認で名前に字が混入していたことを発見したので修正
 ```
 
@@ -313,9 +323,9 @@ df9$name[346] <- c("孫匡")  # この後の確認で名前に字が混入して
 最初のブロックでは後続の見通しを良くするために列名だけを取り出して`df12_header`として整形している.
 
 
-```r
-df12_header <- filter(sources, title == 12)$html[[1]] %>% read_html %>% html_nodes("table") %>% 
-    html_table %>% .[[1]] %>% as.matrix %>% as.character
+```{.r .numberLines}
+df12_header <- filter(sources, title == 12)$html[[1]] %>% read_html %>% 
+    html_nodes("table") %>% html_table %>% .[[1]] %>% as.matrix %>% as.character
 df12_header[grepl("^特技$", df12_header)] <- paste0("特技", 1:length(grep("^特技$", 
     df12_header)))
 df12_header[1:4] <- c("名前読み", "名前", "字読み", "字")
@@ -327,15 +337,15 @@ df12_header[42] <- "格付け2"
 三国志12のサイトは複数ページにまたがっている. そのため, 1ページごとに処理して同じ形式のデータフレームを作成し, 最後に全て結合することにした. ここではページごとに共通する処理の関数を書いている. 特に`d_flag <- ...`から始まる行が, htmlタグの属性を取り出す処理である. 複雑になると思われた処理だが, `rvest`の力を使えば比較的シンプルに書ける.
 
 
-```r
+```{.r .numberLines}
 parse_table12_by_page <- function(x, header) {
     d_main <- x %>% html_nodes("table") %>% html_table %>% map(function(x) as.character(unlist(x)) %>% 
-        matrix(nrow = 1, byrow = T) %>% as.data.frame(stringsAsFactors = F) %>% set_names(header)) %>% 
-        bind_rows %>% filter(名前読み != "武将名")
-    d_flag <- x %>% html_nodes("table") %>% html_nodes(".on, .off") %>% html_attr("class") %>% 
-        {
-            ifelse(. == "on", T, F)
-        } %>% matrix(ncol = 20, byrow = T)
+        matrix(nrow = 1, byrow = T) %>% as.data.frame(stringsAsFactors = F) %>% 
+        set_names(header)) %>% bind_rows %>% filter(名前読み != "武将名")
+    d_flag <- x %>% html_nodes("table") %>% html_nodes(".on, .off") %>% 
+        html_attr("class") %>% {
+        ifelse(. == "on", T, F)
+    } %>% matrix(ncol = 20, byrow = T)
     d_main[sort(grep("^特技[0-9]+$", colnames(d_main)))] <- d_flag
     return(as_tibble(d_main))
 }
@@ -344,28 +354,30 @@ parse_table12_by_page <- function(x, header) {
 各ページに並列して上記の関数を適用し, 結合する. その後列の型や名前を一括して調整した. 最後は例によって人名の調整である.
 
 
-```r
+```{.r .numberLines}
 df12 <- map_dfr(map(filter(sources, title == 12)$html, read_html), function(x) parse_table12_by_page(x, 
     df12_header))
 df12 %<>% select(-合計, -格付け, -格付け2) %>% mutate_at(.vars = vars(統率, 
-    武力, 知力, 政治, 義理, 勇猛, 相性, 誕生, 登場, 没年, 寿命), 
-    as.integer) %>% mutate_if(is.character, function(x) na_if(x, "-")) %>% mutate_at(.vars = vars(口調, 
-    口調2), as.factor) %>% rename(name = 名前) %>% mutate(title = "12", order = row_number()) %>% 
-    select(title, order, name, everything())
+    武力, 知力, 政治, 義理, 勇猛, 相性, 誕生, 登場, 没年, 
+    寿命), as.integer) %>% mutate_if(is.character, function(x) na_if(x, 
+    "-")) %>% mutate_at(.vars = vars(口調, 口調2), as.factor) %>% rename(name = 名前) %>% 
+    mutate(title = "12", order = row_number()) %>% select(title, order, 
+    name, everything())
 check_dup(df12)
 
 # 呉の馬忠は落選
-filter(df12, str_detect(name, "馬忠|李豊|張温")) %>% select(name, 字, order, 
-    相性, 誕生, 登場, 没年)
-df12$name[c(257, 332, 403)] <- c("張温 (孫呉)", "馬忠 (蜀漢)", "李豊 (東漢)")
+filter(df12, str_detect(name, "馬忠|李豊|張温")) %>% select(name, 
+    字, order, 相性, 誕生, 登場, 没年)
+df12$name[c(257, 332, 403)] <- c("張温 (孫呉)", "馬忠 (蜀漢)", 
+    "李豊 (東漢)")
 ```
 
 以上のような処理を13作品のデータに対して行い, **7,115件**, **1,120名**の人物データが入手できた. しかし, ここまでの例でわかるように三國志シリーズは作品ごとにステータス値の項目が異なる. この後の一括処理のため, いったん名前と登場作品以外の項目はネストしてしまう(表\@ref(tab:nest-map)).
 
 
-```r
-list(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) %>% map_dfr(~group_by(.x, 
-    title, order, name) %>% nest %>% ungroup)
+```{.r .numberLines}
+list(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) %>% 
+    map_dfr(~group_by(.x, title, order, name) %>% nest %>% ungroup)
 ```
 <table>
 <caption>(\#tab:nest-map)nestしたデータフレーム</caption>
@@ -431,7 +443,7 @@ list(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) %>% ma
 そこで以下のように正規表現で漢字でない文字を含むものを取り出した上で, 既に書いたように同姓同名人物の識別のために付けた括弧付きの人名リスト`name_parenthesis`と一致するものを排除し, 確認が必要な人名を取り出した[^regex-complex].
 
 
-```r
+```{.r .numberLines}
 filter(df_all, str_detect(name, "[^\\p{Han}]"), !name %in% name_parenthesis)
 ```
 
@@ -655,7 +667,7 @@ http://www.aise.ics.saitama-u.ac.jp/~gotoh/IntroSPARQL.html</div>\EndKnitrBlock{
 R上でSPARQLを実行するには, 同名の`SPARQL`パッケージを使う. 例えば以下はウィキペディアから「三国志の登場人物」のカテゴリ登録されているページの見出しと本文を全て取得するクエリを実行している.
 
 
-```r
+```{.r .numberLines}
 endpoint <- "http://ja.dbpedia.org/sparql"
 query <- "
 PREFIX dbpedia: <http://ja.dbpedia.org/resource/>
@@ -689,7 +701,7 @@ res$results %>% filter(str_detect(o, "Category"))
 次に, 各作品で, 新しく登録された人物と除外された人物が何人かを表してみる. 以下では登場人物が各作品で採用されたか, 逆に前作と比較して採用を見送られたかを判定した結果を`df_in_out`に出力している.
 
 
-```r
+```{.r .numberLines}
 # シリーズの参加回数
 attend_times <- df_all %>% group_by(name_id) %>% summarise(attend_times = n()) %>% 
     ungroup
@@ -700,30 +712,32 @@ df_all <- inner_join(df_all, attend_times, by = "name_id") %>% inner_join(at_fir
     by = "name_id")
 df_in_out <- df_all %>% select(title, name_id) %>% mutate(exists = T, title = as.integer(title)) %>% 
     right_join(x = ., y = expand_grid(title = unique(.$title), name_id = unique(.$name_id)), 
-        by = c("title", "name_id")) %>% mutate(exists = if_else(is.na(exists), F, 
-    T)) %>% arrange(name_id, title) %>% group_by(name_id) %>% mutate(join = !lag(exists) & 
+        by = c("title", "name_id")) %>% mutate(exists = if_else(is.na(exists), 
+    F, T)) %>% arrange(name_id, title) %>% group_by(name_id) %>% mutate(join = !lag(exists) & 
     exists, out = !exists & lag(exists)) %>% ungroup
 ```
 
 さらに, 各作品ごとに「新規採用」「不採用」「継続」の3通りの人数を集計する.
 
 
-```r
-df_in_out_summary <- df_in_out %>% group_by(title) %>% summarise_if(is.logical, sum) %>% 
-    ungroup %>% mutate(keep = exists - join) %>% select(-exists) %>% pivot_longer(-title, 
-    names_to = "var", values_to = "number") %>% mutate(var = factor(var, levels = c("out", 
-    "join", "keep"), labels = c("out", "in", "keep"))) %>% arrange(title, var)
+```{.r .numberLines}
+df_in_out_summary <- df_in_out %>% group_by(title) %>% summarise_if(is.logical, 
+    sum) %>% ungroup %>% mutate(keep = exists - join) %>% select(-exists) %>% 
+    pivot_longer(-title, names_to = "var", values_to = "number") %>% mutate(var = factor(var, 
+    levels = c("out", "join", "keep"), labels = c("out", "in", "keep"))) %>% 
+    arrange(title, var)
 ```
 
 図\@ref(fig:inout)は, その結果をグラフで表したものである.前作から追加された人物が `in`, 逆に除外された人物を `out`, 続投している人物を `keep` で表した. つまり, `in + keep` が各作品に登場する人数である. この図からは, 4, 12 で前作より減っているものの基本的に最近の作品ほど登場人物が増えていることがわかる. よって, 少しづつ正史三国志に記述のある人物が増えていることが分かる[^25].
 
 
-```r
-ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, color = var, 
-    alpha = (var != "out"), linetype = (var == "out"))) + geom_bar(stat = "identity", 
-    position = "stack", size = 1, width = 0.6) + scale_x_continuous(breaks = 2:13) + 
-    scale_fill_colorblind() + scale_alpha_manual(guide = F, breaks = c(F, T), values = c(0.1, 
-    1)) + scale_linetype_manual(guide = F, values = c("solid", "dashed")) + scale_color_colorblind(guide = F) + 
+```{.r .numberLines}
+ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, 
+    color = var, alpha = (var != "out"), linetype = (var == "out"))) + 
+    geom_bar(stat = "identity", position = "stack", size = 1, width = 0.6) + 
+    scale_x_continuous(breaks = 2:13) + scale_fill_colorblind() + scale_alpha_manual(guide = F, 
+    breaks = c(F, T), values = c(0.1, 1)) + scale_linetype_manual(guide = F, 
+    values = c("solid", "dashed")) + scale_color_colorblind(guide = F) + 
     labs(x = "タイトル", y = "人数") + theme_document
 ```
 
@@ -743,9 +757,10 @@ ggplot2は自由度があるぶん, 全ての機能を説明するのは大変�
 棒グラフを作成するのに最低限必要な構文は以下のように最初の3行だけである. 色や軸ラベルの名称, メモリの細かさ, 凡例の位置など細かいところを調整するために以降の7行を追加している(図\@ref(fig:inout-simple)).
 
 
-```r
-ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, color = var)) + 
-    geom_bar(stat = "identity", position = "stack", size = 1, width = 0.6)
+```{.r .numberLines}
+ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, 
+    color = var)) + geom_bar(stat = "identity", position = "stack", size = 1, 
+    width = 0.6)
 ```
 
 <div class="figure" style="text-align: center">
@@ -756,9 +771,10 @@ ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, co
 `ggplot2`でグラフを描くにあたって最低限必要なのは入力データの指定をする `ggplot()`, 軸を指定する `aes()`, そしてグラフの種類を決める, `geom_`で始まる各種関数である. 今回は`geom_bar()`でバープロットを描画している. ` aes(x = title, y = number, group = var, fill = var, color = var)`について, `x`, `y`, `group`, `fill`, `color`はそれぞれx軸, y軸, グループ分け, 塗りつぶし色を指定する引数であり, 上記のようにグループごとに色分けした棒グラフを描くために必要な設定である. どのような設定が必要かは`geom_`の関数ごとに異なるため, 慣れないうちは必要な引数をヘルプで確認する必要があるだろう. `geom_bar()`ではさらに, `stat="identity"`でy軸の計算方法を指定しているデフォルトは`stat="count"`で, これは `aes(y=)`で指定した**`y`の件数をy軸に出力する**. しかし今回は件数はすでに集計済みなので, `stat="identity"`を指定し, 件数ではなく`y`の値をそのまま出すようにしている. `position="stack"`は積み上げ棒グラフにする設定である (積み上げ棒グラフはデフォルトなのであえて指定する必要はない). 例えば`"dodge"`を指定すると, 以下の図\@ref(fig:inout-simple-dodge)のように横並びになる.
 
 
-```r
-ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, color = var)) + 
-    geom_bar(stat = "identity", position = "dodge", size = 1, width = 0.6)
+```{.r .numberLines}
+ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, 
+    color = var)) + geom_bar(stat = "identity", position = "dodge", size = 1, 
+    width = 0.6)
 ```
 
 <div class="figure" style="text-align: center">
@@ -771,7 +787,7 @@ ggplot(df_in_out_summary, aes(x = title, y = number, group = var, fill = var, co
 さらに文字の大きさや見出しの非表示など細かい設定は, `theme()`関数を使うことになる. 今回は使いまわすため, プリセットしてあらかじめ作成した`theme_document`を使った. 
 
 
-```r
+```{.r .numberLines}
 theme_document <- theme_classic(base_family = font_name) + theme(axis.ticks = element_blank(), 
     legend.position = "bottom", strip.placement = "outside", legend.key.width = unit(3, 
         "line"), legend.title = element_blank())
@@ -828,18 +844,19 @@ https://qlik-training.ashisuto.co.jp/data-ink-ratio/
 基本的には`skim()`にデータフレームを与えるだけだが, 表示したい要約統計量を変更したい場合は`skimr::skim_with()`を使う. これは関数ジェネレータのように扱う.  例えば以下の例ではデフォルトの項目に加え歪度と尖度を表示するように変更した関数 `my_skim()` を作成している.
 
 
-```r
-my_skim <- skim_with(numeric = sfl(n = length, mean = mean, skew = skewness, kurto = kurtosis, 
-    hist = NULL))
+```{.r .numberLines}
+my_skim <- skim_with(numeric = sfl(n = length, mean = mean, skew = skewness, 
+    kurto = kurtosis, hist = NULL))
 ```
 
 これを使い, シリーズごとに能力値の要約統計量を求める(表\@ref(tab:skimr-tab)).
 
 
-```r
-map(1:13, function(x) filter(df_all %>% mutate(title = as.integer(title)), title == 
-    x) %>% unnest(cols = data) %>% select_if(is.numeric)) %>% bind_rows %>% select(title, 
-    知力, 武力, 政治, 魅力, 統率) %>% group_by(title) %>% my_skim()
+```{.r .numberLines}
+map(1:13, function(x) filter(df_all %>% mutate(title = as.integer(title)), 
+    title == x) %>% unnest(cols = data) %>% select_if(is.numeric)) %>% 
+    bind_rows %>% select(title, 知力, 武力, 政治, 魅力, 統率) %>% 
+    group_by(title) %>% my_skim()
 ```
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>(\#tab:skimr-tab)作品ごとの要約統計量(一部)</caption>
@@ -1176,26 +1193,27 @@ map(1:13, function(x) filter(df_all %>% mutate(title = as.integer(title)), title
 ここまでで集計した各要約統計量の作品ごとの推移を折れ線グラフで表したのが図\@ref(fig:stat-line)である.
 
 
-```r
+```{.r .numberLines}
 df_append <- df_all %>% group_by(title) %>% group_map(~unnest(.x, cols = data) %>% 
     rename_if(names(.) == "カリスマ", function(x) "魅力") %>% select_if(names(.) %in% 
     c("title", "name_id") | map_lgl(., is.numeric)), keep = T) %>% bind_rows %>% 
-    select(title, name_id, attend_times, at_first, 身体, 知力, 武力, 魅力, 
-        運勢, 義理, 野望, 相性, 政治, 統率, 陸指, 水指)
+    select(title, name_id, attend_times, at_first, 身体, 知力, 武力, 
+        魅力, 運勢, 義理, 野望, 相性, 政治, 統率, 陸指, 
+        水指)
 
-descriptive_status <- df_append %>% group_by(title) %>% select(title, 武力, 知力, 
-    魅力, 政治) %>% my_skim() %>% as_tibble() %>% rename_all(~str_remove(.x, 
-    "^numeric.")) %>% rename(missings = n_missing) %>% filter(skim_type == "numeric") %>% 
-    select(-skim_type, -complete_rate) %>% rename(variable = skim_variable, min = p0, 
-    max = p100, skewness = skew, kurtosis = kurto) %>% mutate(title = as.integer(title))
+descriptive_status <- df_append %>% group_by(title) %>% select(title, 武力, 
+    知力, 魅力, 政治) %>% my_skim() %>% as_tibble() %>% rename_all(~str_remove(.x, 
+    "^numeric.")) %>% rename(missings = n_missing) %>% filter(skim_type == 
+    "numeric") %>% select(-skim_type, -complete_rate) %>% rename(variable = skim_variable, 
+    min = p0, max = p100, skewness = skew, kurtosis = kurto) %>% mutate(title = as.integer(title))
 
-descriptive_status %>% mutate(range = max - min) %>% pivot_longer(-c(variable, title), 
-    names_to = "stat", values_to = "value") %>% filter(stat %in% c("range", "mean", 
-    "sd", "skewness", "kurtosis")) %>% mutate(stat = factor(stat, levels = c("range", 
-    "mean", "sd", "skewness", "kurtosis"))) %>% ggplot(aes(x = title, y = value, 
-    group = variable, color = variable)) + geom_line(size = 2) + facet_wrap(~stat, 
-    scales = "free_y", ncol = 1, strip.position = "left") + scale_color_colorblind() + 
-    theme_document_no_y
+descriptive_status %>% mutate(range = max - min) %>% pivot_longer(-c(variable, 
+    title), names_to = "stat", values_to = "value") %>% filter(stat %in% 
+    c("range", "mean", "sd", "skewness", "kurtosis")) %>% mutate(stat = factor(stat, 
+    levels = c("range", "mean", "sd", "skewness", "kurtosis"))) %>% ggplot(aes(x = title, 
+    y = value, group = variable, color = variable)) + geom_line(size = 2) + 
+    facet_wrap(~stat, scales = "free_y", ncol = 1, strip.position = "left") + 
+    scale_color_colorblind() + theme_document_no_y
 ```
 
 <div class="figure" style="text-align: center">
@@ -1205,25 +1223,26 @@ descriptive_status %>% mutate(range = max - min) %>% pivot_longer(-c(variable, t
 
 
 このグラフを見て特に気になるのは, レンジの変化である. 三國志シリーズのステータスは基本的に1\~100の数値だが, 実際には最小値と最大値の幅が作品ごとに異なることがわかった. そのため, 値域を統一するためにシリーズごとにmin-max正規化を行う. 通常のmin-max正規化は0-1の範囲にする正規化処理だが, 今回は見やすさのため, レンジが100になるよう以下 \@ref(eq:rangenormalize) のようにさらに100を掛けてで調整している.
+
 $$\begin{aligned}
 z:= & 100\times\frac{x-\min(x)}{\max(x)-\min(x)}\end{aligned}(\#eq:rangenormalize)$$
 
 この式で, 主要な能力値を全てシリーズごとに調整して再集計した結果をグラフにする.
 
 
-```r
+```{.r .numberLines}
 scale_max_min <- function(x) {
     (x - min(x))/(max(x) - min(x))
 }
 
-df_norm <- df_append %>% mutate(title = factor(title, levels = 1:13)) %>% group_by(title) %>% 
-    group_map(~mutate_if(.x, !names(.x) %in% c("attend_times", "at_first") & map_lgl(.x, 
-        is.numeric), function(x) scale_max_min(x) * 100), keep = T) %>% bind_rows %>% 
-    rowwise %>% mutate(total = mean(c(武力, 知力, 魅力, 政治, 統率, 水指, 
-    陸指), na.rm = T), total_sd = sd(c(武力, 知力, 魅力, 政治, 統率, 
-    水指, 陸指), na.rm = T), total_range = max(c(武力, 知力, 魅力, 政治, 
-    統率, 水指, 陸指), na.rm = T) - min(c(武力, 知力, 魅力, 政治, 統率, 
-    水指, 陸指), na.rm = T)) %>% ungroup
+df_norm <- df_append %>% mutate(title = factor(title, levels = 1:13)) %>% 
+    group_by(title) %>% group_map(~mutate_if(.x, !names(.x) %in% c("attend_times", 
+    "at_first") & map_lgl(.x, is.numeric), function(x) scale_max_min(x) * 
+    100), keep = T) %>% bind_rows %>% rowwise %>% mutate(total = mean(c(武力, 
+    知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T), total_sd = sd(c(武力, 
+    知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T), total_range = max(c(武力, 
+    知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T) - min(c(武力, 
+    知力, 魅力, 政治, 統率, 水指, 陸指), na.rm = T)) %>% ungroup
 ```
 
 
@@ -1299,11 +1318,12 @@ df_norm <- df_append %>% mutate(title = factor(title, levels = 1:13)) %>% group_
 図\@ref(fig:lineplot-nonscale)は, 50~150を推移する変数`x`と, 0~1を推移する`y`の折れ線グラフを同時に描いたものである. スケールの小さな`y`がどう変化しているのか, 全くわからない.
 
 
-```r
+```{.r .numberLines}
 set.seed(42)
-tibble(n = 1:50, x = rnorm(n = 50, mean = 10, sd = 1)^2, y = runif(50, 0, 1)) %>% 
-    pivot_longer(cols = c("x", "y")) %>% ggplot(aes(x = n, y = value, group = name, 
-    color = name)) + geom_line(size = 1.5) + scale_color_colorblind() + theme_document_no_y
+tibble(n = 1:50, x = rnorm(n = 50, mean = 10, sd = 1)^2, y = runif(50, 
+    0, 1)) %>% pivot_longer(cols = c("x", "y")) %>% ggplot(aes(x = n, y = value, 
+    group = name, color = name)) + geom_line(size = 1.5) + scale_color_colorblind() + 
+    theme_document_no_y
 ```
 
 <div class="figure" style="text-align: center">
@@ -1314,12 +1334,12 @@ tibble(n = 1:50, x = rnorm(n = 50, mean = 10, sd = 1)^2, y = runif(50, 0, 1)) %>
 しかし, `facet_wrap()` によって分割することで見やすくなる(図\@ref(fig:lineplot-facet)).
 
 
-```r
+```{.r .numberLines}
 set.seed(42)
-tibble(n = 1:50, x = rnorm(n = 50, mean = 10, sd = 1)^2, y = runif(50, 0, 1)) %>% 
-    pivot_longer(cols = c("x", "y")) %>% ggplot(aes(x = n, y = value, group = name, 
-    color = name)) + geom_line(size = 1.5) + facet_wrap(~name, scales = "free_y", 
-    ncol = 1) + scale_color_colorblind() + theme_document_no_y
+tibble(n = 1:50, x = rnorm(n = 50, mean = 10, sd = 1)^2, y = runif(50, 
+    0, 1)) %>% pivot_longer(cols = c("x", "y")) %>% ggplot(aes(x = n, y = value, 
+    group = name, color = name)) + geom_line(size = 1.5) + facet_wrap(~name, 
+    scales = "free_y", ncol = 1) + scale_color_colorblind() + theme_document_no_y
 ```
 
 <div class="figure" style="text-align: center">
@@ -1361,13 +1381,14 @@ tibble(n = 1:50, x = rnorm(n = 50, mean = 10, sd = 1)^2, y = runif(50, 0, 1)) %>
 図\@ref(fig:personal)では, 「演義で活躍の盛られている」代表である華雄, 関興はシリーズを通してあまり変化していない. すくなくとも低下しているようには見えない. 一方で, 「活躍の場を奪われていた」李通, 曹真は徐々に上昇しているように見える.
 
 
-```r
-df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) %>% mutate(name_id = str_split(name_id, 
-    "") %>% map_chr(~paste(.x, collapse = "\n"))) %>% select(title, name_id, 武力, 
-    魅力, 知力, 政治) %>% pivot_longer(-c(title, name_id), names_to = "status", 
-    values_to = "value") %>% ggplot(aes(x = title, y = value, group = status, color = status, 
-    linetype = status)) + geom_line(size = 1) + facet_wrap(~name_id, ncol = 1, strip.position = "left") + 
-    scale_color_colorblind() + theme_document_no_y + theme(strip.text.y.left = element_text(angle = 0, 
+```{.r .numberLines}
+df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) %>% 
+    mutate(name_id = str_split(name_id, "") %>% map_chr(~paste(.x, collapse = "\n"))) %>% 
+    select(title, name_id, 武力, 魅力, 知力, 政治) %>% pivot_longer(-c(title, 
+    name_id), names_to = "status", values_to = "value") %>% ggplot(aes(x = title, 
+    y = value, group = status, color = status, linetype = status)) + geom_line(size = 1) + 
+    facet_wrap(~name_id, ncol = 1, strip.position = "left") + scale_color_colorblind() + 
+    theme_document_no_y + theme(strip.text.y.left = element_text(angle = 0, 
     size = 18))
 ```
 
@@ -1379,12 +1400,12 @@ df_norm %>% filter(name_id %in% c("華雄", "関興", "李通", "曹真")) %>% m
 ということは, もしこれが全体の傾向にも当てはまるのなら, 三国志演義で活躍が誇張されている人物の評価はそのままで, 同時に正史の見直しによって従来ステータスの低い武将の値が底上げされれば, 「没個性化」になりうる. 全体の傾向ならば分布にも現れるはずである. そこで, シリーズの作品ほとんどで存在するステータス項目である, 「武力」「知力」「魅力」[^27]「政治」を確認してみる[^31]. 分布の形状と言えばヒストグラムだが, シリーズごとの特徴をうまく表したい. 分布を表すものとして, 箱ひげ図(box plot)があるが, ここでは `geom_violin()` を使って**バイオリン図**を作図した(図\@ref(fig:violins1)).
 
 
-```r
-df_norm %>% rename(主要値平均 = total) %>% select(title, 武力, 知力, 魅力, 
-    政治, 主要値平均) %>% pivot_longer(cols = -title) %>% ggplot(aes(x = title, 
-    y = value, fill = as.numeric(title))) + geom_violin(draw_quantiles = c(0.25, 
-    0.5, 0.75)) + scale_fill_continuous_tableau(guide = F) + facet_wrap(~name, ncol = 1, 
-    strip.position = "left") + theme_document_no_y + labs(x = "タイトル")
+```{.r .numberLines}
+df_norm %>% rename(主要値平均 = total) %>% select(title, 武力, 知力, 
+    魅力, 政治, 主要値平均) %>% pivot_longer(cols = -title) %>% 
+    ggplot(aes(x = title, y = value, fill = as.numeric(title))) + geom_violin(draw_quantiles = c(0.25, 
+    0.5, 0.75)) + scale_fill_continuous_tableau(guide = F) + facet_wrap(~name, 
+    ncol = 1, strip.position = "left") + theme_document_no_y + labs(x = "タイトル")
 ```
 
 <div class="figure" style="text-align: center">
@@ -1402,12 +1423,12 @@ df_norm %>% rename(主要値平均 = total) %>% select(title, 武力, 知力, �
 なお, 箱ひげ図は `geom_violin()`を`geom_boxplot()`に置き換えるだけで作成できる(図\@ref(fig:boxplot)).
 
 
-```r
-df_norm %>% rename(主要値平均 = total) %>% select(title, 武力, 知力, 魅力, 
-    政治, 主要値平均) %>% pivot_longer(cols = -title) %>% ggplot(aes(x = title, 
-    y = value, fill = as.numeric(title))) + geom_boxplot() + scale_fill_continuous_tableau(guide = F) + 
-    facet_wrap(~name, ncol = 1, strip.position = "left") + theme_document_no_y + 
-    labs(x = "タイトル")
+```{.r .numberLines}
+df_norm %>% rename(主要値平均 = total) %>% select(title, 武力, 知力, 
+    魅力, 政治, 主要値平均) %>% pivot_longer(cols = -title) %>% 
+    ggplot(aes(x = title, y = value, fill = as.numeric(title))) + geom_boxplot() + 
+    scale_fill_continuous_tableau(guide = F) + facet_wrap(~name, ncol = 1, 
+    strip.position = "left") + theme_document_no_y + labs(x = "タイトル")
 ```
 
 <div class="figure" style="text-align: center">
@@ -1424,17 +1445,19 @@ df_norm %>% rename(主要値平均 = total) %>% select(title, 武力, 知力, �
 `geom_point()`や`geom_line()`が描く点や線は入力データの点に対して1対1に対応している. しかし今は集計した結果を点や線で描画したい. このような場合, 事前にデータフレームに集計処理を加えたものを与えることもできるが, `stat_summary()`を使うことでggplot内で集計した結果を表示することもできる.
 
 
-```r
+```{.r .numberLines}
 g_concentrate <- ggplot(df_norm, aes(x = title, y = total, fill = as.integer(title))) + 
     geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + scale_fill_continuous_tableau(guide = F, 
     "Classic Blue") + labs(title = "主要能力値平均") + theme_document_no_y + 
     theme(axis.title.x = element_blank())
-g_concentrate_sd <- ggplot(df_norm, aes(x = as.integer(title), y = total)) + stat_summary(fun = sd, 
-    geom = "line", size = 2) + stat_summary(fun = sd, geom = "point", size = 4) + 
-    labs(title = "標準偏差") + theme_document_no_y + theme(axis.title = element_blank())
-g_concentrate_kurto <- ggplot(df_norm, aes(x = as.integer(title), y = total)) + stat_summary(fun = kurtosis, 
-    geom = "line", size = 2) + stat_summary(fun = kurtosis, geom = "point", size = 4) + 
-    labs(title = "尖度") + theme_document_no_y + theme(axis.title.x = element_text(size = 15))
+g_concentrate_sd <- ggplot(df_norm, aes(x = as.integer(title), y = total)) + 
+    stat_summary(fun = sd, geom = "line", size = 2) + stat_summary(fun = sd, 
+    geom = "point", size = 4) + labs(title = "標準偏差") + theme_document_no_y + 
+    theme(axis.title = element_blank())
+g_concentrate_kurto <- ggplot(df_norm, aes(x = as.integer(title), y = total)) + 
+    stat_summary(fun = kurtosis, geom = "line", size = 2) + stat_summary(fun = kurtosis, 
+    geom = "point", size = 4) + labs(title = "尖度") + theme_document_no_y + 
+    theme(axis.title.x = element_text(size = 15))
 ```
 
 `g_concentrate_sd` は標準偏差の傾向を表すグラフである. `stat_summary(fun = sd)`は入力データのy軸に指定した変数に対して`sd()`つまり標準偏差を計算する関数を適用するということである. `g_concentrate_kurto`は同様に尖度を計算したものである.
@@ -1446,7 +1469,7 @@ g_concentrate_kurto <- ggplot(df_norm, aes(x = as.integer(title), y = total)) + 
 以上の方法で作成した画像が図\@ref(fig:patchwork-demo)である.
 
 
-```r
+```{.r .numberLines}
 (g_concentrate/g_concentrate_sd/g_concentrate_kurto) + labs(x = "タイトル")
 ```
 
@@ -1477,7 +1500,7 @@ g_concentrate_kurto <- ggplot(df_norm, aes(x = as.integer(title), y = total)) + 
 ステータスの項目は主要な4項目はほとんどのシリーズで採用されているが, 基本的にシリーズごとに設定は異なる[^33]. 前節では作品ごとの能力値のレンジを補正するために正規化処理をしたが, 項目数は正規化できない. そこで**主成分分析**(PCA)によって, 全ての項目を数種類の項目に凝縮してみる. 主成分の計算には組み込みの関数 `stat::prcomp()` を, グラフの描画(バイプロット)には `factoextra::fviz_pcabiplot()` を使用している. なお, このパッケージも`ggplot2`を利用してグラフを描画している.
 
 
-```r
+```{.r .numberLines}
 get_design_mat_input <- function(df) {
     # デザイン行列作成に必要な列 + title, name_id を取り出す
     df %>% select_if(str_detect(names(.), "name_id") | map_lgl(., ~!is.character(.x))) %>% 
@@ -1485,9 +1508,11 @@ get_design_mat_input <- function(df) {
         drop_na
 }
 convert_design_mat <- function(df, name = T, center = T, scale = T) {
-    # title, name_id 列を除いてデザイン行列に変換する (正規化処理オプションあり)
+    # title, name_id 列を除いてデザイン行列に変換する
+    # (正規化処理オプションあり)
     model.matrix(~. - 1, select(df, -title, -name_id, -attend_times, -at_first) %>% 
-        mutate_if(is.numeric, ~scale(.x, center = center, scale = scale))) %>% magrittr::set_rownames(df$name_id)
+        mutate_if(is.numeric, ~scale(.x, center = center, scale = scale))) %>% 
+        magrittr::set_rownames(df$name_id)
 }
 
 pca_conveted <- df_all %>% mutate(title = as.integer(title)) %>% group_by(title) %>% 
@@ -1503,12 +1528,12 @@ pca_conveted <- df_all %>% mutate(title = as.integer(title)) %>% group_by(title)
 バイプロットは負荷量の多い順に第2主成分までを使った散布図であり, 第1・第2主成分の累積寄与率が高くない場合は, ステータス値による特徴をうまく捉えられない場合もある[^34] (図\@ref(fig:pca-biplot)).
 
 
-```r
-map_dfr(pca_conveted, ~get_eig(.x$pca) %>% as_tibble(rownames = "d") %>% select(d, 
-    variance.percent) %>% mutate(title = .x$title)) %>% mutate(variance.percent = variance.percent/100, 
-    d = factor(d, levels = rev(unique(d)))) %>% filter(d %in% paste0("Dim.", 1:2)) %>% 
-    ggplot(aes(x = title, y = variance.percent, group = d, fill = d)) + geom_bar(stat = "identity", 
-    position = "stack") + scale_fill_pander(guide = guide_legend(reverse = TRUE)) + 
+```{.r .numberLines}
+map_dfr(pca_conveted, ~get_eig(.x$pca) %>% as_tibble(rownames = "d") %>% 
+    select(d, variance.percent) %>% mutate(title = .x$title)) %>% mutate(variance.percent = variance.percent/100, 
+    d = factor(d, levels = rev(unique(d)))) %>% filter(d %in% paste0("Dim.", 
+    1:2)) %>% ggplot(aes(x = title, y = variance.percent, group = d, fill = d)) + 
+    geom_bar(stat = "identity", position = "stack") + scale_fill_pander(guide = guide_legend(reverse = TRUE)) + 
     labs(y = "accumurated importance") + scale_y_continuous(labels = scales::percent) + 
     scale_x_continuous(breaks = 1:13) + theme_document
 ```
@@ -1521,7 +1546,7 @@ map_dfr(pca_conveted, ~get_eig(.x$pca) %>% as_tibble(rownames = "d") %>% select(
 三國志2, 9 についてこの方法で求めた第1・第2主成分でプロットした散布図が図\@ref(fig:biplot-2),\@ref(fig:biplot-9)である.
 
 
-```r
+```{.r .numberLines}
 fviz_pca_biplot(pca_conveted[[2]]$pca) + labs(title = "三國志II", caption = "https://github.com/Gedevan-Aleksizde/Japan.R2019\nデータ出典: http://hima.que.ne.jp/sangokushi/")
 ```
 
@@ -1531,7 +1556,7 @@ fviz_pca_biplot(pca_conveted[[2]]$pca) + labs(title = "三國志II", caption = "
 </div>
 
 
-```r
+```{.r .numberLines}
 fviz_pca_biplot(pca_conveted[[9]]$pca) + labs(title = "三國志IX", caption = "https://github.com/Gedevan-Aleksizde/Japan.R2019\nデータ出典: http://lee.serio.jp/novel/sangoku/san9busho.html")
 ```
 
@@ -1552,22 +1577,23 @@ fviz_pca_biplot(pca_conveted[[9]]$pca) + labs(title = "三國志IX", caption = "
 
 
 
-```r
-df_norm_faction <- df_norm %>% filter(!is.na(相性)) %>% group_by(title) %>% group_map(~mutate(.x, 
-    蜀 = abs(相性 - filter(.x, name_id == "劉備")$相性), 魏 = abs(相性 - 
-        filter(.x, name_id == "曹操")$相性), 呉 = abs(相性 - filter(.x, name_id == 
-        "孫権")$相性)) %>% pivot_longer(tidyselect::vars_select(names(.), 魏, 
-    呉, 蜀), names_to = "faction", values_to = "dist") %>% group_by(name_id) %>% 
-    filter(rank(dist) == 1) %>% ungroup, keep = T) %>% bind_rows %>% mutate(faction = factor(faction, 
-    levels = c("魏", "蜀", "呉")))
+```{.r .numberLines}
+df_norm_faction <- df_norm %>% filter(!is.na(相性)) %>% group_by(title) %>% 
+    group_map(~mutate(.x, 蜀 = abs(相性 - filter(.x, name_id == "劉備")$相性), 
+        魏 = abs(相性 - filter(.x, name_id == "曹操")$相性), 呉 = abs(相性 - 
+            filter(.x, name_id == "孫権")$相性)) %>% pivot_longer(tidyselect::vars_select(names(.), 
+        魏, 呉, 蜀), names_to = "faction", values_to = "dist") %>% group_by(name_id) %>% 
+        filter(rank(dist) == 1) %>% ungroup, keep = T) %>% bind_rows %>% 
+    mutate(faction = factor(faction, levels = c("魏", "蜀", "呉")))
 ```
 
 
-```r
+```{.r .numberLines}
 set.seed(42)
-df_norm_faction %>% ggplot(aes(x = 相性, y = 武力, color = faction)) + geom_point() + 
-    geom_label(aes(label = name_id), data = group_by(df_norm_faction, title, faction) %>% 
-        sample_n(2)) + facet_wrap(~title) + theme_document + scale_color_pander()
+df_norm_faction %>% ggplot(aes(x = 相性, y = 武力, color = faction)) + 
+    geom_point() + geom_label(aes(label = name_id), data = group_by(df_norm_faction, 
+    title, faction) %>% sample_n(2)) + facet_wrap(~title) + theme_document + 
+    scale_color_pander()
 ```
 
 <div class="figure" style="text-align: center">
@@ -1577,10 +1603,11 @@ df_norm_faction %>% ggplot(aes(x = 相性, y = 武力, color = faction)) + geom_
 
 
 
-```r
-df_norm_faction %>% ggplot(aes(x = 相性, y = 知力, color = faction)) + geom_point() + 
-    geom_label(aes(label = name_id), data = group_by(df_norm_faction, title, faction) %>% 
-        sample_n(2)) + facet_wrap(~title) + theme_document + scale_color_pander()
+```{.r .numberLines}
+df_norm_faction %>% ggplot(aes(x = 相性, y = 知力, color = faction)) + 
+    geom_point() + geom_label(aes(label = name_id), data = group_by(df_norm_faction, 
+    title, faction) %>% sample_n(2)) + facet_wrap(~title) + theme_document + 
+    scale_color_pander()
 ```
 
 <div class="figure" style="text-align: center">
@@ -1589,10 +1616,10 @@ df_norm_faction %>% ggplot(aes(x = 相性, y = 知力, color = faction)) + geom_
 </div>
 
 
-```r
-df_norm_faction %>% ggplot(aes(x = 相性, y = total, color = faction)) + geom_point() + 
-    geom_label(aes(label = name_id), data = group_by(df_norm_faction, title, faction) %>% 
-        sample_n(2)) + facet_wrap(~title) + labs(y = "主要ステータス値平均") + 
+```{.r .numberLines}
+df_norm_faction %>% ggplot(aes(x = 相性, y = total, color = faction)) + 
+    geom_point() + geom_label(aes(label = name_id), data = group_by(df_norm_faction, 
+    title, faction) %>% sample_n(2)) + facet_wrap(~title) + labs(y = "主要ステータス値平均") + 
     theme_document + scale_color_pander()
 ```
 
@@ -1602,10 +1629,10 @@ df_norm_faction %>% ggplot(aes(x = 相性, y = total, color = faction)) + geom_p
 </div>
 
 
-```r
-df_norm_faction %>% ggplot(aes(x = faction, y = total, fill = faction)) + geom_violin(draw_quantiles = c(0.25, 
-    0.5, 0.75)) + facet_wrap(~title) + labs(y = "主要ステータス値平均") + 
-    theme_document + scale_fill_pander()
+```{.r .numberLines}
+df_norm_faction %>% ggplot(aes(x = faction, y = total, fill = faction)) + 
+    geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + facet_wrap(~title) + 
+    labs(y = "主要ステータス値平均") + theme_document + scale_fill_pander()
 ```
 
 <div class="figure" style="text-align: center">

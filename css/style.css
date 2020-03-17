@@ -32,6 +32,10 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+/* https://blog.atusy.net/2019/07/03/rmd-line-num-in-pandoc-2-7-3/ */
+.book .book-body .page-wrapper .page-inner section.normal pre {padding: 0.95em 2em; }
+
 p.flushright {
   text-align: right;
 }

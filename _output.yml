@@ -1,44 +1,56 @@
-# ---- gitbook(html)の出力設定 ----
+# ---- html(github pages) の出力設定 ----
 bookdown::gitbook:
-  keep_md: true           # Rmdからpandocで変換したmdファイルを残すかどうか
-  dev: svglite            # 画像の出力デバイス
-  css: css/style.css      # 出力ディレクトリにコピーするするcssファイルの場所
-  # split_by: section     # 出力ファイルを分割するかどうか
+  dev: svglite                               # 画像の出力デバイス
+  css: css/style.css                         # 出力ディレクトリにコピーするするcssファイルの場所
+  split_by: chapter                          # ページを分割する単位. 長過ぎるなら section を指定
+  keep_md: true                              # Rmdからpandocで変換したmdファイルを残すかどうか
   config:
     toc:
-      collapse: none
+      collapse: none                         # 目次の自動折りたたみ設定. section/subsection/none
       before: |
-        <li><a href="./index.html">Top</a></li>
+        <li><a href="./">Authoring Books with R Markdown</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-      download: ["pdf", "epub"]
-      # ----- ソーシャルリンク -----
-      sharing:
-        github: yes
-        facebook: no
-        vk: yes
-        linkedin: yes
-        weibo: yes
+        <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+# 各種ボタンの設定
+# 編集ボタン. URLまたは null.  _bokdown.yml と一致させないと死ぬ
+    edit : null
+    download:
+      - pdf
+      - epub
+    search: yes
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2
+    info: yes
+    sharing:
+      weibo: yes
+      vk: yes
+      facebook: yes
+      github: yes
+      linkedin: yes
+      twitter: yes
 bookdown::html_chapters:
   css: [css/style.css, css/toc.css]
 # ---- pdfの出力設定 ----
 bookdown::pdf_book:
-  # ----- 本文前に読み込むtexファイル -----
   includes:
-    in_header: latex/preamble.tex
-    before_body: latex/before_body.tex
-    after_body: latex/after_body.tex
-  latex_engine: xelatex                     # 日本語を扱うならxelatex/lualatexが良い
-  keep_tex: yes                             # .texファイルを残すかどうか
-  citation_package: natbib                  # 引用スタイルパッケージ
-  pandoc_args: --top-level-division=section
-  tamplate: null
-  toc-unnumbered: no
-  toc_appendix: yes
-  toc_depth: 3
-  dev: "cairo_pdf"
-  quote_footer: ["\\VA{", "}{}"]
+    in_header: latex/preamble.tex            # プリアンブルで読み込むtexファイル. bookdown固有のプリアンブルの後に読み込まれる
+    before_body: latex/before_body.tex       # 本文 (document環境) 開始直後に読み込む
+    after_body: latex/after_body.tex         # 本文最後に読み込む. 索引リスト出力などに使う.
+  latex_engine: xelatex                      # 日本語を扱うならxelatex/lualatexが良い
+  keep_tex: yes                              # .texファイルを残すかどうか
+  citation_package: natbib                   # 引用スタイルパッケージ
+  pandoc_args: --top-level-division=chapter  #
+  tamplate: null                             #
+  toc-unnumbered: no                         #
+  toc_appendix: yes                          #
+  toc_depth: 3                               # 目次に表示する項目のレベル
+  dev: "cairo_pdf"                           # 画像デバイス
+  quote_footer: ["\\VA{", "}{}"]             # 引用ブロック. 
 # ---- epubの出力設定 ----
 bookdown::epub_book:
   dev: svglite
   stylesheet: css/style.css
+
+# 参考: https://bookdown.org/yihui/bookdown/html.html

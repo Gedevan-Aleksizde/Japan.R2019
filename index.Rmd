@@ -1,32 +1,58 @@
---- 
-title: "三國志で学ぶデータ分析 (Japan.R 2019)"
-author: "ill-identified"
-date: "`r Sys.Date()`"
-description: "三国志で学べ"
-cover-image: images/cover.png               # epubに使う画像
-knit: "bookdown::render_book"               # knitコマンドでもできるようにするために
-site: bookdown::bookdown_site
+---
+title: "三國志で学ぶデータ分析 (Japan.R 2019)" # 表題
+author: "ill-identified"                       # 著者名
+date: "`r Sys.Date()`"                         # 日付
+ # ソーシャルリンクで共有するときの見出し文
+description: |
+  "三国志を題材にしたRを使ったデータ分析のチュートリアル" 
+cover-image: images/cover.png                  # SNS共有やepubの表紙に使う画像
+knit: "bookdown::render_book"                  # knitボタンでも生成できるようにする
+site: bookdown::bookdown_site                  # この記述は必須
 url: https://gedevan-aleksizde.github.io/Japan.R2019
-github-repo: Gedevan-Aleksizde/Japan.R2019  #
-always_allow_html: true
-link-citations: yes                         # html用. 文中の引用に末尾引用文献リストへのアンカーリンクを付けるかどうか
-colorlinks: yes                             # html用
-lot: no                                     # *LaTeX用. list of tables. 「表一覧」を出力するかどうか
-lof: no                                     # *LaTeX用. list of figures. 「図一覧」を出力するかどうか
-mainfont: "Palatino Linotype"               # xelatex/LuaLaTeX用. \setmainfontに対応するフォントなので欧文用フォント. in_headerより後に読み込まれる
-mainfontoptions: "Ligatures=TeX"            # 同上. \setmainfont のオプション
-sansfont: "Arial"                           # 同上. \setsansfont のやつ
-sansfontoptions: "Ligatures=TeX"            # 同上.
-monofont: "Ricty Diminished Discord"        # 同上. \setmonofont
-monofontoptions: ""                         # 同上.
-documentclass: bxjsbook                     # *LaTeX用.
-classoption: ja=standard, xelatex           # *LaTeX用. 文書クラスオプション
-bibliography: doc-src/threekingdom.bib      # 参考文献. latexの場合はアンダースコアのあるパス名はエスケープすること
-biblio-style: doc-src/jecon-custom          # bibtex用bstファイル. 拡張子を書いてはならない. パス名の注意はbibliogpraphyに同じ
-
+github-repo: Gedevan-Aleksizde/Japan.R2019
+always_allow_html: true                        #
+link-citations: yes                            # html用. 文中の引用に末尾引用文献リストへのアンカーリンクを付けるかどうか
+colorlinks: yes                                # html用.
+lot: false                                     # *LaTeX用. list of tables. 「表一覧」を出力するかどうか. yes/no **ではなく** true/false
+lof: false                                     # *LaTeX用. list of figures. 「図一覧」を出力するかどうか. yes/no **ではなく** true/false
+mainfont: "Palatino Linotype"                  # xelatex/LuaLaTeX用. \setmainfontに対応するフォントなので欧文用フォント. in_headerより後に読み込まれる
+mainfontoptions: "Ligatures=TeX"               # 同上. \setmainfont のオプション
+sansfont: "Arial"                              # 同上. \setsansfont のやつ
+sansfontoptions: "Ligatures=TeX"               # 同上.
+monofont: "Ricty Diminished Discord"           # 同上. \setmonofont
+monofontoptions: ""                            # 同上.
+documentclass: bxjsreport                      # *LaTeX用.
+classoption: ja=standard, xelatex              # *LaTeX用. 文書クラスオプション
+bibliography: doc-src/threekingdom.bib         # 参考文献のbibファイルパス. texファイルに埋め込むのでlatexの場合はアンダースコアのあるパス名は"\"でエスケープすること
+biblio-style: doc-src/jecon-custom             # bibtex用bstファイル. 拡張子を書いてはならない. パス名の注意事項はbibliogpraphyに同じ
 ---
 
+
+```{r setup-knitr, include=F}
+for(p in c("webshot", "DT", "htmlwidgets", "miniUI", "formatR", "tufte", "citr", "rticles", "servr")){
+  if(!p %in% installed.packages()) install.packages(p)
+}
+# 表出力の制御用パッケージ
+require(kableExtra)
+# チャンク出力の設定
+knitr::opts_chunk$set(
+  echo = T,                        # コードチャンクを表示するかどうか
+  include=T,                       # コードチャンク実行結果を出力するかどうか
+  message=F,                       # チャンク実行時のメッセージをドキュメントに出力するかどうか
+  warning=F,                       # チャンク実行時の警告をドキュメントに出力するかどうか
+  out.width = "75%",               # 画像の出力サイズ
+  digits = 3,                      # 表の小数点 (反映されない)
+  cache=T,                         # チャンクの実行結果をキャッシュする
+  fig.align = "center",            # 画像の中央揃え
+  attr.source='.numberLines',      # コードブロックに行番号表示
+  tinytex.verbose = T,             # pdfのコードブロック折り返し設定
+  tidy.opts=list(width.cutoff=70), # 70字で折り返す (不完全?マルチバイト文字に対応してない?)
+  tidy=T
+  )
+```
+
 ```{r load, include=F}
+# データ分析に必要なパッケージと共通設定
 require(conflicted)
 require(tidyverse)
 require(ggthemes)
@@ -47,7 +73,6 @@ require(tictoc)
 require(magick)
 require(Metrics)
 require(lubridate)
-require(glue)
 
 for(p in c("remotes", "cowplot", "colorspace", "Hmisc", "scales")){
   if(!p %in% installed.packages()) install.packages(p)
@@ -76,26 +101,12 @@ dirname_scripts <- "scripts"
 dirname_data <- "data"
 dirname_img <- "images"
 ```
-```{r setup-knitr, include=F}
-for(p in c("webshot", "DT", "htmlwidgets", "miniUI", "formatR", "tufte", "citr", "rticles", "servr")){
-  if(!p %in% installed.packages()) install.packages(p)
-}
-require(kableExtra)
-knitr::opts_chunk$set(
-  echo = T, include=T,
-  message=F, warning=F,
-  out.width = "75%",
-  digits = 3,
-  cache=T,
-  fig.align = "center",
-  tinytex.verbose = T,
-  tidy.opts=list(width.cutoff=80),
-  tidy=T
-  )
-```
+
 
 ```{r inline-latex, include=F, eval=knitr::is_latex_output()}
-wan <- xml2::as_xml_document(paste0("<html>", "&#x29166;", "</html>")) %>% html_text()
+# LaTeX/HTMLでルビの出力を変える
+# pandocで制御する知識がないのでRでマクロ的なことをする
+wan <- xml2::as_xml_document(paste0("<html>", "&#x29166;", "</html>")) %>% rvest::html_text()
 wan_quote <- paste0("`{\\jafamily{HMB}", wan,  "}`{=latex}")
 sun_wan <- paste0("孫{\\jafamily{HMB}", wan, "}")
 ```
@@ -105,14 +116,14 @@ sun_wan <- "孫&#x29166;"
 ```
 ```{r ruby-universal, include=F}
 ruby_b <- function(text, ruby){
-  glue("`\\textbf{\\aruby{[text]}{[ruby]}}`{=latex}`<ruby><strong>[text]</strong><rp>(</rp><rt>[ruby]</rt><rp>)</rp></ruby>`{=html}", .open = "[", .close = "]")
+  glue::glue("`\\textbf{\\aruby{[text]}{[ruby]}}`{=latex}`<ruby><strong>[text]</strong><rp>(</rp><rt>[ruby]</rt><rp>)</rp></ruby>`{=html}", .open = "[", .close = "]")
 }
 ruby <- function(text, ruby){
-  glue("`\\aruby{[text]}{[ruby]}`{=latex}`<ruby>[text]<rp>(</rp><rt>[ruby]</rt><rp>)</rp></ruby>`{=html}", .open = "[", .close = "]")
+  glue::glue("`\\aruby{[text]}{[ruby]}`{=latex}`<ruby>[text]<rp>(</rp><rt>[ruby]</rt><rp>)</rp></ruby>`{=html}", .open = "[", .close = "]")
 }
 ```
 
-# 概要
+# 概要 {-}
 
 この記事は 2019/12/7 に開催された Japan.R の発表原稿をもとに作成した資料である.
 
@@ -144,6 +155,7 @@ https://gedevan-aleksizde.github.io/Japan.R2019/
 
 三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析
 
+\mainmatter
 
 # イントロダクション
 
@@ -385,7 +397,8 @@ write_rds(sources, "data/sources.rds")
 たとえば, 三国志1の武将一覧は複数ページにまたがっているが, 語尾の`;p=`以降のページ数を書き換えれば簡単に複数ページを取得できる. 
 
 ```{r scrape-example, eval=F}
-url_1 <- "http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&keys2%2C6=&index=&IDn001=AND&sort=up6s&print=100;p="
+url_1 <- "http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&keys2%2C6=&index=&IDn001=AND&sort=
+up6s&print=100;p="
 source1 <- list()
 for(i in 1:3){
   source1[[i]] <- read_html(paste0(url_1, i-1))
@@ -403,7 +416,9 @@ for(i in 1:3){
 
 ```{r io-xml, eval=F}
 sources <- map2_dfr(
-  list(source1, source2, source3, source4, source5, source6, source7, source8, source9, source10, source11, source12, source13),
+  list(source1, source2, source3, source4, source5, source6, source7,
+       source8, source9, source10, source11, source12, source13
+       ),
   1:13,
   function(x, t) tibble(x) %>% mutate(title=t, page=row_number())
 ) %>% mutate(html=map(x, as.character)) %>% select(-x)
@@ -423,6 +438,7 @@ write_rds(sources, here(dirname_data, "sources.rds"))
 
 ```{block2 note-tidying, type='rmdtip'}
 データの整然化(tidying)について知らない場合は, 以下のページで基本的な理念を知れる.
+
 https://id.fnshr.info/2017/01/09/tidy-data-intro/
   
 整然化の理念の実装は複数のパッケージで提供されるが, 現在は`tidyverse`というオールインワンパッケージをインストールすれば良いだろう.
@@ -445,8 +461,9 @@ for(i in 1:4){
   df2 <- bind_rows(
     df2,
     filter(sources, title == 2)$html[[i]] %>% read_html %>% html_nodes("table") %>% html_table() %>%
-      map_dfr(function(x) data.frame(matrix(as.character(x), byrow = T, nrow = 1), stringsAsFactors = F))
-  )
+      map_dfr(
+        function(x) data.frame(matrix(as.character(x), byrow = T, nrow = 1), stringsAsFactors = F))
+    )
 }
 # (2)
 df2 <- df2 %>% set_names(df2_header) %>% filter(name != "武将名") %>%
@@ -456,7 +473,9 @@ df2 <- mutate(df2, title = "2", order = row_number()) %>% select(title, order, n
 
 # (4)
 check_dup(df2)
-df2$name[c(62, 125, 296, 24, 218, 220, 234, 279)] <- c("楽就", "辛評", "劉曄", "賈華", "陶謙", "董衡", "馬忠 (孫呉)", "李豊 (東漢)")
+df2$name[c(62, 125, 296, 24, 218, 220, 234, 279)] <- c(
+  "楽就", "辛評", "劉曄", "賈華", "陶謙", "董衡", "馬忠 (孫呉)", "李豊 (東漢)"
+  )
 check_dup(df2)
 ```
 
@@ -499,7 +518,8 @@ knitr::include_graphics(here(dirname_img, "three_kingdom12.png"))
 まず, 以下はスクレイピング結果を読み込みデータフレームに変換し, 数値として扱いたい列を数値型に変換している
 
 ```{r tidy-threekingdoms9-1, eval=F}
-df9 <- filter(sources, title == 9)$html[[1]] %>% read_html %>% html_node("table") %>% html_node("table") %>% html_table(header = T) %>% as_tibble
+df9 <- filter(sources, title == 9)$html[[1]] %>% read_html %>%
+  html_node("table") %>% html_node("table") %>% html_table(header = T) %>% as_tibble
 df9 <- filter(df9, ID != "ID") %>%
   mutate_all(na_if, "") %>% fill(ID) %>% rename(name = 名前) %>%
   mutate_at(.vars = vars(統率, 武力, 知力, 政治, 誕生, 寿命, 相性, 義理, 野望), .funs = as.integer)
@@ -509,15 +529,24 @@ df9 <- filter(df9, ID != "ID") %>%
 
 ```{r tidy-threekingdoms9-2, eval=F}
 df9 <- df9 %>% bind_cols(
-  str_split_fixed(.$奮奮奮戦闘迅, pattern = "", 3) %>% data.frame %>% set_names(c("奮戦", "奮闘", "奮迅")),
-  str_split_fixed(.$突突突破進撃, pattern = "", 3) %>% data.frame %>% set_names(c("突破", "突進", "突撃")),
-  str_split_fixed(.$騎走飛射射射, pattern = "", 3) %>% data.frame %>% set_names(c("騎射", "走射", "飛射")),
-  str_split_fixed(.$斉連連射射弩, pattern = "", 3) %>% data.frame %>% set_names(c("斉射", "連射", "連弩")),
-  str_split_fixed(.$蒙楼闘衝船艦, pattern = "", 3) %>% data.frame %>% set_names(c("蒙衝", "楼船", "闘艦")),
-  str_split_fixed(.$井衝投象闌車石兵, pattern = "", 4) %>% data.frame %>% set_names(c("井闌", "衝車", "投石", "象兵")),
-  str_split_fixed(.$造石罠教営兵破唆, pattern = "", 4) %>% data.frame %>% set_names(c("造営", "石兵", "罠破", "教唆")),
-  str_split_fixed(.$`混罠心幻乱＿攻術`, pattern = "", 4) %>% data.frame %>% set_names(c("混乱", "罠", "心攻", "幻術")),
-  str_split_fixed(.$罵鼓治妖声舞療術, pattern = "", 4) %>% data.frame %>% set_names(c("罵声", "鼓舞", "治療", "妖術"))
+  str_split_fixed(.$奮奮奮戦闘迅, pattern = "", 3) %>%
+    data.frame %>% set_names(c("奮戦", "奮闘", "奮迅")),
+  str_split_fixed(.$突突突破進撃, pattern = "", 3) %>%
+    data.frame %>% set_names(c("突破", "突進", "突撃")),
+  str_split_fixed(.$騎走飛射射射, pattern = "", 3) %>%
+    data.frame %>% set_names(c("騎射", "走射", "飛射")),
+  str_split_fixed(.$斉連連射射弩, pattern = "", 3) %>%
+    data.frame %>% set_names(c("斉射", "連射", "連弩")),
+  str_split_fixed(.$蒙楼闘衝船艦, pattern = "", 3) %>%
+    data.frame %>% set_names(c("蒙衝", "楼船", "闘艦")),
+  str_split_fixed(.$井衝投象闌車石兵, pattern = "", 4) %>%
+    data.frame %>% set_names(c("井闌", "衝車", "投石", "象兵")),
+  str_split_fixed(.$造石罠教営兵破唆, pattern = "", 4) %>%
+    data.frame %>% set_names(c("造営", "石兵", "罠破", "教唆")),
+  str_split_fixed(.$`混罠心幻乱＿攻術`, pattern = "", 4) %>%
+    data.frame %>% set_names(c("混乱", "罠", "心攻", "幻術")),
+  str_split_fixed(.$罵鼓治妖声舞療術, pattern = "", 4) %>%
+    data.frame %>% set_names(c("罵声", "鼓舞", "治療", "妖術"))
 ) %>% select(-奮奮奮戦闘迅, -突突突破進撃, -騎走飛射射射, -斉連連射射弩, -蒙楼闘衝船艦,
              -井衝投象闌車石兵, -造石罠教営兵破唆, -`混罠心幻乱＿攻術`, -罵鼓治妖声舞療術)
 ```
@@ -536,7 +565,9 @@ df9 <- mutate_at(df9, .vars = colnames(df9)[15:45], function(x) if_else(x == "×
 
 ```{r tidy-three-kingdom9-4, eval=F}
 check_dup(df9) %>% filter(!str_detect(name, "武将"))
-df9$name[c(414, 501:502, 600:601)] <- c("張南 (蜀漢)", "馬忠 (孫呉)", "馬忠 (蜀漢)", "李豊 (東漢)", "李豊 (蜀漢)")
+df9$name[c(414, 501:502, 600:601)] <- c(
+  "張南 (蜀漢)", "馬忠 (孫呉)", "馬忠 (蜀漢)", "李豊 (東漢)", "李豊 (蜀漢)"
+  )
 df9$name[346] <- c("孫匡") # この後の確認で名前に字が混入していたことを発見したので修正
 ```
 
@@ -545,7 +576,8 @@ df9$name[346] <- c("孫匡") # この後の確認で名前に字が混入して�
 最初のブロックでは後続の見通しを良くするために列名だけを取り出して`df12_header`として整形している.
 
 ```{r tidy-threekingdoms12-1, eval=F}
-df12_header <- filter(sources, title == 12)$html[[1]] %>% read_html %>% html_nodes("table") %>% html_table %>%
+df12_header <- filter(sources, title == 12)$html[[1]] %>%
+  read_html %>% html_nodes("table") %>% html_table %>%
   .[[1]] %>% as.matrix %>% as.character
 df12_header[grepl("^特技$", df12_header)] <- paste0("特技", 1:length(grep("^特技$", df12_header)))
 df12_header[1:4] <- c("名前読み", "名前", "字読み", "字")
@@ -558,10 +590,14 @@ df12_header[42] <- "格付け2"
 
 ```{r tidy-threekingdoms12-2, eval=F}
 parse_table12_by_page <- function(x, header){
-  d_main <- x %>% html_nodes("table") %>% html_table %>% map(function(x) as.character(unlist(x)) %>% matrix(nrow = 1, byrow = T) %>%
-                                                               as.data.frame(stringsAsFactors = F) %>% set_names(header)) %>%
+  d_main <- x %>% html_nodes("table") %>% html_table %>%
+    map(
+      function(x) as.character(unlist(x)) %>% matrix(nrow = 1, byrow = T) %>%
+        as.data.frame(stringsAsFactors = F) %>% set_names(header)
+      ) %>%
     bind_rows %>% filter(名前読み!="武将名")
-  d_flag <- x %>% html_nodes("table") %>% html_nodes(".on, .off") %>% html_attr("class") %>% {ifelse(. == "on", T, F)} %>% matrix(ncol = 20, byrow = T)
+  d_flag <- x %>% html_nodes("table") %>% html_nodes(".on, .off") %>%
+    html_attr("class") %>% {ifelse(. == "on", T, F)} %>% matrix(ncol = 20, byrow = T)
   d_main[sort(grep("^特技[0-9]+$", colnames(d_main)))] <- d_flag
   return(as_tibble(d_main))
 }
@@ -570,17 +606,21 @@ parse_table12_by_page <- function(x, header){
 各ページに並列して上記の関数を適用し, 結合する. その後列の型や名前を一括して調整した. 最後は例によって人名の調整である.
 
 ```{r tidy-threekingdoms12-3, eval=F}
-df12 <- map_dfr(map(filter(sources, title == 12)$html, read_html),
-                function(x) parse_table12_by_page(x, df12_header))
+df12 <- map_dfr(
+  map(filter(sources, title == 12)$html, read_html),
+  function(x) parse_table12_by_page(x, df12_header)
+  )
 df12 %<>% select(-`合計`, -`格付け`, -`格付け2`) %>%
-  mutate_at(.vars = vars(統率, 武力, 知力, 政治, 義理, 勇猛, 相性, 誕生, 登場, 没年, 寿命), as.integer) %>%
+  mutate_at(.vars = vars(統率, 武力, 知力, 政治, 義理, 勇猛, 相性, 誕生, 登場, 没年, 寿命),
+            as.integer) %>%
   mutate_if(is.character, function(x) na_if(x, "-")) %>%
   mutate_at(.vars = vars(口調, 口調2), as.factor) %>%
   rename(name = 名前) %>% mutate(title = "12", order = row_number())  %>% select(title, order, name, everything())
 check_dup(df12)
 
 # 呉の馬忠は落選
-filter(df12, str_detect(name, "馬忠|李豊|張温")) %>% select(name, 字, order, 相性, 誕生, 登場, 没年)
+filter(df12, str_detect(name, "馬忠|李豊|張温")) %>%
+  select(name, 字, order, 相性, 誕生, 登場, 没年)
 df12$name[c(257, 332, 403)] <- c("張温 (孫呉)", "馬忠 (蜀漢)", "李豊 (東漢)")
 ```
 
@@ -1040,7 +1080,9 @@ df_in_out_summary <- df_in_out %>% group_by(title) %>% summarise_if(is.logical, 
 
 ```{r inout, fig.cap="登録・除外フロー"}
 ggplot(df_in_out_summary,
-       aes(x = title, y = number, group = var, fill = var, color = var, alpha = (var != "out"), linetype = (var == "out"))) +
+       aes(x = title, y = number, group = var, fill = var, color = var,
+           alpha = (var != "out"), linetype = (var == "out"))
+       ) +
   geom_bar(stat = "identity", position = "stack", size = 1, width = .6) +
   scale_x_continuous(breaks = 2:13) +
   scale_fill_colorblind() +
@@ -1146,7 +1188,8 @@ https://qlik-training.ashisuto.co.jp/data-ink-ratio/
 基本的には`skim()`にデータフレームを与えるだけだが, 表示したい要約統計量を変更したい場合は`skimr::skim_with()`を使う. これは関数ジェネレータのように扱う.  例えば以下の例ではデフォルトの項目に加え歪度と尖度を表示するように変更した関数 `my_skim()` を作成している.
 
 ```{r skimr}
-my_skim <- skim_with(numeric = sfl(n = length, mean = mean, skew = skewness, kurto = kurtosis, hist = NULL))
+my_skim <- skim_with(numeric = sfl(n = length, mean = mean, skew = skewness,
+                                   kurto = kurtosis, hist = NULL))
 ```
 
 これを使い, シリーズごとに能力値の要約統計量を求める(表\@ref(tab:skimr-tab)).
@@ -1186,23 +1229,30 @@ df_append <- df_all %>% group_by(title) %>% group_map(
     select_if(names(.) %in% c("title", "name_id") | map_lgl(., is.numeric)),
   keep = T
 ) %>% bind_rows %>%
-  select(title, name_id, attend_times, at_first, 身体, 知力, 武力, 魅力, 運勢, 義理, 野望, 相性, 政治, 統率, 陸指, 水指)
+  select(title, name_id, attend_times, at_first,
+         身体, 知力, 武力, 魅力, 運勢, 義理, 野望, 相性, 政治, 統率, 陸指, 水指)
 
-descriptive_status <- df_append %>% group_by(title) %>% select(title, 武力, 知力, 魅力, 政治) %>% my_skim() %>%
-  as_tibble() %>% rename_all(~str_remove(.x, "^numeric.")) %>% rename(missings = n_missing) %>% filter(skim_type == "numeric") %>%
-  select(-skim_type, -complete_rate) %>% rename(variable = skim_variable, min = p0, max = p100, skewness = skew, kurtosis = kurto) %>%
+descriptive_status <- df_append %>% group_by(title) %>%
+  select(title, 武力, 知力, 魅力, 政治) %>% my_skim() %>%
+  as_tibble() %>% rename_all(~str_remove(.x, "^numeric.")) %>% rename(missings = n_missing) %>%
+  filter(skim_type == "numeric") %>%
+  select(-skim_type, -complete_rate) %>%
+  rename(variable = skim_variable, min = p0, max = p100, skewness = skew, kurtosis = kurto) %>%
   mutate(title = as.integer(title))
 
-descriptive_status %>% mutate(range = max - min) %>% pivot_longer(-c(variable, title), names_to = "stat", values_to = "value") %>%
+descriptive_status %>% mutate(range = max - min) %>%
+  pivot_longer(-c(variable, title), names_to = "stat", values_to = "value") %>%
   filter(stat %in% c("range", "mean", "sd", "skewness", "kurtosis")) %>%
   mutate(stat = factor(stat, levels=c("range", "mean", "sd", "skewness", "kurtosis"))) %>%
   ggplot(aes(x = title, y = value, group = variable, color = variable)) + geom_line(size = 2) +
-  facet_wrap(~stat, scales = "free_y", ncol = 1, strip.position = "left") + scale_color_colorblind() +
+  facet_wrap(~stat, scales = "free_y", ncol = 1, strip.position = "left") +
+  scale_color_colorblind() +
   theme_document_no_y
 ```
 
 
 このグラフを見て特に気になるのは, レンジの変化である. 三國志シリーズのステータスは基本的に1\~100の数値だが, 実際には最小値と最大値の幅が作品ごとに異なることがわかった. そのため, 値域を統一するためにシリーズごとにmin-max正規化を行う. 通常のmin-max正規化は0-1の範囲にする正規化処理だが, 今回は見やすさのため, レンジが100になるよう以下 \@ref(eq:rangenormalize) のようにさらに100を掛けてで調整している.
+
 $$\begin{aligned}
 z:= & 100\times\frac{x-\min(x)}{\max(x)-\min(x)}\end{aligned}(\#eq:rangenormalize)$$
 
