@@ -7,3 +7,4 @@ data/*.rds
 _bookdown_files
 docs/three-kingdoms.tex
 tmps
+.Rproj.user
