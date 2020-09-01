@@ -155,6 +155,16 @@ https://gedevan-aleksizde.github.io/Japan.R2019/
 
 三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析
 
+```{r cc-logo, echo=F}
+if(knitr::is_html_output()){
+  knitr::asis_output('<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス</a>の下に提供されています.')
+}
+if(knitr::is_latex_output()){
+  knitr::include_graphics("images/cc4.png")
+  knitr::asis_output("この作品は\\href{http://creativecommons.org/licenses/by-nc-nd/4.0/}{クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス}の下に提供されています.")
+}
+```
+
 \mainmatter
 
 # イントロダクション

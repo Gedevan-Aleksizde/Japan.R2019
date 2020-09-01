@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 まとめ | 三國志で学ぶデータ分析 (Japan.R 2019)</title>
   <meta name="description" content="“三国志を題材にしたRを使ったデータ分析のチュートリアル”" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 まとめ | 三國志で学ぶデータ分析 (Japan.R 2019)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-03-17" />
+<meta name="date" content="2020-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="追加の分析.html"/>
 <link rel="next" href="参考文献.html"/>
+<script src="libs/header-attrs-2.3.2/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,29 +51,31 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +84,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -133,17 +136,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>概要</a></li>
-<li class="chapter" data-level="1" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>1</b> イントロダクション</a><ul>
+<li class="chapter" data-level="1" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>1</b> イントロダクション</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="イントロダクション.html"><a href="イントロダクション.html#三国志の背景"><i class="fa fa-check"></i><b>1.1</b> 三国志の背景</a></li>
 <li class="chapter" data-level="1.2" data-path="イントロダクション.html"><a href="イントロダクション.html#コーエーテクモのゲーム三國志シリーズ"><i class="fa fa-check"></i><b>1.2</b> コーエーテクモのゲーム『三國志』シリーズ</a></li>
 <li class="chapter" data-level="1.3" data-path="イントロダクション.html"><a href="イントロダクション.html#問題提起"><i class="fa fa-check"></i><b>1.3</b> 問題提起</a></li>
 <li class="chapter" data-level="1.4" data-path="イントロダクション.html"><a href="イントロダクション.html#先行関連研究"><i class="fa fa-check"></i><b>1.4</b> 先行・関連研究</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>2</b> 前処理</a><ul>
+<li class="chapter" data-level="2" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>2</b> 前処理</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="前処理.html"><a href="前処理.html#データ取得元"><i class="fa fa-check"></i><b>2.1</b> データ取得元</a></li>
 <li class="chapter" data-level="2.2" data-path="前処理.html"><a href="前処理.html#スクレイピング"><i class="fa fa-check"></i><b>2.2</b> スクレイピング</a></li>
 <li class="chapter" data-level="2.3" data-path="前処理.html"><a href="前処理.html#データの整然化"><i class="fa fa-check"></i><b>2.3</b> データの整然化</a></li>
-<li class="chapter" data-level="2.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>2.4</b> さらなる名寄せ処理</a><ul>
+<li class="chapter" data-level="2.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>2.4</b> さらなる名寄せ処理</a>
+<ul>
 <li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#三国志以外の登場人物を除外する"><i class="fa fa-check"></i>三国志以外の登場人物を除外する</a></li>
 <li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#漢字が使われていない名前を検査する"><i class="fa fa-check"></i>漢字が使われていない名前を検査する</a></li>
 <li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#字以上の名前を検査する"><i class="fa fa-check"></i>3字以上の名前を検査する</a></li>
@@ -153,13 +159,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="前処理.html"><a href="前処理.html#草稿-ディープラーニングでなんとかできないか"><i class="fa fa-check"></i><b>2.6</b> [草稿] ディープラーニングでなんとかできないか?</a></li>
 <li class="chapter" data-level="2.7" data-path="前処理.html"><a href="前処理.html#補足-dbpedia-を利用した二重チェック"><i class="fa fa-check"></i><b>2.7</b> 補足: DBpedia を利用した二重チェック</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>3</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a><ul>
-<li class="chapter" data-level="3.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>3.1</b> <code>ggplot2</code>による視覚化</a><ul>
+<li class="chapter" data-level="3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>3</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>3.1</b> <code>ggplot2</code>による視覚化</a>
+<ul>
 <li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-ggplot2の使い方"><i class="fa fa-check"></i>[テクニカル] ggplot2の使い方</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#補足-データビジュアライゼーションの教科書について"><i class="fa fa-check"></i><b>3.2</b> 補足: データビジュアライゼーションの教科書について</a></li>
 <li class="chapter" data-level="3.3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#skimrによる要約統計の計算"><i class="fa fa-check"></i><b>3.3</b> <code>skimr</code>による要約統計の計算</a></li>
-<li class="chapter" data-level="3.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>3.4</b> 要約統計量の視覚化による判断</a><ul>
+<li class="chapter" data-level="3.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>3.4</b> 要約統計量の視覚化による判断</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#作品ごとの要約統計量推移"><i class="fa fa-check"></i><b>3.4.1</b> 作品ごとの要約統計量推移</a></li>
 <li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-複数の折れ線グラフの描き方"><i class="fa fa-check"></i>[テクニカル] 複数の折れ線グラフの描き方</a></li>
 <li class="chapter" data-level="3.4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#人物別に確認する"><i class="fa fa-check"></i><b>3.4.2</b> 人物別に確認する</a></li>
@@ -167,7 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#データの視覚化からわかったこと"><i class="fa fa-check"></i><b>3.5</b> データの視覚化からわかったこと</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>4</b> 追加の分析</a><ul>
+<li class="chapter" data-level="4" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>4</b> 追加の分析</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="追加の分析.html"><a href="追加の分析.html#主成分分析の利用"><i class="fa fa-check"></i><b>4.1</b> 主成分分析の利用</a></li>
 <li class="chapter" data-level="4.2" data-path="追加の分析.html"><a href="追加の分析.html#魏呉蜀の勢力別ひいき"><i class="fa fa-check"></i><b>4.2</b> 魏・呉・蜀の勢力別ひいき</a></li>
 </ul></li>
@@ -193,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="まとめ" class="section level1">
+<div id="まとめ" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> まとめ</h1>
 <p>以上の検証から, 各作品の, 1~100の数値で表現される主要な能力値の平均の分布を見ると, 最近の作品ほど分布の分散が上昇し, かつ尖度が上昇している傾向にあることがわかった. これは, 『蒼天航路』や『正史三国志』での再評価を反映した結果, 多くの人物の評価が高いところに集中し, かえって能力の差別化が損なわれているのではないか, という仮説を裏付けるものになる. ただし, 今回の範囲では経時的な変化の検証にとどまっているため, それが正史三國志や蒼天航路とどの程度相関があるのか, ということまでは確認できなかった.</p>
 <p>では, あらゆる人物の再評価が進み, 能力の差別化がしづらくなる将来の歴史シミュレーションゲームはどうあるべきなのだろうか?</p>
@@ -212,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="footnotes">
 <hr />
 <ol start="47">
-<li id="fn47"><p>三国志演義は様々な説話を集めて編纂されたので, 話によって文体や人名の呼び方が違ったりすることが指摘されている. 例えば, 関羽, 関雲長, 関公, 関将軍, など. ましてや正書法の整備されていない中近世のことである. 適切に自然言語処理するにはかなり難易度が高いだろう.<a href="まとめ.html#fnref47" class="footnote-back">↩</a></p></li>
+<li id="fn47"><p>三国志演義は様々な説話を集めて編纂されたので, 話によって文体や人名の呼び方が違ったりすることが指摘されている. 例えば, 関羽, 関雲長, 関公, 関将軍, など. ましてや正書法の整備されていない中近世のことである. 適切に自然言語処理するにはかなり難易度が高いだろう.<a href="まとめ.html#fnref47" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

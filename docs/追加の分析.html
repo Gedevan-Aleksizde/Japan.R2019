@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 追加の分析 | 三國志で学ぶデータ分析 (Japan.R 2019)</title>
   <meta name="description" content="“三国志を題材にしたRを使ったデータ分析のチュートリアル”" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 追加の分析 | 三國志で学ぶデータ分析 (Japan.R 2019)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-03-17" />
+<meta name="date" content="2020-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="検証三國志シリーズの人材は年々無個性化しているのか.html"/>
 <link rel="next" href="まとめ.html"/>
+<script src="libs/header-attrs-2.3.2/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,29 +51,31 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +84,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -133,17 +136,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>概要</a></li>
-<li class="chapter" data-level="1" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>1</b> イントロダクション</a><ul>
+<li class="chapter" data-level="1" data-path="イントロダクション.html"><a href="イントロダクション.html"><i class="fa fa-check"></i><b>1</b> イントロダクション</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="イントロダクション.html"><a href="イントロダクション.html#三国志の背景"><i class="fa fa-check"></i><b>1.1</b> 三国志の背景</a></li>
 <li class="chapter" data-level="1.2" data-path="イントロダクション.html"><a href="イントロダクション.html#コーエーテクモのゲーム三國志シリーズ"><i class="fa fa-check"></i><b>1.2</b> コーエーテクモのゲーム『三國志』シリーズ</a></li>
 <li class="chapter" data-level="1.3" data-path="イントロダクション.html"><a href="イントロダクション.html#問題提起"><i class="fa fa-check"></i><b>1.3</b> 問題提起</a></li>
 <li class="chapter" data-level="1.4" data-path="イントロダクション.html"><a href="イントロダクション.html#先行関連研究"><i class="fa fa-check"></i><b>1.4</b> 先行・関連研究</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>2</b> 前処理</a><ul>
+<li class="chapter" data-level="2" data-path="前処理.html"><a href="前処理.html"><i class="fa fa-check"></i><b>2</b> 前処理</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="前処理.html"><a href="前処理.html#データ取得元"><i class="fa fa-check"></i><b>2.1</b> データ取得元</a></li>
 <li class="chapter" data-level="2.2" data-path="前処理.html"><a href="前処理.html#スクレイピング"><i class="fa fa-check"></i><b>2.2</b> スクレイピング</a></li>
 <li class="chapter" data-level="2.3" data-path="前処理.html"><a href="前処理.html#データの整然化"><i class="fa fa-check"></i><b>2.3</b> データの整然化</a></li>
-<li class="chapter" data-level="2.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>2.4</b> さらなる名寄せ処理</a><ul>
+<li class="chapter" data-level="2.4" data-path="前処理.html"><a href="前処理.html#さらなる名寄せ処理"><i class="fa fa-check"></i><b>2.4</b> さらなる名寄せ処理</a>
+<ul>
 <li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#三国志以外の登場人物を除外する"><i class="fa fa-check"></i>三国志以外の登場人物を除外する</a></li>
 <li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#漢字が使われていない名前を検査する"><i class="fa fa-check"></i>漢字が使われていない名前を検査する</a></li>
 <li class="chapter" data-level="" data-path="前処理.html"><a href="前処理.html#字以上の名前を検査する"><i class="fa fa-check"></i>3字以上の名前を検査する</a></li>
@@ -153,13 +159,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="前処理.html"><a href="前処理.html#草稿-ディープラーニングでなんとかできないか"><i class="fa fa-check"></i><b>2.6</b> [草稿] ディープラーニングでなんとかできないか?</a></li>
 <li class="chapter" data-level="2.7" data-path="前処理.html"><a href="前処理.html#補足-dbpedia-を利用した二重チェック"><i class="fa fa-check"></i><b>2.7</b> 補足: DBpedia を利用した二重チェック</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>3</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a><ul>
-<li class="chapter" data-level="3.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>3.1</b> <code>ggplot2</code>による視覚化</a><ul>
+<li class="chapter" data-level="3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html"><i class="fa fa-check"></i><b>3</b> 検証:「三國志」シリーズの人材は年々無個性化しているのか?</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#ggplot2による視覚化"><i class="fa fa-check"></i><b>3.1</b> <code>ggplot2</code>による視覚化</a>
+<ul>
 <li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-ggplot2の使い方"><i class="fa fa-check"></i>[テクニカル] ggplot2の使い方</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#補足-データビジュアライゼーションの教科書について"><i class="fa fa-check"></i><b>3.2</b> 補足: データビジュアライゼーションの教科書について</a></li>
 <li class="chapter" data-level="3.3" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#skimrによる要約統計の計算"><i class="fa fa-check"></i><b>3.3</b> <code>skimr</code>による要約統計の計算</a></li>
-<li class="chapter" data-level="3.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>3.4</b> 要約統計量の視覚化による判断</a><ul>
+<li class="chapter" data-level="3.4" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#要約統計量の視覚化による判断"><i class="fa fa-check"></i><b>3.4</b> 要約統計量の視覚化による判断</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#作品ごとの要約統計量推移"><i class="fa fa-check"></i><b>3.4.1</b> 作品ごとの要約統計量推移</a></li>
 <li class="chapter" data-level="" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#テクニカル-複数の折れ線グラフの描き方"><i class="fa fa-check"></i>[テクニカル] 複数の折れ線グラフの描き方</a></li>
 <li class="chapter" data-level="3.4.2" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#人物別に確認する"><i class="fa fa-check"></i><b>3.4.2</b> 人物別に確認する</a></li>
@@ -167,7 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="検証三國志シリーズの人材は年々無個性化しているのか.html"><a href="検証三國志シリーズの人材は年々無個性化しているのか.html#データの視覚化からわかったこと"><i class="fa fa-check"></i><b>3.5</b> データの視覚化からわかったこと</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>4</b> 追加の分析</a><ul>
+<li class="chapter" data-level="4" data-path="追加の分析.html"><a href="追加の分析.html"><i class="fa fa-check"></i><b>4</b> 追加の分析</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="追加の分析.html"><a href="追加の分析.html#主成分分析の利用"><i class="fa fa-check"></i><b>4.1</b> 主成分分析の利用</a></li>
 <li class="chapter" data-level="4.2" data-path="追加の分析.html"><a href="追加の分析.html#魏呉蜀の勢力別ひいき"><i class="fa fa-check"></i><b>4.2</b> 魏・呉・蜀の勢力別ひいき</a></li>
 </ul></li>
@@ -193,42 +203,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="追加の分析" class="section level1">
+<div id="追加の分析" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> 追加の分析</h1>
-<div id="主成分分析の利用" class="section level2">
+<div id="主成分分析の利用" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> 主成分分析の利用</h2>
 <p>ステータスの項目は主要な4項目はほとんどのシリーズで採用されているが, 基本的にシリーズごとに設定は異なる<a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a>. 前節では作品ごとの能力値のレンジを補正するために正規化処理をしたが, 項目数は正規化できない. そこで<strong>主成分分析</strong>(PCA)によって, 全ての項目を数種類の項目に凝縮してみる. 主成分の計算には組み込みの関数 <code>stat::prcomp()</code> を, グラフの描画(バイプロット)には <code>factoextra::fviz_pcabiplot()</code> を使用している. なお, このパッケージも<code>ggplot2</code>を利用してグラフを描画している.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">get_design_mat_input &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">    <span class="co"># デザイン行列作成に必要な列 + title, name_id を取り出す</span></a>
-<a class="sourceLine" id="cb32-3" data-line-number="3">    df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(<span class="kw">str_detect</span>(<span class="kw">names</span>(.), <span class="st">&quot;name_id&quot;</span>) <span class="op">|</span><span class="st"> </span><span class="kw">map_lgl</span>(., <span class="op">~!</span><span class="kw">is.character</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="st">        </span><span class="kw">select</span>(<span class="op">-</span>order, <span class="op">-</span><span class="kw">matches</span>(<span class="st">&quot;生年|誕生|没年|登場|顔番号|相性&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="st">        </span>drop_na</a>
-<a class="sourceLine" id="cb32-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb32-7" data-line-number="7">convert_design_mat &lt;-<span class="st"> </span><span class="cf">function</span>(df, <span class="dt">name =</span> T, <span class="dt">center =</span> T, <span class="dt">scale =</span> T) {</a>
-<a class="sourceLine" id="cb32-8" data-line-number="8">    <span class="co"># title, name_id 列を除いてデザイン行列に変換する</span></a>
-<a class="sourceLine" id="cb32-9" data-line-number="9">    <span class="co"># (正規化処理オプションあり)</span></a>
-<a class="sourceLine" id="cb32-10" data-line-number="10">    <span class="kw">model.matrix</span>(<span class="op">~</span>. <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="kw">select</span>(df, <span class="op">-</span>title, <span class="op">-</span>name_id, <span class="op">-</span>attend_times, <span class="op">-</span>at_first) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-11" data-line-number="11"><span class="st">        </span><span class="kw">mutate_if</span>(is.numeric, <span class="op">~</span><span class="kw">scale</span>(.x, <span class="dt">center =</span> center, <span class="dt">scale =</span> scale))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-12" data-line-number="12"><span class="st">        </span>magrittr<span class="op">::</span><span class="kw">set_rownames</span>(df<span class="op">$</span>name_id)</a>
-<a class="sourceLine" id="cb32-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb32-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb32-15" data-line-number="15">pca_conveted &lt;-<span class="st"> </span>df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="kw">as.integer</span>(title)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-16" data-line-number="16"><span class="st">    </span><span class="kw">group_map</span>(<span class="op">~</span><span class="kw">unnest</span>(.x, <span class="dt">cols =</span> data) <span class="op">%&gt;%</span><span class="st"> </span>get_design_mat_input <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">list</span>(<span class="dt">title =</span> .<span class="op">$</span>title[<span class="dv">1</span>], </a>
-<a class="sourceLine" id="cb32-17" data-line-number="17">        <span class="dt">name =</span> <span class="kw">select</span>(., name_id, attend_times), <span class="dt">pca =</span> <span class="kw">prcomp</span>(<span class="kw">convert_design_mat</span>(.), </a>
-<a class="sourceLine" id="cb32-18" data-line-number="18">            <span class="dt">center =</span> F, <span class="dt">scale. =</span> F)), <span class="dt">keep =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb32-1"><a href="追加の分析.html#cb32-1"></a>get_design_mat_input &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</span>
+<span id="cb32-2"><a href="追加の分析.html#cb32-2"></a>    <span class="co"># デザイン行列作成に必要な列 + title, name_id を取り出す</span></span>
+<span id="cb32-3"><a href="追加の分析.html#cb32-3"></a>    df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(<span class="kw">str_detect</span>(<span class="kw">names</span>(.), <span class="st">&quot;name_id&quot;</span>) <span class="op">|</span><span class="st"> </span><span class="kw">map_lgl</span>(., <span class="op">~!</span><span class="kw">is.character</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-4"><a href="追加の分析.html#cb32-4"></a><span class="st">        </span><span class="kw">select</span>(<span class="op">-</span>order, <span class="op">-</span><span class="kw">matches</span>(<span class="st">&quot;生年|誕生|没年|登場|顔番号|相性&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-5"><a href="追加の分析.html#cb32-5"></a><span class="st">        </span>drop_na</span>
+<span id="cb32-6"><a href="追加の分析.html#cb32-6"></a>}</span>
+<span id="cb32-7"><a href="追加の分析.html#cb32-7"></a>convert_design_mat &lt;-<span class="st"> </span><span class="cf">function</span>(df, <span class="dt">name =</span> T, <span class="dt">center =</span> T, <span class="dt">scale =</span> T) {</span>
+<span id="cb32-8"><a href="追加の分析.html#cb32-8"></a>    <span class="co"># title, name_id 列を除いてデザイン行列に変換する</span></span>
+<span id="cb32-9"><a href="追加の分析.html#cb32-9"></a>    <span class="co"># (正規化処理オプションあり)</span></span>
+<span id="cb32-10"><a href="追加の分析.html#cb32-10"></a>    <span class="kw">model.matrix</span>(<span class="op">~</span>. <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="kw">select</span>(df, <span class="op">-</span>title, <span class="op">-</span>name_id, <span class="op">-</span>attend_times, <span class="op">-</span>at_first) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-11"><a href="追加の分析.html#cb32-11"></a><span class="st">        </span><span class="kw">mutate_if</span>(is.numeric, <span class="op">~</span><span class="kw">scale</span>(.x, <span class="dt">center =</span> center, <span class="dt">scale =</span> scale))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-12"><a href="追加の分析.html#cb32-12"></a><span class="st">        </span>magrittr<span class="op">::</span><span class="kw">set_rownames</span>(df<span class="op">$</span>name_id)</span>
+<span id="cb32-13"><a href="追加の分析.html#cb32-13"></a>}</span>
+<span id="cb32-14"><a href="追加の分析.html#cb32-14"></a></span>
+<span id="cb32-15"><a href="追加の分析.html#cb32-15"></a>pca_conveted &lt;-<span class="st"> </span>df_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="kw">as.integer</span>(title)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-16"><a href="追加の分析.html#cb32-16"></a><span class="st">    </span><span class="kw">group_map</span>(<span class="op">~</span><span class="kw">unnest</span>(.x, <span class="dt">cols =</span> data) <span class="op">%&gt;%</span><span class="st"> </span>get_design_mat_input <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">list</span>(<span class="dt">title =</span> .<span class="op">$</span>title[<span class="dv">1</span>], </span>
+<span id="cb32-17"><a href="追加の分析.html#cb32-17"></a>        <span class="dt">name =</span> <span class="kw">select</span>(., name_id, attend_times), <span class="dt">pca =</span> <span class="kw">prcomp</span>(<span class="kw">convert_design_mat</span>(.), </span>
+<span id="cb32-18"><a href="追加の分析.html#cb32-18"></a>            <span class="dt">center =</span> F, <span class="dt">scale. =</span> F)), <span class="dt">keep =</span> T)</span></code></pre></div>
 
 <div class="rmdtip">
 PCAは単位もスケールも異なる変数どうしの関係を見る方法であり, スケールを揃えるかどうかで結果も大きく変わってしまう. 多くの場合ではスケールの違いは変数どうしの関係とは直接関係ないため, 特に理由がない限りPCAの入力データは<strong>標準化処理したものを使うべき</strong>である. <code>prcomp()</code>は<code>center</code>, <code>scale.</code>という内部で標準化処理をするためのオプションがあるため, 標準化処理を自分で書くことは必須ではない.
 </div>
-
 <p>バイプロットは負荷量の多い順に第2主成分までを使った散布図であり, 第1・第2主成分の累積寄与率が高くない場合は, ステータス値による特徴をうまく捉えられない場合もある<a href="#fn44" class="footnote-ref" id="fnref44"><sup>44</sup></a> (図<a href="追加の分析.html#fig:pca-biplot">4.1</a>).</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">map_dfr</span>(pca_conveted, <span class="op">~</span><span class="kw">get_eig</span>(.x<span class="op">$</span>pca) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>(<span class="dt">rownames =</span> <span class="st">&quot;d&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>(d, variance.percent) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> .x<span class="op">$</span>title)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">variance.percent =</span> variance.percent<span class="op">/</span><span class="dv">100</span>, </a>
-<a class="sourceLine" id="cb33-3" data-line-number="3">    <span class="dt">d =</span> <span class="kw">factor</span>(d, <span class="dt">levels =</span> <span class="kw">rev</span>(<span class="kw">unique</span>(d)))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(d <span class="op">%in%</span><span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Dim.&quot;</span>, </a>
-<a class="sourceLine" id="cb33-4" data-line-number="4">    <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> variance.percent, <span class="dt">group =</span> d, <span class="dt">fill =</span> d)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_pander</span>(<span class="dt">guide =</span> <span class="kw">guide_legend</span>(<span class="dt">reverse =</span> <span class="ot">TRUE</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;accumurated importance&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb33-7" data-line-number="7"><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">13</span>) <span class="op">+</span><span class="st"> </span>theme_document</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb33-1"><a href="追加の分析.html#cb33-1"></a><span class="kw">map_dfr</span>(pca_conveted, <span class="op">~</span><span class="kw">get_eig</span>(.x<span class="op">$</span>pca) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>(<span class="dt">rownames =</span> <span class="st">&quot;d&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb33-2"><a href="追加の分析.html#cb33-2"></a><span class="st">    </span><span class="kw">select</span>(d, variance.percent) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> .x<span class="op">$</span>title)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">variance.percent =</span> variance.percent<span class="op">/</span><span class="dv">100</span>, </span>
+<span id="cb33-3"><a href="追加の分析.html#cb33-3"></a>    <span class="dt">d =</span> <span class="kw">factor</span>(d, <span class="dt">levels =</span> <span class="kw">rev</span>(<span class="kw">unique</span>(d)))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(d <span class="op">%in%</span><span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Dim.&quot;</span>, </span>
+<span id="cb33-4"><a href="追加の分析.html#cb33-4"></a>    <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> title, <span class="dt">y =</span> variance.percent, <span class="dt">group =</span> d, <span class="dt">fill =</span> d)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-5"><a href="追加の分析.html#cb33-5"></a><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_pander</span>(<span class="dt">guide =</span> <span class="kw">guide_legend</span>(<span class="dt">reverse =</span> <span class="ot">TRUE</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-6"><a href="追加の分析.html#cb33-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;accumurated importance&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-7"><a href="追加の分析.html#cb33-7"></a><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">13</span>) <span class="op">+</span><span class="st"> </span>theme_document</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:pca-biplot"></span>
 <img src="three-kingdoms_files/figure-html/pca-biplot-1.svg" alt="シリーズごとの第2主成分までの累積寄与率" width="75%" />
 <p class="caption">
@@ -236,14 +245,14 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 </p>
 </div>
 <p>三國志2, 9 についてこの方法で求めた第1・第2主成分でプロットした散布図が図<a href="追加の分析.html#fig:biplot-2">4.2</a>,<a href="追加の分析.html#fig:biplot-9">4.3</a>である.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">fviz_pca_biplot</span>(pca_conveted[[<span class="dv">2</span>]]<span class="op">$</span>pca) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;三國志II&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;https://github.com/Gedevan-Aleksizde/Japan.R2019</span><span class="ch">\n</span><span class="st">データ出典: http://hima.que.ne.jp/sangokushi/&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb34-1"><a href="追加の分析.html#cb34-1"></a><span class="kw">fviz_pca_biplot</span>(pca_conveted[[<span class="dv">2</span>]]<span class="op">$</span>pca) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;三國志II&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;https://github.com/Gedevan-Aleksizde/Japan.R2019</span><span class="ch">\n</span><span class="st">データ出典: http://hima.que.ne.jp/sangokushi/&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:biplot-2"></span>
 <img src="three-kingdoms_files/figure-html/biplot-2-1.svg" alt="三國志2の主成分バイプロット図" width="75%" />
 <p class="caption">
 図 4.2: 三國志2の主成分バイプロット図
 </p>
 </div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">fviz_pca_biplot</span>(pca_conveted[[<span class="dv">9</span>]]<span class="op">$</span>pca) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;三國志IX&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;https://github.com/Gedevan-Aleksizde/Japan.R2019</span><span class="ch">\n</span><span class="st">データ出典: http://lee.serio.jp/novel/sangoku/san9busho.html&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb35-1"><a href="追加の分析.html#cb35-1"></a><span class="kw">fviz_pca_biplot</span>(pca_conveted[[<span class="dv">9</span>]]<span class="op">$</span>pca) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;三國志IX&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;https://github.com/Gedevan-Aleksizde/Japan.R2019</span><span class="ch">\n</span><span class="st">データ出典: http://lee.serio.jp/novel/sangoku/san9busho.html&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:biplot-9"></span>
 <img src="three-kingdoms_files/figure-html/biplot-9-1.svg" alt="三国志9の主成分バイプロット図" width="75%" />
 <p class="caption">
@@ -252,51 +261,51 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 </div>
 <p>これらの傾向から, 概ね, 知力と武力は別の要素として見られる傾向がある.</p>
 </div>
-<div id="魏呉蜀の勢力別ひいき" class="section level2">
+<div id="魏呉蜀の勢力別ひいき" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> 魏・呉・蜀の勢力別ひいき</h2>
 <p>発表中に視聴者からも指摘があったが, 魏の曹操を主役にした漫画『蒼天航路』の人気を反映して, 従来は悪役であることが多い魏の人物の能力を底上げしたことが, 三國志シリーズのプロデューサーによって語られている<a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a>.</p>
 <p>三國志シリーズには「相性」というマスクステータス値があり, 主君と配下の値の差で相性が決まるようになっている. 今回参考にしたサイトの中にも相性値を掲載しているものもあったので, それらをもとに登場人物がどこに属するかを分類してステータス値をプロットする. 各人物について, <strong>劉備</strong>, <strong>曹操</strong>, <ruby><strong>孫権</strong><rp>(</rp><rt>ソンケン</rt><rp>)</rp></ruby>, のいずれに最も相性値が近いかによって, 魏・呉・蜀のどれに属するかを判定する<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a>. 散布図で「武力」と「知力」で表したのが , 主要ステータス数値の平均を, 散布図とバイオリン図でそれぞれ表したのが図<a href="追加の分析.html#fig:matching-STR">4.4</a>, <a href="追加の分析.html#fig:matching-INT">4.5</a>, <a href="追加の分析.html#fig:matching-total">4.6</a>, <a href="追加の分析.html#fig:matching-total-violin">4.7</a>である.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">df_norm_faction &lt;-<span class="st"> </span>df_norm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(相性)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">    </span><span class="kw">group_map</span>(<span class="op">~</span><span class="kw">mutate</span>(.x, 蜀 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;劉備&quot;</span>)<span class="op">$</span>相性), </a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">        魏 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;曹操&quot;</span>)<span class="op">$</span>相性), 呉 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="st">            </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;孫権&quot;</span>)<span class="op">$</span>相性)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(tidyselect<span class="op">::</span><span class="kw">vars_select</span>(<span class="kw">names</span>(.), </a>
-<a class="sourceLine" id="cb36-5" data-line-number="5">        魏, 呉, 蜀), <span class="dt">names_to =</span> <span class="st">&quot;faction&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;dist&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name_id) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="st">        </span><span class="kw">filter</span>(<span class="kw">rank</span>(dist) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>ungroup, <span class="dt">keep =</span> T) <span class="op">%&gt;%</span><span class="st"> </span>bind_rows <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">faction =</span> <span class="kw">factor</span>(faction, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;魏&quot;</span>, <span class="st">&quot;蜀&quot;</span>, <span class="st">&quot;呉&quot;</span>)))</a></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> 武力, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name_id), <span class="dt">data =</span> <span class="kw">group_by</span>(df_norm_faction, </a>
-<a class="sourceLine" id="cb37-4" data-line-number="4">    title, faction) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span>theme_document <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="st">    </span><span class="kw">scale_color_pander</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb36-1"><a href="追加の分析.html#cb36-1"></a>df_norm_faction &lt;-<span class="st"> </span>df_norm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(相性)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-2"><a href="追加の分析.html#cb36-2"></a><span class="st">    </span><span class="kw">group_map</span>(<span class="op">~</span><span class="kw">mutate</span>(.x, 蜀 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;劉備&quot;</span>)<span class="op">$</span>相性), </span>
+<span id="cb36-3"><a href="追加の分析.html#cb36-3"></a>        魏 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;曹操&quot;</span>)<span class="op">$</span>相性), 呉 =<span class="st"> </span><span class="kw">abs</span>(相性 <span class="op">-</span><span class="st"> </span></span>
+<span id="cb36-4"><a href="追加の分析.html#cb36-4"></a><span class="st">            </span><span class="kw">filter</span>(.x, name_id <span class="op">==</span><span class="st"> &quot;孫権&quot;</span>)<span class="op">$</span>相性)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(tidyselect<span class="op">::</span><span class="kw">vars_select</span>(<span class="kw">names</span>(.), </span>
+<span id="cb36-5"><a href="追加の分析.html#cb36-5"></a>        魏, 呉, 蜀), <span class="dt">names_to =</span> <span class="st">&quot;faction&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;dist&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name_id) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-6"><a href="追加の分析.html#cb36-6"></a><span class="st">        </span><span class="kw">filter</span>(<span class="kw">rank</span>(dist) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>ungroup, <span class="dt">keep =</span> T) <span class="op">%&gt;%</span><span class="st"> </span>bind_rows <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-7"><a href="追加の分析.html#cb36-7"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">faction =</span> <span class="kw">factor</span>(faction, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;魏&quot;</span>, <span class="st">&quot;蜀&quot;</span>, <span class="st">&quot;呉&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb37-1"><a href="追加の分析.html#cb37-1"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb37-2"><a href="追加の分析.html#cb37-2"></a>df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> 武力, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb37-3"><a href="追加の分析.html#cb37-3"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name_id), <span class="dt">data =</span> <span class="kw">group_by</span>(df_norm_faction, </span>
+<span id="cb37-4"><a href="追加の分析.html#cb37-4"></a>    title, faction) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span>theme_document <span class="op">+</span><span class="st"> </span></span>
+<span id="cb37-5"><a href="追加の分析.html#cb37-5"></a><span class="st">    </span><span class="kw">scale_color_pander</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:matching-STR"></span>
 <img src="three-kingdoms_files/figure-html/matching-STR-1.svg" alt="三国別武力の散布図" width="75%" />
 <p class="caption">
 図 4.4: 三国別武力の散布図
 </p>
 </div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> 知力, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name_id), <span class="dt">data =</span> <span class="kw">group_by</span>(df_norm_faction, </a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">    title, faction) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span>theme_document <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="st">    </span><span class="kw">scale_color_pander</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb38-1"><a href="追加の分析.html#cb38-1"></a>df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> 知力, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-2"><a href="追加の分析.html#cb38-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name_id), <span class="dt">data =</span> <span class="kw">group_by</span>(df_norm_faction, </span>
+<span id="cb38-3"><a href="追加の分析.html#cb38-3"></a>    title, faction) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span>theme_document <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-4"><a href="追加の分析.html#cb38-4"></a><span class="st">    </span><span class="kw">scale_color_pander</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:matching-INT"></span>
 <img src="three-kingdoms_files/figure-html/matching-INT-1.svg" alt="三国別知力の散布図" width="75%" />
 <p class="caption">
 図 4.5: 三国別知力の散布図
 </p>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> total, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name_id), <span class="dt">data =</span> <span class="kw">group_by</span>(df_norm_faction, </a>
-<a class="sourceLine" id="cb39-3" data-line-number="3">    title, faction) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;主要ステータス値平均&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="st">    </span>theme_document <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_pander</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb39-1"><a href="追加の分析.html#cb39-1"></a>df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> 相性, <span class="dt">y =</span> total, <span class="dt">color =</span> faction)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb39-2"><a href="追加の分析.html#cb39-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name_id), <span class="dt">data =</span> <span class="kw">group_by</span>(df_norm_faction, </span>
+<span id="cb39-3"><a href="追加の分析.html#cb39-3"></a>    title, faction) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;主要ステータス値平均&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb39-4"><a href="追加の分析.html#cb39-4"></a><span class="st">    </span>theme_document <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_pander</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:matching-total"></span>
 <img src="three-kingdoms_files/figure-html/matching-total-1.svg" alt="三国別主要ステータス値平均の散布図" width="75%" />
 <p class="caption">
 図 4.6: 三国別主要ステータス値平均の散布図
 </p>
 </div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> faction, <span class="dt">y =</span> total, <span class="dt">fill =</span> faction)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;主要ステータス値平均&quot;</span>) <span class="op">+</span><span class="st"> </span>theme_document <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_pander</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb40-1"><a href="追加の分析.html#cb40-1"></a>df_norm_faction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> faction, <span class="dt">y =</span> total, <span class="dt">fill =</span> faction)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb40-2"><a href="追加の分析.html#cb40-2"></a><span class="st">    </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb40-3"><a href="追加の分析.html#cb40-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;主要ステータス値平均&quot;</span>) <span class="op">+</span><span class="st"> </span>theme_document <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_pander</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:matching-total-violin"></span>
 <img src="three-kingdoms_files/figure-html/matching-total-violin-1.svg" alt="主要ステータス値平均のバイオリン図" width="75%" />
 <p class="caption">
@@ -309,10 +318,10 @@ PCAは単位もスケールも異なる変数どうしの関係を見る方法�
 <div class="footnotes">
 <hr />
 <ol start="43">
-<li id="fn43"><p>さらに, 今回参照したページは非公式のものなので, そもそも全ての項目が掲載されているわけではない.<a href="追加の分析.html#fnref43" class="footnote-back">↩</a></p></li>
-<li id="fn44"><p>ただし, 作品によっては人物がある技能をもつかどうかのフラグが大量に掲載されているものがあり, これらも変数に含めた結果寄与率が下がっている可能性もある.<a href="追加の分析.html#fnref44" class="footnote-back">↩</a></p></li>
-<li id="fn45"><p>『<a href="https://mantan-web.jp/article/20151229dog00m200061000c.html">三國志：人気歴史ゲームの誕生秘話　シブサワ・コウに聞く - MANTANWEB（まんたんウェブ）</a>』<a href="追加の分析.html#fnref45" class="footnote-back">↩</a></p></li>
-<li id="fn46"><p>よって, 実際には各陣営に属していなかった群雄が三国に分類されることもある. 例えば, シリーズを通して<strong>董卓</strong>は<strong>曹操</strong>と相性値が近く, <ruby><strong>公孫瓚</strong><rp>(</rp><rt>コウソンサン</rt><rp>)</rp></ruby>や<ruby><strong>袁紹</strong><rp>(</rp><rt>エンショウ</rt><rp>)</rp></ruby>とその配下の人物は劉備や孫権に近い.<a href="追加の分析.html#fnref46" class="footnote-back">↩</a></p></li>
+<li id="fn43"><p>さらに, 今回参照したページは非公式のものなので, そもそも全ての項目が掲載されているわけではない.<a href="追加の分析.html#fnref43" class="footnote-back">↩︎</a></p></li>
+<li id="fn44"><p>ただし, 作品によっては人物がある技能をもつかどうかのフラグが大量に掲載されているものがあり, これらも変数に含めた結果寄与率が下がっている可能性もある.<a href="追加の分析.html#fnref44" class="footnote-back">↩︎</a></p></li>
+<li id="fn45"><p>『<a href="https://mantan-web.jp/article/20151229dog00m200061000c.html">三國志：人気歴史ゲームの誕生秘話　シブサワ・コウに聞く - MANTANWEB（まんたんウェブ）</a>』<a href="追加の分析.html#fnref45" class="footnote-back">↩︎</a></p></li>
+<li id="fn46"><p>よって, 実際には各陣営に属していなかった群雄が三国に分類されることもある. 例えば, シリーズを通して<strong>董卓</strong>は<strong>曹操</strong>と相性値が近く, <ruby><strong>公孫瓚</strong><rp>(</rp><rt>コウソンサン</rt><rp>)</rp></ruby>や<ruby><strong>袁紹</strong><rp>(</rp><rt>エンショウ</rt><rp>)</rp></ruby>とその配下の人物は劉備や孫権に近い.<a href="追加の分析.html#fnref46" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
