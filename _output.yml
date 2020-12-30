@@ -30,8 +30,6 @@ bookdown::gitbook:
       github: yes
       linkedin: yes
       twitter: yes
-bookdown::html_chapters:
-  css: [css/style.css, css/toc.css]
 # ---- pdfの出力設定 ----
 bookdown::pdf_book:
   includes:
