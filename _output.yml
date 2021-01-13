@@ -6,11 +6,13 @@ bookdown::gitbook:
   keep_md: true                              # Rmdからpandocで変換したmdファイルを残すかどうか
   config:
     toc:
+      fonttheme:
+        family: serif
       collapse: none                         # 目次の自動折りたたみ設定. section/subsection/none
       before: |
         <li><a href="./">Top</a></li>
       after: |
-        <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+        <p style='text-align:center;display:block;margin: 0 auto;'><img src='https://i.creativecommons.org/l/by-nc/4.0/88x31.png'></p><li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 # 各種ボタンの設定
 # 編集ボタン. URLまたは null.  _bokdown.yml と一致させないと死ぬ
     edit : null
@@ -25,11 +27,9 @@ bookdown::gitbook:
     info: yes
     sharing:
       weibo: yes
-      vk: yes
-      facebook: yes
       github: yes
-      linkedin: yes
       twitter: yes
+      all: ['vk', 'facebook', 'linkedin']
 # ---- pdfの出力設定 ----
 bookdown::pdf_book:
   includes:
@@ -39,13 +39,13 @@ bookdown::pdf_book:
   latex_engine: xelatex                      # 日本語を扱うならxelatex/lualatexが良い
   keep_tex: yes                              # .texファイルを残すかどうか
   citation_package: natbib                   # 引用スタイルパッケージ
-  pandoc_args: --top-level-division=chapter  #
   tamplate: null                             #
-  toc-unnumbered: no                         #
+  toc_unnumbered: no                         #
   toc_appendix: yes                          #
   toc_depth: 3                               # 目次に表示する項目のレベル
   dev: "cairo_pdf"                           # 画像デバイス
-  quote_footer: ["\\VA{", "}{}"]             # 引用ブロック. 
+  quote_footer: ["\\VA{", "}{}"]             # 引用ブロック.
+  pandoc_args: ['--extract-media', '.', '--top-level-division=chapter']
 # ---- epubの出力設定 ----
 bookdown::epub_book:
   dev: svglite

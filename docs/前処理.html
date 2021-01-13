@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 前処理 | 三國志で学ぶデータ分析 (Japan.R 2019)</title>
   <meta name="description" content="“三国志を題材にしたRを使ったデータ分析のチュートリアル”" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 前処理 | 三國志で学ぶデータ分析 (Japan.R 2019)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-09-01" />
+<meta name="date" content="2021-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="イントロダクション.html"/>
 <link rel="next" href="検証三國志シリーズの人材は年々無個性化しているのか.html"/>
-<script src="libs/header-attrs-2.3.2/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -184,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="まとめ.html"><a href="まとめ.html"><i class="fa fa-check"></i><b>5</b> まとめ</a></li>
 <li class="chapter" data-level="" data-path="参考文献.html"><a href="参考文献.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+<p style='text-align:center;display:block;margin: 0 auto;'><img src='https://i.creativecommons.org/l/by-nc/4.0/88x31.png'></p><li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -230,23 +230,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>まずは <code>rvest</code> パッケージで各ページを取得した. <code>rvest</code> はパイプ演算子でスクレイピングした html (xml) ノードデータを取得できるため, 使い勝手が良いパッケージである. 取得したページを <code>rvest</code> や <code>tidyverse</code> を使い整然データとする.</p>
 <p>たとえば, 三国志1の武将一覧は複数ページにまたがっているが, 語尾の<code>;p=</code>以降のページ数を書き換えれば簡単に複数ページを取得できる.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="前処理.html#cb1-1"></a>url_<span class="dv">1</span> &lt;-<span class="st"> &quot;http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&amp;keys2%2C6=&amp;index=&amp;IDn001=AND&amp;sort=</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="前処理.html#cb1-1"></a>url_1 <span class="ot">&lt;-</span> <span class="st">&quot;http://hima.que.ne.jp/sangokushi/sangokushi01.cgi?up1=0&amp;keys2%2C6=&amp;index=&amp;IDn001=AND&amp;sort=</span></span>
 <span id="cb1-2"><a href="前処理.html#cb1-2"></a><span class="st">up6s&amp;print=100;p=&quot;</span></span>
-<span id="cb1-3"><a href="前処理.html#cb1-3"></a>source1 &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb1-4"><a href="前処理.html#cb1-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
-<span id="cb1-5"><a href="前処理.html#cb1-5"></a>    source1[[i]] &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="kw">paste0</span>(url_<span class="dv">1</span>, i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
-<span id="cb1-6"><a href="前処理.html#cb1-6"></a>    <span class="kw">Sys.sleep</span>(<span class="dv">10</span>)</span>
+<span id="cb1-3"><a href="前処理.html#cb1-3"></a>source1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1-4"><a href="前処理.html#cb1-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb1-5"><a href="前処理.html#cb1-5"></a>    source1[[i]] <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="fu">paste0</span>(url_1, i <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb1-6"><a href="前処理.html#cb1-6"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">10</span>)</span>
 <span id="cb1-7"><a href="前処理.html#cb1-7"></a>}</span></code></pre></div>
 
 <div class="rmdtip">
 今回はデータ転送総量はさほどではないが, むやみにスクレイピングすることはホストサーバーに負荷を掛けうる. <code>robots.txt</code> を参照するなどして節度を守ってスクレイピングすべきであろう.
 </div>
 <p>ソースファイルを取得したら一旦ローカルに保存しておくべきだろう. するとここで注意点が1つある. <code>rvest</code>は<code>xml2</code>パッケージに依存しており<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, このパッケージは外部プログラムでxml(html)を制御している. このため出力されるRオブジェクトには一時的なポインタ情報しか含まれていないため, これをそのまま <code>save()</code>や<code>save.rds()</code>で保存して再読込すると, 外部データの参照ができなくなる. よって, xmlオブジェクトは一旦<strong>文字列に変換して</strong>から保存しなければならない. 全シリーズの取得結果を保存するため, 以下のような処理を書いている<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>. source1から13までがそれぞれ作品ごとに取得したxml文書オブジェクトである.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="前処理.html#cb2-1"></a>sources &lt;-<span class="st"> </span><span class="kw">map2_dfr</span>(<span class="kw">list</span>(source1, source2, source3, source4, source5, source6, </span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="前処理.html#cb2-1"></a>sources <span class="ot">&lt;-</span> <span class="fu">map2_dfr</span>(<span class="fu">list</span>(source1, source2, source3, source4, source5, source6, </span>
 <span id="cb2-2"><a href="前処理.html#cb2-2"></a>    source7, source8, source9, source10, source11, source12, source13), </span>
-<span id="cb2-3"><a href="前処理.html#cb2-3"></a>    <span class="dv">1</span><span class="op">:</span><span class="dv">13</span>, <span class="cf">function</span>(x, t) <span class="kw">tibble</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> t, <span class="dt">page =</span> <span class="kw">row_number</span>())) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-4"><a href="前処理.html#cb2-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">html =</span> <span class="kw">map</span>(x, as.character)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>x)</span>
-<span id="cb2-5"><a href="前処理.html#cb2-5"></a><span class="kw">write_rds</span>(sources, <span class="kw">here</span>(dirname_data, <span class="st">&quot;sources.rds&quot;</span>))</span></code></pre></div>
+<span id="cb2-3"><a href="前処理.html#cb2-3"></a>    <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="cf">function</span>(x, t) <span class="fu">tibble</span>(x) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">title =</span> t, <span class="at">page =</span> <span class="fu">row_number</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="前処理.html#cb2-4"></a>    <span class="fu">mutate</span>(<span class="at">html =</span> <span class="fu">map</span>(x, as.character)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>x)</span>
+<span id="cb2-5"><a href="前処理.html#cb2-5"></a><span class="fu">write_rds</span>(sources, <span class="fu">here</span>(dirname_data, <span class="st">&quot;sources.rds&quot;</span>))</span></code></pre></div>
 </div>
 <div id="データの整然化" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> データの整然化</h2>
@@ -266,33 +266,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>読み込んだものをテーブル形式に変換する具体例として『三國志II』の場合を解説する.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb3-1"><a href="前処理.html#cb3-1"></a><span class="co"># (1)</span></span>
-<span id="cb3-2"><a href="前処理.html#cb3-2"></a>df2_header &lt;-<span class="st"> </span><span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)<span class="op">$</span>html[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-3"><a href="前処理.html#cb3-3"></a><span class="st">    </span><span class="kw">html_table</span>(<span class="dt">header =</span> F) <span class="op">%&gt;%</span><span class="st"> </span>as.character</span>
-<span id="cb3-4"><a href="前処理.html#cb3-4"></a>df2_header[<span class="dv">1</span>] &lt;-<span class="st"> &quot;name&quot;</span></span>
-<span id="cb3-5"><a href="前処理.html#cb3-5"></a>df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>()</span>
-<span id="cb3-6"><a href="前処理.html#cb3-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</span>
-<span id="cb3-7"><a href="前処理.html#cb3-7"></a>    df2 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df2, <span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)<span class="op">$</span>html[[i]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-8"><a href="前処理.html#cb3-8"></a><span class="st">        </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map_dfr</span>(<span class="cf">function</span>(x) <span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">as.character</span>(x), </span>
-<span id="cb3-9"><a href="前処理.html#cb3-9"></a>        <span class="dt">byrow =</span> T, <span class="dt">nrow =</span> <span class="dv">1</span>), <span class="dt">stringsAsFactors =</span> F)))</span>
+<span id="cb3-2"><a href="前処理.html#cb3-2"></a>df2_header <span class="ot">&lt;-</span> <span class="fu">filter</span>(sources, title <span class="sc">==</span> <span class="dv">2</span>)<span class="sc">$</span>html[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> read_html <span class="sc">%&gt;%</span> <span class="fu">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="前処理.html#cb3-3"></a>    <span class="fu">html_table</span>(<span class="at">header =</span> F) <span class="sc">%&gt;%</span> as.character</span>
+<span id="cb3-4"><a href="前処理.html#cb3-4"></a>df2_header[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;name&quot;</span></span>
+<span id="cb3-5"><a href="前処理.html#cb3-5"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb3-6"><a href="前処理.html#cb3-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
+<span id="cb3-7"><a href="前処理.html#cb3-7"></a>    df2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df2, <span class="fu">filter</span>(sources, title <span class="sc">==</span> <span class="dv">2</span>)<span class="sc">$</span>html[[i]] <span class="sc">%&gt;%</span> read_html <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="前処理.html#cb3-8"></a>        <span class="fu">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_table</span>() <span class="sc">%&gt;%</span> <span class="fu">map_dfr</span>(<span class="cf">function</span>(x) <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="fu">as.character</span>(x), </span>
+<span id="cb3-9"><a href="前処理.html#cb3-9"></a>        <span class="at">byrow =</span> T, <span class="at">nrow =</span> <span class="dv">1</span>), <span class="at">stringsAsFactors =</span> F)))</span>
 <span id="cb3-10"><a href="前処理.html#cb3-10"></a>}</span>
 <span id="cb3-11"><a href="前処理.html#cb3-11"></a><span class="co"># (2)</span></span>
-<span id="cb3-12"><a href="前処理.html#cb3-12"></a>df2 &lt;-<span class="st"> </span>df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(df2_header) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name <span class="op">!=</span><span class="st"> &quot;武将名&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-13"><a href="前処理.html#cb3-13"></a><span class="st">    </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(知力, 武力, 魅力, 義理, 野望, 相性), </span>
-<span id="cb3-14"><a href="前処理.html#cb3-14"></a>        <span class="dt">.funs =</span> as.integer)</span>
+<span id="cb3-12"><a href="前処理.html#cb3-12"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(df2_header) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(name <span class="sc">!=</span> <span class="st">&quot;武将名&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="前処理.html#cb3-13"></a>    <span class="fu">mutate_at</span>(<span class="at">.vars =</span> <span class="fu">vars</span>(知力, 武力, 魅力, 義理, 野望, 相性), </span>
+<span id="cb3-14"><a href="前処理.html#cb3-14"></a>        <span class="at">.funs =</span> as.integer)</span>
 <span id="cb3-15"><a href="前処理.html#cb3-15"></a><span class="co"># (3)</span></span>
-<span id="cb3-16"><a href="前処理.html#cb3-16"></a>df2 &lt;-<span class="st"> </span><span class="kw">mutate</span>(df2, <span class="dt">title =</span> <span class="st">&quot;2&quot;</span>, <span class="dt">order =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, </span>
-<span id="cb3-17"><a href="前処理.html#cb3-17"></a>    order, name, <span class="kw">everything</span>())</span>
+<span id="cb3-16"><a href="前処理.html#cb3-16"></a>df2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df2, <span class="at">title =</span> <span class="st">&quot;2&quot;</span>, <span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> <span class="fu">select</span>(title, </span>
+<span id="cb3-17"><a href="前処理.html#cb3-17"></a>    order, name, <span class="fu">everything</span>())</span>
 <span id="cb3-18"><a href="前処理.html#cb3-18"></a></span>
 <span id="cb3-19"><a href="前処理.html#cb3-19"></a><span class="co"># (4)</span></span>
-<span id="cb3-20"><a href="前処理.html#cb3-20"></a><span class="kw">check_dup</span>(df2)</span>
-<span id="cb3-21"><a href="前処理.html#cb3-21"></a>df2<span class="op">$</span>name[<span class="kw">c</span>(<span class="dv">62</span>, <span class="dv">125</span>, <span class="dv">296</span>, <span class="dv">24</span>, <span class="dv">218</span>, <span class="dv">220</span>, <span class="dv">234</span>, <span class="dv">279</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;楽就&quot;</span>, <span class="st">&quot;辛評&quot;</span>, </span>
+<span id="cb3-20"><a href="前処理.html#cb3-20"></a><span class="fu">check_dup</span>(df2)</span>
+<span id="cb3-21"><a href="前処理.html#cb3-21"></a>df2<span class="sc">$</span>name[<span class="fu">c</span>(<span class="dv">62</span>, <span class="dv">125</span>, <span class="dv">296</span>, <span class="dv">24</span>, <span class="dv">218</span>, <span class="dv">220</span>, <span class="dv">234</span>, <span class="dv">279</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;楽就&quot;</span>, <span class="st">&quot;辛評&quot;</span>, </span>
 <span id="cb3-22"><a href="前処理.html#cb3-22"></a>    <span class="st">&quot;劉曄&quot;</span>, <span class="st">&quot;賈華&quot;</span>, <span class="st">&quot;陶謙&quot;</span>, <span class="st">&quot;董衡&quot;</span>, <span class="st">&quot;馬忠 (孫呉)&quot;</span>, <span class="st">&quot;李豊 (東漢)&quot;</span>)</span>
-<span id="cb3-23"><a href="前処理.html#cb3-23"></a><span class="kw">check_dup</span>(df2)</span></code></pre></div>
+<span id="cb3-23"><a href="前処理.html#cb3-23"></a><span class="fu">check_dup</span>(df2)</span></code></pre></div>
 <p>この中では, (1) html内の<code>&lt;table&gt;</code>を読み込む, (2) データフレームに手動で列名を定義しなおす, (3) 各列の型を正しく認識させる, (4) 入力内容のおかしな部分がないか簡単にチェックする, という処理をおこなっている.</p>
 <p>(4)は単純な入力ミスの修正と, 数組の同姓同名の人物を識別するための処理である. このような修正をすべきかの判断は完全に自動化することはできないため, 各シリーズごとに名前の重複がないかなどを地道に調べる必要があった. そこで処理の終盤では以下のような, データフレームを入力として名前の重複を出力する関数を使用している.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="前処理.html#cb4-1"></a>check_dup &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb4-2"><a href="前処理.html#cb4-2"></a>    x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(x, </span>
-<span id="cb4-3"><a href="前処理.html#cb4-3"></a>        <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, order, name, n, <span class="kw">everything</span>())</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="前処理.html#cb4-1"></a>check_dup <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-2"><a href="前処理.html#cb4-2"></a>    x <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(x, </span>
+<span id="cb4-3"><a href="前処理.html#cb4-3"></a>        <span class="at">by =</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(title, order, name, n, <span class="fu">everything</span>())</span>
 <span id="cb4-4"><a href="前処理.html#cb4-4"></a>}</span></code></pre></div>
 <p>おもな同姓同名の人物には以下のようなものがある.</p>
 <ul>
@@ -322,81 +322,81 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>三國志9の場合は<code>stringr::str_split_fixed()</code>で文字列を1文字ごとに分解し, 個別の列に分割している.</p>
 <p>まず, 以下はスクレイピング結果を読み込みデータフレームに変換し, 数値として扱いたい列を数値型に変換している</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="前処理.html#cb5-1"></a>df9 &lt;-<span class="st"> </span><span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">9</span>)<span class="op">$</span>html[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-2"><a href="前処理.html#cb5-2"></a><span class="st">    </span><span class="kw">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>(<span class="dt">header =</span> T) <span class="op">%&gt;%</span><span class="st"> </span>as_tibble</span>
-<span id="cb5-3"><a href="前処理.html#cb5-3"></a>df9 &lt;-<span class="st"> </span><span class="kw">filter</span>(df9, ID <span class="op">!=</span><span class="st"> &quot;ID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_all</span>(na_if, <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fill</span>(ID) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-4"><a href="前処理.html#cb5-4"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">name =</span> 名前) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(統率, 武力, 知力, </span>
-<span id="cb5-5"><a href="前処理.html#cb5-5"></a>    政治, 誕生, 寿命, 相性, 義理, 野望), <span class="dt">.funs =</span> as.integer)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="前処理.html#cb5-1"></a>df9 <span class="ot">&lt;-</span> <span class="fu">filter</span>(sources, title <span class="sc">==</span> <span class="dv">9</span>)<span class="sc">$</span>html[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> read_html <span class="sc">%&gt;%</span> <span class="fu">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="前処理.html#cb5-2"></a>    <span class="fu">html_node</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_table</span>(<span class="at">header =</span> T) <span class="sc">%&gt;%</span> as_tibble</span>
+<span id="cb5-3"><a href="前処理.html#cb5-3"></a>df9 <span class="ot">&lt;-</span> <span class="fu">filter</span>(df9, ID <span class="sc">!=</span> <span class="st">&quot;ID&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(na_if, <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">fill</span>(ID) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="前処理.html#cb5-4"></a>    <span class="fu">rename</span>(<span class="at">name =</span> 名前) <span class="sc">%&gt;%</span> <span class="fu">mutate_at</span>(<span class="at">.vars =</span> <span class="fu">vars</span>(統率, 武力, 知力, </span>
+<span id="cb5-5"><a href="前処理.html#cb5-5"></a>    政治, 誕生, 寿命, 相性, 義理, 野望), <span class="at">.funs =</span> as.integer)</span></code></pre></div>
 <p>次に, 問題の列を分割している. これらはある能力を持っているかどうかを表す列であり, 3, 4個の能力を1つのセルにまとめて表示していた. これを<code>stringr::str_split_fixed()</code>によって分解している.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="前処理.html#cb6-1"></a>df9 &lt;-<span class="st"> </span>df9 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_cols</span>(<span class="kw">str_split_fixed</span>(.<span class="op">$</span>奮奮奮戦闘迅, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb6-2"><a href="前処理.html#cb6-2"></a>    <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;奮戦&quot;</span>, <span class="st">&quot;奮闘&quot;</span>, <span class="st">&quot;奮迅&quot;</span>)), <span class="kw">str_split_fixed</span>(.<span class="op">$</span>突突突破進撃, </span>
-<span id="cb6-3"><a href="前処理.html#cb6-3"></a>    <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;突破&quot;</span>, <span class="st">&quot;突進&quot;</span>, </span>
-<span id="cb6-4"><a href="前処理.html#cb6-4"></a>    <span class="st">&quot;突撃&quot;</span>)), <span class="kw">str_split_fixed</span>(.<span class="op">$</span>騎走飛射射射, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-5"><a href="前処理.html#cb6-5"></a><span class="st">    </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;騎射&quot;</span>, <span class="st">&quot;走射&quot;</span>, <span class="st">&quot;飛射&quot;</span>)), <span class="kw">str_split_fixed</span>(.<span class="op">$</span>斉連連射射弩, </span>
-<span id="cb6-6"><a href="前処理.html#cb6-6"></a>    <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;斉射&quot;</span>, <span class="st">&quot;連射&quot;</span>, </span>
-<span id="cb6-7"><a href="前処理.html#cb6-7"></a>    <span class="st">&quot;連弩&quot;</span>)), <span class="kw">str_split_fixed</span>(.<span class="op">$</span>蒙楼闘衝船艦, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-8"><a href="前処理.html#cb6-8"></a><span class="st">    </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;蒙衝&quot;</span>, <span class="st">&quot;楼船&quot;</span>, <span class="st">&quot;闘艦&quot;</span>)), <span class="kw">str_split_fixed</span>(.<span class="op">$</span>井衝投象闌車石兵, </span>
-<span id="cb6-9"><a href="前処理.html#cb6-9"></a>    <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;井闌&quot;</span>, <span class="st">&quot;衝車&quot;</span>, </span>
-<span id="cb6-10"><a href="前処理.html#cb6-10"></a>    <span class="st">&quot;投石&quot;</span>, <span class="st">&quot;象兵&quot;</span>)), <span class="kw">str_split_fixed</span>(.<span class="op">$</span>造石罠教営兵破唆, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb6-11"><a href="前処理.html#cb6-11"></a>    <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;造営&quot;</span>, <span class="st">&quot;石兵&quot;</span>, <span class="st">&quot;罠破&quot;</span>, <span class="st">&quot;教唆&quot;</span>)), </span>
-<span id="cb6-12"><a href="前処理.html#cb6-12"></a>    <span class="kw">str_split_fixed</span>(.<span class="op">$</span><span class="st">`</span><span class="dt">混罠心幻乱＿攻術</span><span class="st">`</span>, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-13"><a href="前処理.html#cb6-13"></a><span class="st">        </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;混乱&quot;</span>, <span class="st">&quot;罠&quot;</span>, <span class="st">&quot;心攻&quot;</span>, <span class="st">&quot;幻術&quot;</span>)), </span>
-<span id="cb6-14"><a href="前処理.html#cb6-14"></a>    <span class="kw">str_split_fixed</span>(.<span class="op">$</span>罵鼓治妖声舞療術, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-15"><a href="前処理.html#cb6-15"></a><span class="st">        </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;罵声&quot;</span>, <span class="st">&quot;鼓舞&quot;</span>, <span class="st">&quot;治療&quot;</span>, <span class="st">&quot;妖術&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>奮奮奮戦闘迅, </span>
-<span id="cb6-16"><a href="前処理.html#cb6-16"></a>    <span class="op">-</span>突突突破進撃, <span class="op">-</span>騎走飛射射射, <span class="op">-</span>斉連連射射弩, <span class="op">-</span>蒙楼闘衝船艦, </span>
-<span id="cb6-17"><a href="前処理.html#cb6-17"></a>    <span class="op">-</span>井衝投象闌車石兵, <span class="op">-</span>造石罠教営兵破唆, <span class="op">-</span><span class="st">`</span><span class="dt">混罠心幻乱＿攻術</span><span class="st">`</span>, </span>
-<span id="cb6-18"><a href="前処理.html#cb6-18"></a>    <span class="op">-</span>罵鼓治妖声舞療術)</span></code></pre></div>
-<p>元の列では能力の有無を “○”, “×” という文字で表しているため, この後の処理のために<code>logical</code>型に変換する. 加えて作成者のいたずらで不要な行が含まれていたので排除している.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="前処理.html#cb7-1"></a>df9 &lt;-<span class="st"> </span><span class="kw">mutate_at</span>(df9, <span class="dt">.vars =</span> <span class="kw">colnames</span>(df9)[<span class="dv">15</span><span class="op">:</span><span class="dv">45</span>], <span class="cf">function</span>(x) <span class="kw">if_else</span>(x <span class="op">==</span><span class="st"> </span></span>
-<span id="cb7-2"><a href="前処理.html#cb7-2"></a><span class="st">    &quot;×&quot;</span>, F, T)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename_if</span>(is.logical, <span class="op">~</span><span class="kw">paste0</span>(.x, <span class="st">&quot;lgl&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(性格 =<span class="st"> </span><span class="kw">factor</span>(性格)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-3"><a href="前処理.html#cb7-3"></a><span class="st">    </span><span class="kw">filter</span>(name <span class="op">!=</span><span class="st"> &quot;俺様&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="st">&quot;9&quot;</span>, <span class="dt">order =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-4"><a href="前処理.html#cb7-4"></a><span class="st">    </span><span class="kw">select</span>(title, order, name, <span class="kw">everything</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="前処理.html#cb6-1"></a>df9 <span class="ot">&lt;-</span> df9 <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">str_split_fixed</span>(.<span class="sc">$</span>奮奮奮戦闘迅, <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb6-2"><a href="前処理.html#cb6-2"></a>    <span class="dv">3</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;奮戦&quot;</span>, <span class="st">&quot;奮闘&quot;</span>, <span class="st">&quot;奮迅&quot;</span>)), <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>突突突破進撃, </span>
+<span id="cb6-3"><a href="前処理.html#cb6-3"></a>    <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;突破&quot;</span>, <span class="st">&quot;突進&quot;</span>, </span>
+<span id="cb6-4"><a href="前処理.html#cb6-4"></a>    <span class="st">&quot;突撃&quot;</span>)), <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>騎走飛射射射, <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="前処理.html#cb6-5"></a>    data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;騎射&quot;</span>, <span class="st">&quot;走射&quot;</span>, <span class="st">&quot;飛射&quot;</span>)), <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>斉連連射射弩, </span>
+<span id="cb6-6"><a href="前処理.html#cb6-6"></a>    <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;斉射&quot;</span>, <span class="st">&quot;連射&quot;</span>, </span>
+<span id="cb6-7"><a href="前処理.html#cb6-7"></a>    <span class="st">&quot;連弩&quot;</span>)), <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>蒙楼闘衝船艦, <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="前処理.html#cb6-8"></a>    data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;蒙衝&quot;</span>, <span class="st">&quot;楼船&quot;</span>, <span class="st">&quot;闘艦&quot;</span>)), <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>井衝投象闌車石兵, </span>
+<span id="cb6-9"><a href="前処理.html#cb6-9"></a>    <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;井闌&quot;</span>, <span class="st">&quot;衝車&quot;</span>, </span>
+<span id="cb6-10"><a href="前処理.html#cb6-10"></a>    <span class="st">&quot;投石&quot;</span>, <span class="st">&quot;象兵&quot;</span>)), <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>造石罠教営兵破唆, <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb6-11"><a href="前処理.html#cb6-11"></a>    <span class="dv">4</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;造営&quot;</span>, <span class="st">&quot;石兵&quot;</span>, <span class="st">&quot;罠破&quot;</span>, <span class="st">&quot;教唆&quot;</span>)), </span>
+<span id="cb6-12"><a href="前処理.html#cb6-12"></a>    <span class="fu">str_split_fixed</span>(.<span class="sc">$</span><span class="st">`</span><span class="at">混罠心幻乱＿攻術</span><span class="st">`</span>, <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-13"><a href="前処理.html#cb6-13"></a>        data.frame <span class="sc">%&gt;%</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;混乱&quot;</span>, <span class="st">&quot;罠&quot;</span>, <span class="st">&quot;心攻&quot;</span>, <span class="st">&quot;幻術&quot;</span>)), </span>
+<span id="cb6-14"><a href="前処理.html#cb6-14"></a>    <span class="fu">str_split_fixed</span>(.<span class="sc">$</span>罵鼓治妖声舞療術, <span class="at">pattern =</span> <span class="st">&quot;&quot;</span>, <span class="dv">4</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> </span>
+<span id="cb6-15"><a href="前処理.html#cb6-15"></a>        <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;罵声&quot;</span>, <span class="st">&quot;鼓舞&quot;</span>, <span class="st">&quot;治療&quot;</span>, <span class="st">&quot;妖術&quot;</span>))) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>奮奮奮戦闘迅, </span>
+<span id="cb6-16"><a href="前処理.html#cb6-16"></a>    <span class="sc">-</span>突突突破進撃, <span class="sc">-</span>騎走飛射射射, <span class="sc">-</span>斉連連射射弩, <span class="sc">-</span>蒙楼闘衝船艦, </span>
+<span id="cb6-17"><a href="前処理.html#cb6-17"></a>    <span class="sc">-</span>井衝投象闌車石兵, <span class="sc">-</span>造石罠教営兵破唆, <span class="sc">-</span><span class="st">`</span><span class="at">混罠心幻乱＿攻術</span><span class="st">`</span>, </span>
+<span id="cb6-18"><a href="前処理.html#cb6-18"></a>    <span class="sc">-</span>罵鼓治妖声舞療術)</span></code></pre></div>
+<p>元の列では能力の有無を “○,” “×” という文字で表しているため, この後の処理のために<code>logical</code>型に変換する. 加えて作成者のいたずらで不要な行が含まれていたので排除している.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="前処理.html#cb7-1"></a>df9 <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(df9, <span class="at">.vars =</span> <span class="fu">colnames</span>(df9)[<span class="dv">15</span><span class="sc">:</span><span class="dv">45</span>], <span class="cf">function</span>(x) <span class="fu">if_else</span>(x <span class="sc">==</span> </span>
+<span id="cb7-2"><a href="前処理.html#cb7-2"></a>    <span class="st">&quot;×&quot;</span>, F, T)) <span class="sc">%&gt;%</span> <span class="fu">rename_if</span>(is.logical, <span class="sc">~</span><span class="fu">paste0</span>(.x, <span class="st">&quot;lgl&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(性格 <span class="ot">=</span> <span class="fu">factor</span>(性格)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="前処理.html#cb7-3"></a>    <span class="fu">filter</span>(name <span class="sc">!=</span> <span class="st">&quot;俺様&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">title =</span> <span class="st">&quot;9&quot;</span>, <span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="前処理.html#cb7-4"></a>    <span class="fu">select</span>(title, order, name, <span class="fu">everything</span>())</span></code></pre></div>
 <p>最後に, 三国志2と同様に人名の重複を確認して修正している.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="前処理.html#cb8-1"></a><span class="kw">check_dup</span>(df9) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;武将&quot;</span>))</span>
-<span id="cb8-2"><a href="前処理.html#cb8-2"></a>df9<span class="op">$</span>name[<span class="kw">c</span>(<span class="dv">414</span>, <span class="dv">501</span><span class="op">:</span><span class="dv">502</span>, <span class="dv">600</span><span class="op">:</span><span class="dv">601</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;張南 (蜀漢)&quot;</span>, <span class="st">&quot;馬忠 (孫呉)&quot;</span>, </span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="前処理.html#cb8-1"></a><span class="fu">check_dup</span>(df9) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(name, <span class="st">&quot;武将&quot;</span>))</span>
+<span id="cb8-2"><a href="前処理.html#cb8-2"></a>df9<span class="sc">$</span>name[<span class="fu">c</span>(<span class="dv">414</span>, <span class="dv">501</span><span class="sc">:</span><span class="dv">502</span>, <span class="dv">600</span><span class="sc">:</span><span class="dv">601</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;張南 (蜀漢)&quot;</span>, <span class="st">&quot;馬忠 (孫呉)&quot;</span>, </span>
 <span id="cb8-3"><a href="前処理.html#cb8-3"></a>    <span class="st">&quot;馬忠 (蜀漢)&quot;</span>, <span class="st">&quot;李豊 (東漢)&quot;</span>, <span class="st">&quot;李豊 (蜀漢)&quot;</span>)</span>
-<span id="cb8-4"><a href="前処理.html#cb8-4"></a>df9<span class="op">$</span>name[<span class="dv">346</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;孫匡&quot;</span>)  <span class="co"># この後の確認で名前に字が混入していたことを発見したので修正</span></span></code></pre></div>
+<span id="cb8-4"><a href="前処理.html#cb8-4"></a>df9<span class="sc">$</span>name[<span class="dv">346</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;孫匡&quot;</span>)  <span class="co"># この後の確認で名前に字が混入していたことを発見したので修正</span></span></code></pre></div>
 <p>三國志12は以下のようにテキスト情報とタグの属性をそれぞれ別に取得し結合する必要があった. マウスオーバーで表示を変えるように設定しているため, <code>html_nodes(".on, .off")</code>によって必要な部分を抜き出している.</p>
 <p>最初のブロックでは後続の見通しを良くするために列名だけを取り出して<code>df12_header</code>として整形している.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="前処理.html#cb9-1"></a>df12_header &lt;-<span class="st"> </span><span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)<span class="op">$</span>html[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>read_html <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="前処理.html#cb9-2"></a><span class="st">    </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>html_table <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span>as.character</span>
-<span id="cb9-3"><a href="前処理.html#cb9-3"></a>df12_header[<span class="kw">grepl</span>(<span class="st">&quot;^特技$&quot;</span>, df12_header)] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;特技&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">grep</span>(<span class="st">&quot;^特技$&quot;</span>, </span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="前処理.html#cb9-1"></a>df12_header <span class="ot">&lt;-</span> <span class="fu">filter</span>(sources, title <span class="sc">==</span> <span class="dv">12</span>)<span class="sc">$</span>html[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> read_html <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="前処理.html#cb9-2"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> html_table <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> as.matrix <span class="sc">%&gt;%</span> as.character</span>
+<span id="cb9-3"><a href="前処理.html#cb9-3"></a>df12_header[<span class="fu">grepl</span>(<span class="st">&quot;^特技$&quot;</span>, df12_header)] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;特技&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">grep</span>(<span class="st">&quot;^特技$&quot;</span>, </span>
 <span id="cb9-4"><a href="前処理.html#cb9-4"></a>    df12_header)))</span>
-<span id="cb9-5"><a href="前処理.html#cb9-5"></a>df12_header[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;名前読み&quot;</span>, <span class="st">&quot;名前&quot;</span>, <span class="st">&quot;字読み&quot;</span>, <span class="st">&quot;字&quot;</span>)</span>
-<span id="cb9-6"><a href="前処理.html#cb9-6"></a>df12_header[<span class="kw">c</span>(<span class="dv">18</span>, <span class="dv">20</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;戦法2&quot;</span>, <span class="st">&quot;戦法3&quot;</span>)</span>
-<span id="cb9-7"><a href="前処理.html#cb9-7"></a>df12_header[<span class="dv">38</span>] &lt;-<span class="st"> &quot;口調2&quot;</span></span>
-<span id="cb9-8"><a href="前処理.html#cb9-8"></a>df12_header[<span class="dv">42</span>] &lt;-<span class="st"> &quot;格付け2&quot;</span></span></code></pre></div>
+<span id="cb9-5"><a href="前処理.html#cb9-5"></a>df12_header[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;名前読み&quot;</span>, <span class="st">&quot;名前&quot;</span>, <span class="st">&quot;字読み&quot;</span>, <span class="st">&quot;字&quot;</span>)</span>
+<span id="cb9-6"><a href="前処理.html#cb9-6"></a>df12_header[<span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;戦法2&quot;</span>, <span class="st">&quot;戦法3&quot;</span>)</span>
+<span id="cb9-7"><a href="前処理.html#cb9-7"></a>df12_header[<span class="dv">38</span>] <span class="ot">&lt;-</span> <span class="st">&quot;口調2&quot;</span></span>
+<span id="cb9-8"><a href="前処理.html#cb9-8"></a>df12_header[<span class="dv">42</span>] <span class="ot">&lt;-</span> <span class="st">&quot;格付け2&quot;</span></span></code></pre></div>
 <p>三国志12のサイトは複数ページにまたがっている. そのため, 1ページごとに処理して同じ形式のデータフレームを作成し, 最後に全て結合することにした. ここではページごとに共通する処理の関数を書いている. 特に<code>d_flag &lt;- ...</code>から始まる行が, htmlタグの属性を取り出す処理である. 複雑になると思われた処理だが, <code>rvest</code>の力を使えば比較的シンプルに書ける.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="前処理.html#cb10-1"></a>parse_table12_by_page &lt;-<span class="st"> </span><span class="cf">function</span>(x, header) {</span>
-<span id="cb10-2"><a href="前処理.html#cb10-2"></a>    d_main &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>html_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="kw">as.character</span>(<span class="kw">unlist</span>(x)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-3"><a href="前処理.html#cb10-3"></a><span class="st">        </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">byrow =</span> T) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>(<span class="dt">stringsAsFactors =</span> F) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-4"><a href="前処理.html#cb10-4"></a><span class="st">        </span><span class="kw">set_names</span>(header)) <span class="op">%&gt;%</span><span class="st"> </span>bind_rows <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(名前読み <span class="op">!=</span><span class="st"> &quot;武将名&quot;</span>)</span>
-<span id="cb10-5"><a href="前処理.html#cb10-5"></a>    d_flag &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;.on, .off&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-6"><a href="前処理.html#cb10-6"></a><span class="st">        </span><span class="kw">html_attr</span>(<span class="st">&quot;class&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>{</span>
-<span id="cb10-7"><a href="前処理.html#cb10-7"></a>        <span class="kw">ifelse</span>(. <span class="op">==</span><span class="st"> &quot;on&quot;</span>, T, F)</span>
-<span id="cb10-8"><a href="前処理.html#cb10-8"></a>    } <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">20</span>, <span class="dt">byrow =</span> T)</span>
-<span id="cb10-9"><a href="前処理.html#cb10-9"></a>    d_main[<span class="kw">sort</span>(<span class="kw">grep</span>(<span class="st">&quot;^特技[0-9]+$&quot;</span>, <span class="kw">colnames</span>(d_main)))] &lt;-<span class="st"> </span>d_flag</span>
-<span id="cb10-10"><a href="前処理.html#cb10-10"></a>    <span class="kw">return</span>(<span class="kw">as_tibble</span>(d_main))</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="前処理.html#cb10-1"></a>parse_table12_by_page <span class="ot">&lt;-</span> <span class="cf">function</span>(x, header) {</span>
+<span id="cb10-2"><a href="前処理.html#cb10-2"></a>    d_main <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> html_table <span class="sc">%&gt;%</span> <span class="fu">map</span>(<span class="cf">function</span>(x) <span class="fu">as.character</span>(<span class="fu">unlist</span>(x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="前処理.html#cb10-3"></a>        <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">byrow =</span> T) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">stringsAsFactors =</span> F) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="前処理.html#cb10-4"></a>        <span class="fu">set_names</span>(header)) <span class="sc">%&gt;%</span> bind_rows <span class="sc">%&gt;%</span> <span class="fu">filter</span>(名前読み <span class="sc">!=</span> <span class="st">&quot;武将名&quot;</span>)</span>
+<span id="cb10-5"><a href="前処理.html#cb10-5"></a>    d_flag <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&quot;.on, .off&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="前処理.html#cb10-6"></a>        <span class="fu">html_attr</span>(<span class="st">&quot;class&quot;</span>) <span class="sc">%&gt;%</span> {</span>
+<span id="cb10-7"><a href="前処理.html#cb10-7"></a>        <span class="fu">ifelse</span>(. <span class="sc">==</span> <span class="st">&quot;on&quot;</span>, T, F)</span>
+<span id="cb10-8"><a href="前処理.html#cb10-8"></a>    } <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">20</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb10-9"><a href="前処理.html#cb10-9"></a>    d_main[<span class="fu">sort</span>(<span class="fu">grep</span>(<span class="st">&quot;^特技[0-9]+$&quot;</span>, <span class="fu">colnames</span>(d_main)))] <span class="ot">&lt;-</span> d_flag</span>
+<span id="cb10-10"><a href="前処理.html#cb10-10"></a>    <span class="fu">return</span>(<span class="fu">as_tibble</span>(d_main))</span>
 <span id="cb10-11"><a href="前処理.html#cb10-11"></a>}</span></code></pre></div>
 <p>各ページに並列して上記の関数を適用し, 結合する. その後列の型や名前を一括して調整した. 最後は例によって人名の調整である.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="前処理.html#cb11-1"></a>df12 &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(<span class="kw">map</span>(<span class="kw">filter</span>(sources, title <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)<span class="op">$</span>html, read_html), <span class="cf">function</span>(x) <span class="kw">parse_table12_by_page</span>(x, </span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="前処理.html#cb11-1"></a>df12 <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">map</span>(<span class="fu">filter</span>(sources, title <span class="sc">==</span> <span class="dv">12</span>)<span class="sc">$</span>html, read_html), <span class="cf">function</span>(x) <span class="fu">parse_table12_by_page</span>(x, </span>
 <span id="cb11-2"><a href="前処理.html#cb11-2"></a>    df12_header))</span>
-<span id="cb11-3"><a href="前処理.html#cb11-3"></a>df12 <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>合計, <span class="op">-</span>格付け, <span class="op">-</span>格付け2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(統率, </span>
+<span id="cb11-3"><a href="前処理.html#cb11-3"></a>df12 <span class="sc">%&lt;&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>合計, <span class="sc">-</span>格付け, <span class="sc">-</span>格付け2) <span class="sc">%&gt;%</span> <span class="fu">mutate_at</span>(<span class="at">.vars =</span> <span class="fu">vars</span>(統率, </span>
 <span id="cb11-4"><a href="前処理.html#cb11-4"></a>    武力, 知力, 政治, 義理, 勇猛, 相性, 誕生, 登場, 没年, </span>
-<span id="cb11-5"><a href="前処理.html#cb11-5"></a>    寿命), as.integer) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>(is.character, <span class="cf">function</span>(x) <span class="kw">na_if</span>(x, </span>
-<span id="cb11-6"><a href="前処理.html#cb11-6"></a>    <span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_at</span>(<span class="dt">.vars =</span> <span class="kw">vars</span>(口調, 口調2), as.factor) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">name =</span> 名前) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-7"><a href="前処理.html#cb11-7"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">title =</span> <span class="st">&quot;12&quot;</span>, <span class="dt">order =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(title, order, </span>
-<span id="cb11-8"><a href="前処理.html#cb11-8"></a>    name, <span class="kw">everything</span>())</span>
-<span id="cb11-9"><a href="前処理.html#cb11-9"></a><span class="kw">check_dup</span>(df12)</span>
+<span id="cb11-5"><a href="前処理.html#cb11-5"></a>    寿命), as.integer) <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.character, <span class="cf">function</span>(x) <span class="fu">na_if</span>(x, </span>
+<span id="cb11-6"><a href="前処理.html#cb11-6"></a>    <span class="st">&quot;-&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">mutate_at</span>(<span class="at">.vars =</span> <span class="fu">vars</span>(口調, 口調2), as.factor) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">name =</span> 名前) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="前処理.html#cb11-7"></a>    <span class="fu">mutate</span>(<span class="at">title =</span> <span class="st">&quot;12&quot;</span>, <span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> <span class="fu">select</span>(title, order, </span>
+<span id="cb11-8"><a href="前処理.html#cb11-8"></a>    name, <span class="fu">everything</span>())</span>
+<span id="cb11-9"><a href="前処理.html#cb11-9"></a><span class="fu">check_dup</span>(df12)</span>
 <span id="cb11-10"><a href="前処理.html#cb11-10"></a></span>
 <span id="cb11-11"><a href="前処理.html#cb11-11"></a><span class="co"># 呉の馬忠は落選</span></span>
-<span id="cb11-12"><a href="前処理.html#cb11-12"></a><span class="kw">filter</span>(df12, <span class="kw">str_detect</span>(name, <span class="st">&quot;馬忠|李豊|張温&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(name, </span>
+<span id="cb11-12"><a href="前処理.html#cb11-12"></a><span class="fu">filter</span>(df12, <span class="fu">str_detect</span>(name, <span class="st">&quot;馬忠|李豊|張温&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(name, </span>
 <span id="cb11-13"><a href="前処理.html#cb11-13"></a>    字, order, 相性, 誕生, 登場, 没年)</span>
-<span id="cb11-14"><a href="前処理.html#cb11-14"></a>df12<span class="op">$</span>name[<span class="kw">c</span>(<span class="dv">257</span>, <span class="dv">332</span>, <span class="dv">403</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;張温 (孫呉)&quot;</span>, <span class="st">&quot;馬忠 (蜀漢)&quot;</span>, </span>
+<span id="cb11-14"><a href="前処理.html#cb11-14"></a>df12<span class="sc">$</span>name[<span class="fu">c</span>(<span class="dv">257</span>, <span class="dv">332</span>, <span class="dv">403</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;張温 (孫呉)&quot;</span>, <span class="st">&quot;馬忠 (蜀漢)&quot;</span>, </span>
 <span id="cb11-15"><a href="前処理.html#cb11-15"></a>    <span class="st">&quot;李豊 (東漢)&quot;</span>)</span></code></pre></div>
 <p>以上のような処理を13作品のデータに対して行い, <strong>7,115件</strong>, <strong>1,120名</strong>の人物データが入手できた. しかし, ここまでの例でわかるように三國志シリーズは作品ごとにステータス値の項目が異なる. この後の一括処理のため, いったん名前と登場作品以外の項目はネストしてしまう(表<a href="前処理.html#tab:nest-map">2.1</a>).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="前処理.html#cb12-1"></a><span class="kw">list</span>(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-2"><a href="前処理.html#cb12-2"></a><span class="st">    </span><span class="kw">map_dfr</span>(<span class="op">~</span><span class="kw">group_by</span>(.x, title, order, name) <span class="op">%&gt;%</span><span class="st"> </span>nest <span class="op">%&gt;%</span><span class="st"> </span>ungroup)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="前処理.html#cb12-1"></a><span class="fu">list</span>(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="前処理.html#cb12-2"></a>    <span class="fu">map_dfr</span>(<span class="sc">~</span><span class="fu">group_by</span>(.x, title, order, name) <span class="sc">%&gt;%</span> nest <span class="sc">%&gt;%</span> ungroup)</span></code></pre></div>
 <table>
 <caption>
 <span id="tab:nest-map">表 2.1: </span>nestしたデータフレーム
@@ -429,7 +429,7 @@ data
 伊籍
 </td>
 <td style="text-align:left;">
-list(読み = “イセキ”, 身体 = 74, 知力 = 86, 武力 = 18, カリスマ = 28, 運勢 = 75)
+イセキ, 74 , 86 , 18 , 28 , 75
 </td>
 </tr>
 <tr>
@@ -443,7 +443,7 @@ list(読み = “イセキ”, 身体 = 74, 知力 = 86, 武力 = 18, カリス�
 于禁
 </td>
 <td style="text-align:left;">
-list(読み = “ウキン”, 身体 = 82, 知力 = 20, 武力 = 72, カリスマ = 25, 運勢 = 28)
+ウキン, 82 , 20 , 72 , 25 , 28
 </td>
 </tr>
 <tr>
@@ -457,7 +457,7 @@ list(読み = “ウキン”, 身体 = 82, 知力 = 20, 武力 = 72, カリス�
 袁胤
 </td>
 <td style="text-align:left;">
-list(読み = “エンイン”, 身体 = 71, 知力 = 63, 武力 = 25, カリスマ = 92, 運勢 = 50)
+エンイン, 71 , 63 , 25 , 92 , 50
 </td>
 </tr>
 <tr>
@@ -471,7 +471,7 @@ list(読み = “エンイン”, 身体 = 71, 知力 = 63, 武力 = 25, カリ�
 袁煕
 </td>
 <td style="text-align:left;">
-list(読み = “エンキ”, 身体 = 73, 知力 = 52, 武力 = 46, カリスマ = 89, 運勢 = 22)
+エンキ, 73 , 52 , 46 , 89 , 22
 </td>
 </tr>
 <tr>
@@ -485,7 +485,7 @@ list(読み = “エンキ”, 身体 = 73, 知力 = 52, 武力 = 46, カリス�
 袁紹
 </td>
 <td style="text-align:left;">
-list(読み = “エンショウ”, 身体 = 35, 知力 = 54, 武力 = 82, カリスマ = 98, 運勢 = 86)
+エンショウ, 35 , 54 , 82 , 98 , 86
 </td>
 </tr>
 <tr>
@@ -499,7 +499,7 @@ list(読み = “エンショウ”, 身体 = 35, 知力 = 54, 武力 = 82, カ�
 袁尚
 </td>
 <td style="text-align:left;">
-list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カリスマ = 98, 運勢 = 61)
+エンショウ, 82 , 63 , 87 , 98 , 61
 </td>
 </tr>
 </tbody>
@@ -508,18 +508,18 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <div id="さらなる名寄せ処理" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> さらなる名寄せ処理</h2>
 <p>今回の情報源は複数の個人サイトによるもので, フォーマットも全く異なり表記にもかなりゆらぎがある. 単なる誤変換であるもの, 原典である『正史三国志』と『三国志演義』の間でもすでに食い違っているものなど, 原因は様々である. 使用するデータの品質向上のため, 当初は手動でいくつかの方法を試した.</p>
-<div id="三国志以外の登場人物を除外する" class="section level3 unnumbered" number="">
+<div id="三国志以外の登場人物を除外する" class="section level3 unnumbered">
 <h3>三国志以外の登場人物を除外する</h3>
 <p>既に述べたように, 春秋戦国時代や, 魏晉時より後代の人物が隠し要素として存在する. 三国志演義が史書とは異なる創作であり, 真実がなんであるかを問題としない以上, 2世紀末の中国で<strong>チンギス=ハン</strong>が覇を唱えようが<strong>織田信長</strong>が乱入しようが, <ruby><strong>皇帝</strong><rp>(</rp><rt>カイザー</rt><rp>)</rp></ruby><strong>ラインハルト</strong>率いる宇宙艦隊が遠征してこようが, 原則を言えばあらゆる創作を「三国志」として認めなければならない. しかし今回はあくまで, 三国志の人物の評価の変遷を知るのが目的である. こういった企画で採用される人物はその時代を代表する英雄であるため, しばしば非常に高いステータス値が設定されている. そういう人物が8以降の作品では数十人ほど登録されており, これを含めるかどうかで要約統計量の数値はかなり変わってくる. よって, 今回は『三国志演義』『正史三国志』『反三国志』および『花関索伝』で言及される人物<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>だけを対象とすることにした. この処理によって<strong>179名</strong>が除外された.</p>
 </div>
-<div id="漢字が使われていない名前を検査する" class="section level3 unnumbered" number="">
+<div id="漢字が使われていない名前を検査する" class="section level3 unnumbered">
 <h3>漢字が使われていない名前を検査する</h3>
 <p>まず, 正規表現で漢字以外の使われている人名を探した. 機種依存文字をカタカナ等で置き換えていたものを見つけた手動で修正した. 有名な例では, UTF-8 が普及する以前は<ruby><strong>張郃</strong><rp>(</rp><rt>チョウコウ</rt><rp>)</rp></ruby>の「郃」の字に対応した文字コードがなかったため, インターネット上でしばしば「合β」と表記されていた.</p>
 <p>そこで以下のように正規表現で漢字でない文字を含むものを取り出した上で, 既に書いたように同姓同名人物の識別のために付けた括弧付きの人名リスト<code>name_parenthesis</code>と一致するものを排除し, 確認が必要な人名を取り出した<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="前処理.html#cb13-1"></a><span class="kw">filter</span>(df_all, <span class="kw">str_detect</span>(name, <span class="st">&quot;[^</span><span class="ch">\\</span><span class="st">p{Han}]&quot;</span>), <span class="op">!</span>name <span class="op">%in%</span><span class="st"> </span>name_parenthesis)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="前処理.html#cb13-1"></a><span class="fu">filter</span>(df_all, <span class="fu">str_detect</span>(name, <span class="st">&quot;[^</span><span class="sc">\\</span><span class="st">p{Han}]&quot;</span>), <span class="sc">!</span>name <span class="sc">%in%</span> name_parenthesis)</span></code></pre></div>
 <p>この方法では, <ruby><strong>龐徳</strong><rp>(</rp><rt>ホウトク</rt><rp>)</rp></ruby><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>, <ruby><strong>賈詡</strong><rp>(</rp><rt>カク</rt><rp>)</rp></ruby>, <ruby><strong>郝昭</strong><rp>(</rp><rt>カクショウ</rt><rp>)</rp></ruby>, など同様の原因でカナで表記されるなど表記のゆらぎが発生している人名を<strong>122件</strong>発見した.</p>
 </div>
-<div id="字以上の名前を検査する" class="section level3 unnumbered" number="">
+<div id="字以上の名前を検査する" class="section level3 unnumbered">
 <h3>3字以上の名前を検査する</h3>
 <p>三国志の時代の人名は姓名それぞれ1字づつであることが多く, 3字以上の名前は珍しい. <strong>夏侯</strong>, <strong>諸葛</strong>, <strong>司馬</strong>, <strong>公孫</strong>など2字の姓は限られている. 名が2字以上になる人名も <ruby><strong>戯</strong><rp>(</rp><rt>ギ</rt><rp>)</rp></ruby> <ruby><strong>志才</strong><rp>(</rp><rt>シサイ</rt><rp>)</rp></ruby>, <ruby><strong>郭</strong><rp>(</rp><rt>カク</rt><rp>)</rp></ruby> <ruby><strong>攸之</strong><rp>(</rp><rt>ユウシ</rt><rp>)</rp></ruby>などかなり限られる. それ以外で3字以上の名前の多くは, <strong>於夫羅</strong>, <strong>卑弥呼</strong>, <strong>都市牛利</strong> など, 非漢民族の発音を当てたものと思われる. そこで, 名前が3字以上のものも手作業で確認してもさほど手間にならないと判断し確認した. 文字数は <code>stringr::str_length()</code> 関数で取得できる. その結果, 以下のような表記のゆらぎを<strong>19件</strong>見つけた. 事例の一部を抜粋する.</p>
 <ul>
@@ -538,7 +538,7 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <li><ruby><strong>太史亨</strong><rp>(</rp><rt>タイシキョウ</rt><rp>)</rp></ruby><strong>太史享</strong>: 名の「亨」の字が微妙に違う.</li>
 </ul>
 </div>
-<div id="出現頻度の少ない人名を検査する" class="section level3 unnumbered" number="">
+<div id="出現頻度の少ない人名を検査する" class="section level3 unnumbered">
 <h3>出現頻度の少ない人名を検査する</h3>
 <p>字数の多い名前での表記のゆらぎはすでに確認できた. 3字以上の名前だけを見てもこれだけ表記にゆらぎがあるならば, 2字の名前でも同様にゆらぎがあると予想できる. そこで, シリーズ全作品のデータを結合した上で, 出現回数が2回以下のものを確認した. これで, 誤字をいくらか発見できると考えた. しかし, 実際には知名度の低い人物が多くピックアップされただけであり, ここから表記のゆらぎを見つけるのは難しい. 誤記・誤変換ならばソートしても対になる人名が近くにくるとも限らない.</p>
 </div>
@@ -566,7 +566,7 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <p>特徴量の取り出し方は, 今回2通りの方法を試した.</p>
 <ol style="list-style-type: decimal">
 <li>ビットマップ単位の情報をそのまま使う.</li>
-<li><span class="citation">鴨下 et al. (<a href="#ref-kamoshitaEtAl1998" role="doc-biblioref">1998</a>)</span> の方法に即して特徴量を作成する.</li>
+<li><span class="citation"><a href="参考文献.html#ref-kamoshitaEtAl1998" role="doc-biblioref">鴨下 et al.</a> (<a href="参考文献.html#ref-kamoshitaEtAl1998" role="doc-biblioref">1998</a>)</span> の方法に即して特徴量を作成する.</li>
 </ol>
 <ol style="list-style-type: decimal">
 <li>の方法では, 特徴量は <span class="math inline">\(32\times128=4096\)</span> 次元の数値となる<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. (2) の方法は, ピクセルの並びの全ての行・列それぞれに対して, 背景色・文字色の変化の回数 (これを「微分」と呼ぶ), 文字色の割合 (これを「積分」と呼ぶ) を計算する方法である. これによって, <span class="math inline">\((32+128)\times2=320\)</span> 次元の特徴量が得られる (実際に使用したのは<span class="math inline">\(317\)</span>次元).</li>
@@ -575,7 +575,7 @@ list(読み = “エンショウ”, 身体 = 82, 知力 = 63, 武力 = 87, カ�
 <p><span class="math display">\[\begin{aligned}
 s(x,y):= &amp; \frac{d(x,y)-\min d}{\max d-\min d}
 \end{aligned}\]</span></p>
-<p>なお, このような類似度の求め方は<strong>テンプレートマッチング</strong>と呼ばれる(<span class="citation">糟谷 and 山名 (<a href="#ref-nukayaYamana2006" role="doc-biblioref">2006</a>)</span>). <span class="math inline">\(d(x,y)\)</span> の計算はユークリッド距離</p>
+<p>なお, このような類似度の求め方は<strong>テンプレートマッチング</strong>と呼ばれる(<span class="citation"><a href="参考文献.html#ref-nukayaYamana2006" role="doc-biblioref">糟谷 and 山名</a> (<a href="参考文献.html#ref-nukayaYamana2006" role="doc-biblioref">2006</a>)</span>). <span class="math inline">\(d(x,y)\)</span> の計算はユークリッド距離</p>
 <p><span class="math display">\[\begin{aligned}
 d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y}\right\Vert=\sqrt{(\boldsymbol{x}-\boldsymbol{y})^{\top}(\boldsymbol{x}-\boldsymbol{y})},
 \end{aligned}\]</span></p>
@@ -688,7 +688,7 @@ d(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert \boldsymbol{x}-\boldsymbol{y
 </tbody>
 </table>
 <p>新たに多くの表記ゆれを発見できたが, 一方で<strong>誤検知</strong>もある. 表<a href="前処理.html#tab:sim">2.2</a>では, <ruby><strong>夏侯威</strong><rp>(</rp><rt>カコウイ</rt><rp>)</rp></ruby>と<ruby><strong>夏侯咸</strong><rp>(</rp><rt>カコウカン</rt><rp>)</rp></ruby>, <ruby><strong>全禕</strong><rp>(</rp><rt>ゼンイ</rt><rp>)</rp></ruby>と<ruby><strong>金禕</strong><rp>(</rp><rt>キンイ</rt><rp>)</rp></ruby>, <ruby><strong>王匡</strong><rp>(</rp><rt>オウキョウ</rt><rp>)</rp></ruby>と<ruby><strong>士匡</strong><rp>(</rp><rt>シキョウ</rt><rp>)</rp></ruby>との組み合わせは別人物である.</p>
-<p>今回の2つの方法はいずれも, 1字同じだけでもかなり一致度が高くなってしまう. 結果として勘でやったほうが修正の必要な箇所を多く見つけられたので, より精度が必要である. 一方で, <span class="citation">鴨下 et al. (<a href="#ref-kamoshitaEtAl1998" role="doc-biblioref">1998</a>)</span> はかなり古い研究で, 文字のビット数が小さく, さらに特徴量を大きく削減するなど計算量を削減しているが, 上記の結果とあまり変わらない結果が得られた. つまり, 特徴量のとり方しだいで差異をうまく表現できる余地があるのかもしれない.</p>
+<p>今回の2つの方法はいずれも, 1字同じだけでもかなり一致度が高くなってしまう. 結果として勘でやったほうが修正の必要な箇所を多く見つけられたので, より精度が必要である. 一方で, <span class="citation"><a href="参考文献.html#ref-kamoshitaEtAl1998" role="doc-biblioref">鴨下 et al.</a> (<a href="参考文献.html#ref-kamoshitaEtAl1998" role="doc-biblioref">1998</a>)</span> はかなり古い研究で, 文字のビット数が小さく, さらに特徴量を大きく削減するなど計算量を削減しているが, 上記の結果とあまり変わらない結果が得られた. つまり, 特徴量のとり方しだいで差異をうまく表現できる余地があるのかもしれない.</p>
 <p>そもそもなぜ表記ゆらぎが起きるかと言えば, 登録時点でのミス, 原作時点でのミスである. 前者は音や形状の似た字への誤変換, 普及している日本語フォントではカバーしていない, あるいは IME が対応していない字 (いわゆる機種依存文字) の代用, 後者は同一文献や, 創作物ごとのゆらぎがある<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>. 見つけ出したい表記のゆらぎの典型例を挙げてみる.</p>
 <p>例: 原作からしてゆらぎがある<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a></p>
 <ul>
@@ -727,12 +727,12 @@ s(\boldsymbol{x},\boldsymbol{y}):= &amp; \sqrt{\left\Vert \boldsymbol{f}(\boldsy
 \end{aligned}\]</span></p>
 <p>のような類似度計算ができるようになればいい. 機械学習の研究では, これを<strong>計量距離学習</strong> (metric learning) という<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
 <p>ここでいくつか関連しそうな研究を紹介しておく.</p>
-<p><span class="citation">Wang et al. (<a href="#ref-wang2014Learning" role="doc-biblioref">2014</a>)</span>, <span class="citation">Hoffer and Ailon (<a href="#ref-hoffer2015Deep" role="doc-biblioref">2015</a>)</span>, <span class="citation">Sanakoyeu, Bautista, and Ommer (<a href="#ref-sanakoyeu2018Deep" role="doc-biblioref">2018</a>)</span>, <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> などを参考にすると最近は計量距離学習では triplet network と呼ばれるモデルが流行しているらしい.</p>
-<p><span class="citation">Zhang and Komachi (<a href="#ref-zhang2019ChineseJapanese" role="doc-biblioref">2019</a>)</span> では, <a href="http://www.chise.org/ids/index.ja.html">CHASE プロジェクト</a>のデータベースから, 文字の部首情報を取り出して教師なしニューラル機械翻訳 (UNMT) をしている<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. しかしこれは画像認識ではない</p>
-<p><span class="citation">Liu et al. (<a href="#ref-Liu2017EncodingAR" role="doc-biblioref">2017</a>)</span> は音素も考慮しているが, 今回は日本語での入力の問題なので少し違う. あと教師あり学習.</p>
+<p><span class="citation"><a href="参考文献.html#ref-wang2014Learning" role="doc-biblioref">Wang et al.</a> (<a href="参考文献.html#ref-wang2014Learning" role="doc-biblioref">2014</a>)</span>, <span class="citation"><a href="参考文献.html#ref-hoffer2015Deep" role="doc-biblioref">Hoffer and Ailon</a> (<a href="参考文献.html#ref-hoffer2015Deep" role="doc-biblioref">2015</a>)</span>, <span class="citation"><a href="参考文献.html#ref-sanakoyeu2018Deep" role="doc-biblioref">Sanakoyeu, Bautista, and Ommer</a> (<a href="参考文献.html#ref-sanakoyeu2018Deep" role="doc-biblioref">2018</a>)</span>, <span class="citation"><a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">Turpault, Serizel, and Vincent</a> (<a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> などを参考にすると最近は計量距離学習では triplet network と呼ばれるモデルが流行しているらしい.</p>
+<p><span class="citation"><a href="参考文献.html#ref-zhang2019ChineseJapanese" role="doc-biblioref">Zhang and Komachi</a> (<a href="参考文献.html#ref-zhang2019ChineseJapanese" role="doc-biblioref">2019</a>)</span> では, <a href="http://www.chise.org/ids/index.ja.html">CHASE プロジェクト</a>のデータベースから, 文字の部首情報を取り出して教師なしニューラル機械翻訳 (UNMT) をしている<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. しかしこれは画像認識ではない</p>
+<p><span class="citation"><a href="参考文献.html#ref-Liu2017EncodingAR" role="doc-biblioref">Liu et al.</a> (<a href="参考文献.html#ref-Liu2017EncodingAR" role="doc-biblioref">2017</a>)</span> は音素も考慮しているが, 今回は日本語での入力の問題なので少し違う. あと教師あり学習.</p>
 <p>“In words, this encodes the pair of distances between each of x+ and x− against the reference x.”</p>
-<p><span class="citation">Wang et al. (<a href="#ref-wang2014Learning" role="doc-biblioref">2014</a>)</span>, <span class="citation">Hoffer and Ailon (<a href="#ref-hoffer2015Deep" role="doc-biblioref">2015</a>)</span> 前者は多クラス分類だが, 後者はランキング問題</p>
-<p>なお私は計量距離学習というトピックをこれまで全く知らなかった. 基本的な考え方を理解するために今回初めて <span class="citation">Bellet (<a href="#ref-bellet2013Tutorial" role="doc-biblioref">2013</a>)</span>, <span class="citation">Bellet, Habrard, and Sebban (<a href="#ref-bellet2014Survey" role="doc-biblioref">2014</a>)</span> などを参照した程度である (よって見落としているだけということもありうる). このサーベイ・チュートリアル資料で紹介されているアイディアの多くは教師ありないし半教師あり学習だが, 今回は教師ラベルを作るのが面倒な場合はどうするかというのが問題である. ここでは主に <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> の提案する半教師あり学習<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>をもとに試してみる. まず, 従来的な2点の比較は双生児 (siamese) ネットワークと呼ばれる:</p>
+<p><span class="citation"><a href="参考文献.html#ref-wang2014Learning" role="doc-biblioref">Wang et al.</a> (<a href="参考文献.html#ref-wang2014Learning" role="doc-biblioref">2014</a>)</span>, <span class="citation"><a href="参考文献.html#ref-hoffer2015Deep" role="doc-biblioref">Hoffer and Ailon</a> (<a href="参考文献.html#ref-hoffer2015Deep" role="doc-biblioref">2015</a>)</span> 前者は多クラス分類だが, 後者はランキング問題</p>
+<p>なお私は計量距離学習というトピックをこれまで全く知らなかった. 基本的な考え方を理解するために今回初めて <span class="citation"><a href="参考文献.html#ref-bellet2013Tutorial" role="doc-biblioref">Bellet</a> (<a href="参考文献.html#ref-bellet2013Tutorial" role="doc-biblioref">2013</a>)</span>, <span class="citation"><a href="参考文献.html#ref-bellet2014Survey" role="doc-biblioref">Bellet, Habrard, and Sebban</a> (<a href="参考文献.html#ref-bellet2014Survey" role="doc-biblioref">2014</a>)</span> などを参照した程度である (よって見落としているだけということもありうる). このサーベイ・チュートリアル資料で紹介されているアイディアの多くは教師ありないし半教師あり学習だが, 今回は教師ラベルを作るのが面倒な場合はどうするかというのが問題である. ここでは主に <span class="citation"><a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">Turpault, Serizel, and Vincent</a> (<a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> の提案する半教師あり学習<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>をもとに試してみる. まず, 従来的な2点の比較は双生児 (siamese) ネットワークと呼ばれる:</p>
 <p><span class="math display">\[\begin{aligned}
 s_{\mathit{siamese}}(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert f(\boldsymbol{x})-f(\boldsymbol{y})\right\Vert_{2}.
 \end{aligned}\]</span></p>
@@ -741,10 +741,10 @@ s_{\mathit{siamese}}(\boldsymbol{x},\boldsymbol{y}):= &amp; \left\Vert f(\boldsy
 s_{\mathit{triplet}}(\boldsymbol{x},\boldsymbol{x}^{p},\boldsymbol{x}^{n}):= &amp; \begin{bmatrix}\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{p})\right\Vert_{2}\\
 \left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{n})\right\Vert_{2}
 \end{bmatrix}\end{aligned}\]</span></p>
-<p>これら3点の相対的な距離をもとに学習するというのが triplet network のアイディアになる. さらに, <span class="citation">Wang et al. (<a href="#ref-wang2014Learning" role="doc-biblioref">2014</a>)</span> に従って triplet 損失を</p>
+<p>これら3点の相対的な距離をもとに学習するというのが triplet network のアイディアになる. さらに, <span class="citation"><a href="参考文献.html#ref-wang2014Learning" role="doc-biblioref">Wang et al.</a> (<a href="参考文献.html#ref-wang2014Learning" role="doc-biblioref">2014</a>)</span> に従って triplet 損失を</p>
 <p><span class="math display">\[\begin{aligned}
 L_{\mathit{triplet}}(\boldsymbol{x}^{a},\boldsymbol{x}^{p},\boldsymbol{x}^{n};\delta):= &amp; \left\lfloor \left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{p})\right\Vert_{2}-\left\Vert f(\boldsymbol{x}^{a})-f(\boldsymbol{x}^{n})\right\Vert_{2}+\delta\right\rfloor \end{aligned}\]</span> で定義する.</p>
-<p>しかし今回は教師ラベルがないため, <span class="math inline">\(\boldsymbol{x}^{p}\)</span>, <span class="math inline">\(\boldsymbol{x}^{n}\)</span> をどう選べばいいかが分からない. そこで, <span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> の提案するように, 特徴量 <span class="math inline">\(\boldsymbol{x}\)</span> の距離で正例負例を与える.</p>
+<p>しかし今回は教師ラベルがないため, <span class="math inline">\(\boldsymbol{x}^{p}\)</span>, <span class="math inline">\(\boldsymbol{x}^{n}\)</span> をどう選べばいいかが分からない. そこで, <span class="citation"><a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">Turpault, Serizel, and Vincent</a> (<a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> の提案するように, 特徴量 <span class="math inline">\(\boldsymbol{x}\)</span> の距離で正例負例を与える.</p>
 </div>
 <div id="補足-dbpedia-を利用した二重チェック" class="section level2" number="2.7">
 <h2><span class="header-section-number">2.7</span> 補足: DBpedia を利用した二重チェック</h2>
@@ -761,8 +761,8 @@ L_{\mathit{triplet}}(\boldsymbol{x}^{a},\boldsymbol{x}^{p},\boldsymbol{x}^{n};\d
 <a href="http://www.aise.ics.saitama-u.ac.jp/~gotoh/IntroSPARQL.html" class="uri">http://www.aise.ics.saitama-u.ac.jp/~gotoh/IntroSPARQL.html</a>
 </div>
 <p>R上でSPARQLを実行するには, 同名の<code>SPARQL</code>パッケージを使う. 例えば以下はウィキペディアから「三国志の登場人物」のカテゴリ登録されているページの見出しと本文を全て取得するクエリを実行している.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="前処理.html#cb14-1"></a>endpoint &lt;-<span class="st"> &quot;http://ja.dbpedia.org/sparql&quot;</span></span>
-<span id="cb14-2"><a href="前処理.html#cb14-2"></a>query &lt;-<span class="st"> &quot;</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="前処理.html#cb14-1"></a>endpoint <span class="ot">&lt;-</span> <span class="st">&quot;http://ja.dbpedia.org/sparql&quot;</span></span>
+<span id="cb14-2"><a href="前処理.html#cb14-2"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
 <span id="cb14-3"><a href="前処理.html#cb14-3"></a><span class="st">PREFIX dbpedia: &lt;http://ja.dbpedia.org/resource/&gt;</span></span>
 <span id="cb14-4"><a href="前処理.html#cb14-4"></a><span class="st">PREFIX dbp-owl: &lt;http://dbpedia.org/ontology/&gt;</span></span>
 <span id="cb14-5"><a href="前処理.html#cb14-5"></a><span class="st">PREFIX rdf: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></span>
@@ -773,46 +773,13 @@ L_{\mathit{triplet}}(\boldsymbol{x}^{a},\boldsymbol{x}^{p},\boldsymbol{x}^{n};\d
 <span id="cb14-10"><a href="前処理.html#cb14-10"></a><span class="st">         ?article rdf:comment ?text .</span></span>
 <span id="cb14-11"><a href="前処理.html#cb14-11"></a><span class="st">}</span></span>
 <span id="cb14-12"><a href="前処理.html#cb14-12"></a><span class="st">&quot;</span></span>
-<span id="cb14-13"><a href="前処理.html#cb14-13"></a>res &lt;-<span class="st"> </span><span class="kw">SPARQL</span>(endpoint, query)</span>
-<span id="cb14-14"><a href="前処理.html#cb14-14"></a>res<span class="op">$</span>results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(o, <span class="st">&quot;Category&quot;</span>))</span></code></pre></div>
+<span id="cb14-13"><a href="前処理.html#cb14-13"></a>res <span class="ot">&lt;-</span> <span class="fu">SPARQL</span>(endpoint, query)</span>
+<span id="cb14-14"><a href="前処理.html#cb14-14"></a>res<span class="sc">$</span>results <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(o, <span class="st">&quot;Category&quot;</span>))</span></code></pre></div>
 <p><code>SRARQL()</code>で取得した結果はリストで返され, その中の<code>result</code>要素にデータフレームとして収録されている. 中身はhtmlタグなども含んでいるため, 場合によってはここでも<code>rvest</code>の関数を利用する必要があるかもしれない.</p>
 
 <div class="rmdtip">
 SPARQLが取得するDBpediaの更新頻度は少ないため最新の状態を反映していない可能性がある. また, そもそもWikipediaは絶対の正しさを持つわけではない. 例えば「三国志の登場人物」ではなく「後漢の人物」のカテゴリに登録されている場合があるし, 単に投稿者の書き間違えがある可能性もある. よってあくまでも簡易的なクロスチェックにしかならないことに注意する.
 </div>
-</div>
-</div>
-<h3>参考文献</h3>
-<div id="refs" class="references">
-<div id="ref-bellet2013Tutorial">
-<p>Bellet, Aurélien. 2013. “Tutorial on Metric Learning.” <a href="http://researchers.lille.inria.fr/abellet/talks/metric_learning_tutorial_CIL.pdf">http://researchers.lille.inria.fr/abellet/talks/metric_learning_tutorial_CIL.pdf</a>.</p>
-</div>
-<div id="ref-bellet2014Survey">
-<p>Bellet, Aurélien, Amaury Habrard, and Marc Sebban. 2014. “A Survey on Metric Learning for Feature Vectors and Structured Data.” <em>arXiv:1306.6709 [Cs, Stat]</em>, February. <a href="http://arxiv.org/abs/1306.6709">http://arxiv.org/abs/1306.6709</a>.</p>
-</div>
-<div id="ref-hoffer2015Deep">
-<p>Hoffer, Elad, and Nir Ailon. 2015. “Deep Metric Learning Using Triplet Network.” In <em>International Workshop on Similarity-Based Pattern Recognition</em>, edited by Aasa Feragen, Marcello Pelillo, and Marco Loog, 9370:84–92. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-24261-3_7">https://doi.org/10.1007/978-3-319-24261-3_7</a>.</p>
-</div>
-<div id="ref-Liu2017EncodingAR">
-<p>Liu, Ming, Vasile Rus, Qiang Liao, and Li Liu. 2017. “Encoding and Ranking Similar Chinese Characters.” <em>Journal of Information Science and Engineering</em> 33: 1195–1211. <a href="https://www.semanticscholar.org/paper/Encoding-and-Ranking-Similar-Chinese-Characters-Liu-Rus/53432f26750d8814fd5edfa770c1e354a15fbd7e">https://www.semanticscholar.org/paper/Encoding-and-Ranking-Similar-Chinese-Characters-Liu-Rus/53432f26750d8814fd5edfa770c1e354a15fbd7e</a>.</p>
-</div>
-<div id="ref-sanakoyeu2018Deep">
-<p>Sanakoyeu, Artsiom, Miguel A. Bautista, and Björn Ommer. 2018. “Deep Unsupervised Learning of Visual Similarities.” <em>Pattern Recognition</em> 78 (June): 331–43. <a href="https://doi.org/10.1016/j.patcog.2018.01.036">https://doi.org/10.1016/j.patcog.2018.01.036</a>.</p>
-</div>
-<div id="ref-turpault2019Semisupervised">
-<p>Turpault, Nicolas, Romain Serizel, and Emmanuel Vincent. 2019. “Semi-Supervised Triplet Loss Based Learning of Ambient Audio Embeddings.” In <em>ICASSP 2019 - 2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</em>, 760–64. Brighton, United Kingdom: IEEE. <a href="https://doi.org/10.1109/ICASSP.2019.8683774">https://doi.org/10.1109/ICASSP.2019.8683774</a>.</p>
-</div>
-<div id="ref-wang2014Learning">
-<p>Wang, Jiang, Yang Song, Thomas Leung, Chuck Rosenberg, Jingbin Wang, James Philbin, Bo Chen, and Ying Wu. 2014. “Learning Fine-Grained Image Similarity with Deep Ranking.” In <em>2014 IEEE Conference on Computer Vision and Pattern Recognition</em>, 1386–93. Columbus, OH, USA: IEEE. <a href="https://doi.org/10.1109/CVPR.2014.180">https://doi.org/10.1109/CVPR.2014.180</a>.</p>
-</div>
-<div id="ref-zhang2019ChineseJapanese">
-<p>Zhang, Longtu, and Mamoru Komachi. 2019. “Chinese-Japanese Unsupervised Neural Machine Translation Using Sub-Character Level Information.” <a href="http://arxiv.org/abs/1903.00149">http://arxiv.org/abs/1903.00149</a>.</p>
-</div>
-<div id="ref-nukayaYamana2006">
-<p>糟谷勇児, and 山名早人. 2006. “二種類のSVMを用いたオンライン類似数式文字識別.” <em>電子情報通信学会技術研究報告. PRMU, パターン認識・メディア理解</em> 105 (614): 55–60. <a href="https://www.yama.info.waseda.ac.jp/~kasuya-u/2006_2_svm.pdf">https://www.yama.info.waseda.ac.jp/~kasuya-u/2006_2_svm.pdf</a>.</p>
-</div>
-<div id="ref-kamoshitaEtAl1998">
-<p>鴨下隆志, 奥村健一, 高橋和仁, 増村正男, and 矢野宏. 1998. “文字認識におけるマハラノビスの距離による判定の研究.” <em>品質工学会</em> 6 (4): 39–45. <a href="https://doi.org/10.18890/qes.6.4_39">https://doi.org/10.18890/qes.6.4_39</a>.</p>
 </div>
 </div>
 <div class="footnotes">
@@ -824,7 +791,7 @@ SPARQLが取得するDBpediaの更新頻度は少ないため最新の状態を�
 <li id="fn16"><p>実際には『反三国志』に由来する人物は<ruby><strong>馬雲騄</strong><rp>(</rp><rt>バウンリョク</rt><rp>)</rp></ruby>, 花関索伝に由来する人物は<ruby><strong>鮑三娘</strong><rp>(</rp><rt>ホウサンジョウ</rt><rp>)</rp></ruby>だけであった.<a href="前処理.html#fnref16" class="footnote-back">↩︎</a></p></li>
 <li id="fn17"><p>全てを正規表現で表現することもできるが, 複雑すぎて可読性を損なうだろう.<a href="前処理.html#fnref17" class="footnote-back">↩︎</a></p></li>
 <li id="fn18"><p><strong>龐悳</strong>という別字表記もある. また, 同時代に名前のよく似た別人として<ruby><strong>龐徳公</strong><rp>(</rp><rt>ホウトクコウ</rt><rp>)</rp></ruby>という人物が存在するが, 今回取得した一覧には登録されていなかった.<a href="前処理.html#fnref18" class="footnote-back">↩︎</a></p></li>
-<li id="fn19"><p>この表記は 95年発売の『三國志V』にのみ見られ, また許劭/許子将がシリーズで初めて登場するのはこの作品である. <span class="citation">陳 (<a href="#ref-chin1974" role="doc-biblioref">1974</a>)</span> では字で表記しているので, これの影響か.<a href="前処理.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>この表記は 95年発売の『三國志V』にのみ見られ, また許劭/許子将がシリーズで初めて登場するのはこの作品である. <span class="citation"><a href="参考文献.html#ref-chin1974" role="doc-biblioref">陳</a> (<a href="参考文献.html#ref-chin1974" role="doc-biblioref">1974</a>)</span> では字で表記しているので, これの影響か.<a href="前処理.html#fnref19" class="footnote-back">↩︎</a></p></li>
 <li id="fn20"><p>Unicode のグリフや対応フォントの情報は, <a href="http://www.fileformat.info/info/unicode/char/29166/fontsupport.htm">FileFormat.Info</a> や <a href="http://glyphwiki.org/wiki/u29166">グリフウィキ</a> で確認できる.<a href="前処理.html#fnref20" class="footnote-back">↩︎</a></p></li>
 <li id="fn21"><p>今回は既に3字以上の人名の名寄せを手動で行ったが, より汎用的な性能を確認したいため, ここでは3字以上の人名も含めて実施してみる. そのため, 画像のサイズは4文字分で固定し, 字数の少ない人名は横に引き伸ばしてレンダリングしたものを使う.<a href="前処理.html#fnref21" class="footnote-back">↩︎</a></p></li>
 <li id="fn22"><p>どの文字画像でも変化のないピクセルは情報を持たないため除外したところ, 実際に使用できたのは4025次元だった.<a href="前処理.html#fnref22" class="footnote-back">↩︎</a></p></li>
@@ -833,7 +800,7 @@ SPARQLが取得するDBpediaの更新頻度は少ないため最新の状態を�
 <li id="fn25"><p>現代の簡体字では統一して同じ字として扱われる.<a href="前処理.html#fnref25" class="footnote-back">↩︎</a></p></li>
 <li id="fn26"><p>要はクラスタリングのことだと思うのだが, この単語を見かけるようになったのは最近になってからな気がする.<a href="前処理.html#fnref26" class="footnote-back">↩︎</a></p></li>
 <li id="fn27"><p>実装は Python の <a href="https://github.com/vincentzlt/textprep" class="uri">https://github.com/vincentzlt/textprep</a> に依存している.<a href="前処理.html#fnref27" class="footnote-back">↩︎</a></p></li>
-<li id="fn28"><p><span class="citation">Turpault, Serizel, and Vincent (<a href="#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> は画像認識ではなく音声認識のテーマである<a href="前処理.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p><span class="citation"><a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">Turpault, Serizel, and Vincent</a> (<a href="参考文献.html#ref-turpault2019Semisupervised" role="doc-biblioref">2019</a>)</span> は画像認識ではなく音声認識のテーマである<a href="前処理.html#fnref28" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -861,11 +828,11 @@ gitbook.start({
 "github": true,
 "facebook": true,
 "twitter": true,
-"linkedin": true,
+"linkedin": false,
 "weibo": true,
 "instapaper": false,
-"vk": true,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"vk": false,
+"all": ["vk", "facebook", "linkedin"]
 },
 "fontsettings": {
 "theme": "white",
@@ -878,12 +845,15 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
+"link": "https://github.com/Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
 "download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
 "toc": {
-"collapse": "none"
+"collapse": "none",
+"fonttheme": {
+"family": "serif"
+}
 },
 "search": true,
 "info": true

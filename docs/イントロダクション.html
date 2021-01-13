@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 イントロダクション | 三國志で学ぶデータ分析 (Japan.R 2019)</title>
   <meta name="description" content="“三国志を題材にしたRを使ったデータ分析のチュートリアル”" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 イントロダクション | 三國志で学ぶデータ分析 (Japan.R 2019)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-09-01" />
+<meta name="date" content="2021-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="前処理.html"/>
-<script src="libs/header-attrs-2.3.2/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -184,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="まとめ.html"><a href="まとめ.html"><i class="fa fa-check"></i><b>5</b> まとめ</a></li>
 <li class="chapter" data-level="" data-path="参考文献.html"><a href="参考文献.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+<p style='text-align:center;display:block;margin: 0 auto;'><img src='https://i.creativecommons.org/l/by-nc/4.0/88x31.png'></p><li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -209,11 +209,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">1.1</span> 三国志の背景</h2>
 <p>そこで今回取り上げる「三国志」について, 簡単に解説する.</p>
 <p>魏から西晋の時代の歴史家である陳寿によって著された, 魏書・呉書・蜀書のいわゆる三国時代の歴史書を総称して三国志, 通称『正史三国志』と呼ばれる. これは正史, つまり当時の王朝によって正統な歴史書と認定された書物であるから, 必ずしも「真実」が描かれているとは限らない. 現在に残る正史三国志は, 南朝時代の裴松之の註解が付されており, 王朝が変わった後世ということもあってより政権に対して批判的である.</p>
-<p>『三国志演義』とは正史三国志や, それにまつわる無数の民間伝承や演劇「三国志平話」を羅貫中が編纂したものである. 本場である中国ではそれ以降も多くのバージョンが作られ, 主要な底本も複数存在する. 20世紀になってからも『反三国志』<span class="citation">(周 <a href="#ref-Zhou1919" role="doc-biblioref">1919</a>)</span>といったメタフィクション作品が作られている. 三国志演義の成立史だけでも膨大な研究が存在するはずだが, ここではそれに触れない.</p>
-<p><span class="citation">渡辺 (<a href="#ref-watanabe2011" role="doc-biblioref">2011</a>)</span> によれば, 三国志演義の「演義」とは, 義を演繹する, 義を敷衍するという意味であり, 当時の中国における倫理とされていた儒教に規定される道徳心を民衆に教えるという意図がある. よって, 当時の社会情勢や政権の意図が大きく反映されており, 道徳に悖る行動をした人物はみじめに破滅し, 道徳に則った行動を取るものは讃えられるという勧善懲悪の筋書きになっている<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. これは陳寿による史書, いわゆる「正史三国志」とはかなり異なる記述である.</p>
-<p><span class="citation">渡辺 (<a href="#ref-watanabe2011" role="doc-biblioref">2011</a>)</span> によれば, 『日本書紀』の記述にも三国志の影響が見られると言うから, 日本に三国志はかなり早くから伝わっていた. しかし近年の日本では吉川英治の『三国志』<span class="citation">(吉川 <a href="#ref-yoshikawa1939" role="doc-biblioref">1939</a>)</span>が有名ではないだろうか. これは三国志演義をもとに吉川が脚色したものであり, 中国本国の三国志演義や正史三国志に忠実な翻訳作品ではない. 横山光輝の漫画『三国志』も, 概ね吉川英治の内容に準拠している.</p>
+<p>『三国志演義』とは正史三国志や, それにまつわる無数の民間伝承や演劇「三国志平話」を羅貫中が編纂したものである. 本場である中国ではそれ以降も多くのバージョンが作られ, 主要な底本も複数存在する. 20世紀になってからも『反三国志』<span class="citation">(<a href="参考文献.html#ref-Zhou1919" role="doc-biblioref">周 1919</a>)</span>といったメタフィクション作品が作られている. 三国志演義の成立史だけでも膨大な研究が存在するはずだが, ここではそれに触れない.</p>
+<p><span class="citation"><a href="参考文献.html#ref-watanabe2011" role="doc-biblioref">渡辺</a> (<a href="参考文献.html#ref-watanabe2011" role="doc-biblioref">2011</a>)</span> によれば, 三国志演義の「演義」とは, 義を演繹する, 義を敷衍するという意味であり, 当時の中国における倫理とされていた儒教に規定される道徳心を民衆に教えるという意図がある. よって, 当時の社会情勢や政権の意図が大きく反映されており, 道徳に悖る行動をした人物はみじめに破滅し, 道徳に則った行動を取るものは讃えられるという勧善懲悪の筋書きになっている<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. これは陳寿による史書, いわゆる「正史三国志」とはかなり異なる記述である.</p>
+<p><span class="citation"><a href="参考文献.html#ref-watanabe2011" role="doc-biblioref">渡辺</a> (<a href="参考文献.html#ref-watanabe2011" role="doc-biblioref">2011</a>)</span> によれば, 『日本書紀』の記述にも三国志の影響が見られると言うから, 日本に三国志はかなり早くから伝わっていた. しかし近年の日本では吉川英治の『三国志』<span class="citation">(<a href="参考文献.html#ref-yoshikawa1939" role="doc-biblioref">吉川 1939</a>)</span>が有名ではないだろうか. これは三国志演義をもとに吉川が脚色したものであり, 中国本国の三国志演義や正史三国志に忠実な翻訳作品ではない. 横山光輝の漫画『三国志』も, 概ね吉川英治の内容に準拠している.</p>
 <p>また, 漫画作品では横山光輝作品の他, 李學仁・王欣太の『蒼天航路』も有名である. <ruby><strong>劉備</strong><rp>(</rp><rt>リュウビ</rt><rp>)</rp></ruby>ではなく, これまで悪役とされることが多かった<ruby><strong>曹操</strong><rp>(</rp><rt>ソウソウ</rt><rp>)</rp></ruby>を主役としている<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>など, 従来の三国志人物像に対するメタな作風が特徴である. その他にも日本の大衆文化における三国志をモチーフにした創作には枚挙に暇がない<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
-<p>一方で, 歴史書としての三国志, つまり『正史三国志』が日本で紹介されたのは比較的最近であり, 少なくとも民間向けでは1977年に筑摩書房によって魏書の一部の翻訳<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>が出版され, 82, 89年に続いて魏書の残りと蜀書<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, 呉書<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>がそれぞれ刊行されている<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. また, 三国志演義だけでなく正史に取材して書かれた作品としては, 陳舜臣の『秘本三国志』<span class="citation">(陳 <a href="#ref-chin1974" role="doc-biblioref">1974</a>)</span><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> 北方謙三の『三国志』<span class="citation">北方 (<a href="#ref-kitagata1996" role="doc-biblioref">1996</a>)</span>, 宮城谷昌光の『三国志』<span class="citation">(宮城谷 <a href="#ref-miyagitani2004" role="doc-biblioref">2004</a>)</span>がある<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
+<p>一方で, 歴史書としての三国志, つまり『正史三国志』が日本で紹介されたのは比較的最近であり, 少なくとも民間向けでは1977年に筑摩書房によって魏書の一部の翻訳<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>が出版され, 82, 89年に続いて魏書の残りと蜀書<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, 呉書<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>がそれぞれ刊行されている<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. また, 三国志演義だけでなく正史に取材して書かれた作品としては, 陳舜臣の『秘本三国志』<span class="citation">(<a href="参考文献.html#ref-chin1974" role="doc-biblioref">陳 1974</a>)</span><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> 北方謙三の『三国志』<span class="citation"><a href="参考文献.html#ref-kitagata1996" role="doc-biblioref">北方</a> (<a href="参考文献.html#ref-kitagata1996" role="doc-biblioref">1996</a>)</span>, 宮城谷昌光の『三国志』<span class="citation">(<a href="参考文献.html#ref-miyagitani2004" role="doc-biblioref">宮城谷 2004</a>)</span>がある<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
 <p>このように, 史書でも創作でも, 書かれた時代や地域によって三国志の人物の扱われ方が異なる.</p>
 </div>
 <div id="コーエーテクモのゲーム三國志シリーズ" class="section level2" number="1.2">
@@ -238,31 +238,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>たぶんこんなバカなこと考えるやつは過去にも例がないだろう. よって本研究の新規性・独自性は疑いようがない<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</p>
 </div>
 </div>
-<h3>参考文献</h3>
-<div id="refs" class="references">
-<div id="ref-kitagata1996">
-<p>北方謙三. 1996. <em>三国志</em>. 角川春樹事務所.</p>
-</div>
-<div id="ref-yoshikawa1939">
-<p>吉川英治. 1939. <em>三國志</em>. 大日本雄辯會講談社.</p>
-</div>
-<div id="ref-Zhou1919">
-<p>周大荒. 1919. <em>反三國演義</em>. 台北: 捷幼出版社.</p>
-</div>
-<div id="ref-miyagitani2004">
-<p>宮城谷昌光. 2004. <em>三国志</em>. 文藝春秋.</p>
-</div>
-<div id="ref-watanabe2011">
-<p>渡辺義浩. 2011. <em>三国志: 演義から正史, そして史実へ</em>. 東京: 中央公論新社.</p>
-</div>
-<div id="ref-chin1974">
-<p>陳舜臣. 1974. <em>秘本三国志</em>. 文藝春秋.</p>
-</div>
-</div>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>是とする道徳心すらも, 長い中国の歴史の中で変遷しており, 時代によって人物描写も変化している. しかし今回はそこに深く入ることはしない. 詳しい話は <span class="citation">渡辺 (<a href="#ref-watanabe2011" role="doc-biblioref">2011</a>)</span> を参照.<a href="イントロダクション.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>是とする道徳心すらも, 長い中国の歴史の中で変遷しており, 時代によって人物描写も変化している. しかし今回はそこに深く入ることはしない. 詳しい話は <span class="citation"><a href="参考文献.html#ref-watanabe2011" role="doc-biblioref">渡辺</a> (<a href="参考文献.html#ref-watanabe2011" role="doc-biblioref">2011</a>)</span> を参照.<a href="イントロダクション.html#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>とはいえ, 曹操を悪役とする作劇は, 日本においては吉川『三国志』の時点でかなり緩和されている気がする. 曹操は相変わらず冷酷・野心家・傲慢な人物ではあるが, 合理的な知恵者としての面も強調されている.<a href="イントロダクション.html#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>『天地を喰らう』はもはやおっさんしか知るまい.<a href="イントロダクション.html#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>今鷹真・井波律子訳 (1977) 『三国志 魏書』 世界古典文学全集 24A, ISBN: 978-4-480-20324-3.<a href="イントロダクション.html#fnref4" class="footnote-back">↩︎</a></p></li>
@@ -301,11 +280,11 @@ gitbook.start({
 "github": true,
 "facebook": true,
 "twitter": true,
-"linkedin": true,
+"linkedin": false,
 "weibo": true,
 "instapaper": false,
-"vk": true,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"vk": false,
+"all": ["vk", "facebook", "linkedin"]
 },
 "fontsettings": {
 "theme": "white",
@@ -318,12 +297,15 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
+"link": "https://github.com/Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
 "download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
 "toc": {
-"collapse": "none"
+"collapse": "none",
+"fonttheme": {
+"family": "serif"
+}
 },
 "search": true,
 "info": true

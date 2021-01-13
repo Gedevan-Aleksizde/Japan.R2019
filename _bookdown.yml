@@ -5,7 +5,7 @@ clean: [packages.bib, bookdown.bbl]
 delete_merged_file: true
 before_chapter_scrip: null
 after_chapter_script: null
-view: "Gedevan-Aleksizde/Japan.R2019/blob/master/%s"
+view: "https://github.com/Gedevan-Aleksizde/Japan.R2019/blob/master/%s"
 edit: null
 number-sections: true
 html_document:

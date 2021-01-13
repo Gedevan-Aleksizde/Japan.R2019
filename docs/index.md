@@ -1,7 +1,7 @@
 ---
 title: "三國志で学ぶデータ分析 (Japan.R 2019)" # 表題
 author: "ill-identified"                       # 著者名
-date: "2020-09-01"                         # 日付
+date: "2021-01-14"                         # 日付
  # ソーシャルリンクで共有するときの見出し文
 description: |
   "三国志を題材にしたRを使ったデータ分析のチュートリアル" 
@@ -63,7 +63,7 @@ https://gedevan-aleksizde.github.io/Japan.R2019/</div>\EndKnitrBlock{rmdtip}
 
 三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />この作品は<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス</a>の下に提供されています.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">クリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンス</a>の下に提供されています.
 
 
 
@@ -398,37 +398,37 @@ list(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12, df13) %>%
    <td style="text-align:left;"> 1 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> 伊籍 </td>
-   <td style="text-align:left;"> list(読み = &quot;イセキ&quot;, 身体 = 74, 知力 = 86, 武力 = 18, カリスマ = 28, 運勢 = 75) </td>
+   <td style="text-align:left;"> イセキ, 74    , 86    , 18    , 28    , 75 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 1 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:left;"> 于禁 </td>
-   <td style="text-align:left;"> list(読み = &quot;ウキン&quot;, 身体 = 82, 知力 = 20, 武力 = 72, カリスマ = 25, 運勢 = 28) </td>
+   <td style="text-align:left;"> ウキン, 82    , 20    , 72    , 25    , 28 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 1 </td>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:left;"> 袁胤 </td>
-   <td style="text-align:left;"> list(読み = &quot;エンイン&quot;, 身体 = 71, 知力 = 63, 武力 = 25, カリスマ = 92, 運勢 = 50) </td>
+   <td style="text-align:left;"> エンイン, 71      , 63      , 25      , 92      , 50 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 1 </td>
    <td style="text-align:right;"> 4 </td>
    <td style="text-align:left;"> 袁煕 </td>
-   <td style="text-align:left;"> list(読み = &quot;エンキ&quot;, 身体 = 73, 知力 = 52, 武力 = 46, カリスマ = 89, 運勢 = 22) </td>
+   <td style="text-align:left;"> エンキ, 73    , 52    , 46    , 89    , 22 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 1 </td>
    <td style="text-align:right;"> 5 </td>
    <td style="text-align:left;"> 袁紹 </td>
-   <td style="text-align:left;"> list(読み = &quot;エンショウ&quot;, 身体 = 35, 知力 = 54, 武力 = 82, カリスマ = 98, 運勢 = 86) </td>
+   <td style="text-align:left;"> エンショウ, 35        , 54        , 82        , 98        , 86 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 1 </td>
    <td style="text-align:right;"> 6 </td>
    <td style="text-align:left;"> 袁尚 </td>
-   <td style="text-align:left;"> list(読み = &quot;エンショウ&quot;, 身体 = 82, 知力 = 63, 武力 = 87, カリスマ = 98, 運勢 = 61) </td>
+   <td style="text-align:left;"> エンショウ, 82        , 63        , 87        , 98        , 61 </td>
   </tr>
 </tbody>
 </table>

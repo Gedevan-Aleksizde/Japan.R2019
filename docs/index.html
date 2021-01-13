@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>三國志で学ぶデータ分析 (Japan.R 2019)</title>
   <meta name="description" content="“三国志を題材にしたRを使ったデータ分析のチュートリアル”" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="三國志で学ぶデータ分析 (Japan.R 2019)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="ill-identified" />
 
 
-<meta name="date" content="2020-09-01" />
+<meta name="date" content="2021-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 
 <link rel="next" href="イントロダクション.html"/>
-<script src="libs/header-attrs-2.3.2/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -184,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="まとめ.html"><a href="まとめ.html"><i class="fa fa-check"></i><b>5</b> まとめ</a></li>
 <li class="chapter" data-level="" data-path="参考文献.html"><a href="参考文献.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+<p style='text-align:center;display:block;margin: 0 auto;'><img src='https://i.creativecommons.org/l/by-nc/4.0/88x31.png'></p><li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -206,9 +206,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">三國志で学ぶデータ分析 (Japan.R 2019)</h1>
 <p class="author"><em>ill-identified</em></p>
-<p class="date"><em>2020-09-01</em></p>
+<p class="date"><em>2021-01-14</em></p>
 </div>
-<div id="概要" class="section level1 unnumbered" number="">
+<div id="概要" class="section level1 unnumbered">
 <h1>概要</h1>
 <p>この記事は 2019/12/7 に開催された Japan.R の発表原稿をもとに作成した資料である.</p>
 <p>この記事の目的は2つ.</p>
@@ -231,10 +231,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>本記事のソースおよびプログラム全文は以下で公開している</p>
 <a href="https://gedevan-aleksizde.github.io/Japan.R2019/" class="uri">https://gedevan-aleksizde.github.io/Japan.R2019/</a>
 </div>
-<div id="キーワード" class="section level4 unnumbered" number="">
+<div id="キーワード" class="section level4 unnumbered">
 <h4>キーワード</h4>
 <p>三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析</p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />この作品は<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス</a>の下に提供されています.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">クリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンス</a>の下に提供されています.</p>
 </div>
 </div>
             </section>
@@ -262,11 +262,11 @@ gitbook.start({
 "github": true,
 "facebook": true,
 "twitter": true,
-"linkedin": true,
+"linkedin": false,
 "weibo": true,
 "instapaper": false,
-"vk": true,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"vk": false,
+"all": ["vk", "facebook", "linkedin"]
 },
 "fontsettings": {
 "theme": "white",
@@ -279,12 +279,15 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
+"link": "https://github.com/Gedevan-Aleksizde/Japan.R2019/blob/master/index.Rmd",
 "text": null
 },
 "download": ["three-kingdoms.pdf", "three-kingdoms.epub"],
 "toc": {
-"collapse": "none"
+"collapse": "none",
+"fonttheme": {
+"family": "serif"
+}
 },
 "search": true,
 "info": true

@@ -29,6 +29,7 @@ biblio-style: doc-src/jecon-custom             # bibtex用bstファイル. 拡�
 
 
 ```{r setup-knitr, include=F}
+options(tinytex.latexmk.emulation = F)
 for(p in c("webshot", "DT", "htmlwidgets", "miniUI", "formatR", "tufte", "citr", "rticles", "servr")){
   if(!p %in% installed.packages()) install.packages(p)
 }
@@ -67,7 +68,6 @@ require(SPARQL)
 require(moments)
 require(factoextra)
 require(formattable)
-require(patchwork)
 require(cluster)
 require(tictoc)
 require(magick)
@@ -156,16 +156,16 @@ https://gedevan-aleksizde.github.io/Japan.R2019/
 三國志, スクレイピング, 名寄せ処理, 自然言語処理 (?), 画像認識, ディープラーニング , 計量距離学習, 多変量解析
 
 ```{r cc-logo-html, echo=F, eval=knitr::is_html_output()}
-knitr::asis_output('<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />この作品は<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス</a>の下に提供されています.')
+knitr::asis_output('<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">クリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンス</a>の下に提供されています.')
 ```
 ```{r cc-logo-non-html, echo=F, eval=knitr::is_latex_output()}
-knitr::include_graphics(here(dirname_img, "cc4.png"))
+knitr::include_graphics(file.path(dirname_img, "cc4.png"))
 ```
 ```{r cc-logo-text, echo=F, eval=!knitr::is_html_output()}
 if(knitr::is_latex_output()){
-  knitr::asis_output("`この作品は\\href{http://creativecommons.org/licenses/by-nc-nd/4.0/}{クリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンス}の下に提供されています.`{=latex}")
+  knitr::asis_output("`この作品は\\href{http://creativecommons.org/licenses/by-sa/4.0/}{クリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンス}の下に提供されています.`{=latex}")
 } else {
-  knitr::asis_output("この作品はクリエイティブ・コモンズ 表示 - 非営利 - 改変禁止 4.0 国際 ライセンスの下に提供されています.")
+  knitr::asis_output("この作品はクリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています.")
 }
 ```
 
@@ -1055,7 +1055,7 @@ SPARQLが取得するDBpediaの更新頻度は少ないため最新の状態を�
 以上で一旦名寄せ処理を切り上げて, 整形したデータから情報を読み取る. まずは大まかに集約した情報から, 徐々に個別の部分に拡大して解像度を挙げていこう.
 
 ```{r load-all-data, echo=F, include=F}
-df_all <- read_rds(path = here(dirname_data, "df_all.rds"))
+df_all <- read_rds(here(dirname_data, "df_all.rds"))
 # ----- 名寄せ完了 -----
 df_all <- df_all %>% rename(name_old = name)
 ```
